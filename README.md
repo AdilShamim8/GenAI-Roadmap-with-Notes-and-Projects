@@ -306,6 +306,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with by** [Adil Shamim](adilshamim.me)
+## Contact
 
-Last updated: September 2025
+- GitHub: [Adil Shamim](https://github.com/AdilShamim8)
+- Create an issue in this repository for questions or suggestions
+
+---
+
+<div align="center">
+  
+⭐ **If you find this repository helpful, please consider giving it a star!** ⭐
+
+</div>
