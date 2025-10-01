@@ -1,5 +1,11 @@
 # GenAI Roadmap with Notes Using LangChain
 
+<p align="center">
+  <a href="https://python.langchain.com/docs/introduction/">
+    <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langchain.png" alt="LangChain Logo" width="200"/>
+  </a>
+</p>
+
 ![GitHub stars](https://img.shields.io/github/stars/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain)
