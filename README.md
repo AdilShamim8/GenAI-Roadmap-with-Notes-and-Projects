@@ -6,10 +6,12 @@
   </a>
 </p>
 
+<div align="center">
 ![GitHub stars](https://img.shields.io/github/stars/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain)
 ![License](https://img.shields.io/github/license/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain)
+</div>
 
 A comprehensive roadmap and resource collection for learning Generative AI with practical implementation using LangChain. This repository serves as a guided journey from basic concepts to advanced applications in the generative AI space.
 
