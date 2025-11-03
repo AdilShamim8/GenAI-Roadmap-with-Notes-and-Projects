@@ -321,7 +321,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     <img src="https://img.shields.io/badge/LinkedIn-AdilShamim8-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Profile"/>
   </a>
 </p>
-
 <div align="center">
   
 ⭐ **If you find this repository helpful, please consider giving it a star!** ⭐
