@@ -308,6 +308,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
+- Website: [Adil Shamim](https://adilshamim.me/)
 - GitHub: [Adil Shamim](https://github.com/AdilShamim8)
 - Create an issue in this repository for questions or suggestions
 
