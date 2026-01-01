@@ -11,7 +11,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Last Updated](https://img.shields.io/badge/last%20updated-December%202025-brightgreen)
+![Last Updated](https://img.shields.io/badge/last%20updated-January%202026-brightgreen)
 
 </div>
 
