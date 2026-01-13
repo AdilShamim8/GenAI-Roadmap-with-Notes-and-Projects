@@ -67,7 +67,7 @@ When submitting a pull request:
 * Reference issues and pull requests liberally after the first line
 * Consider starting the commit message with an applicable emoji:
     *  when adding or updating documentation
-    * 🐛 when fixing a bug
+    *  when fixing a bug
     * ✨ when adding a new feature
     * 🧹 when refactoring code
     * 🧪 when adding tests
