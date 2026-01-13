@@ -69,8 +69,8 @@ When submitting a pull request:
     *  when adding or updating documentation
     *  when fixing a bug
     *  when adding a new feature
-    * 🧹 when refactoring code
-    * 🧪 when adding tests
+    *  when refactoring code
+    *  when adding tests
 
 ### Markdown Styleguide
 
