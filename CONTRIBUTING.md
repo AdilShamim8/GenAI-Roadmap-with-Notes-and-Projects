@@ -66,7 +66,7 @@ When submitting a pull request:
 * Limit the first line to 72 characters or fewer
 * Reference issues and pull requests liberally after the first line
 * Consider starting the commit message with an applicable emoji:
-    * 📚 when adding or updating documentation
+    *  when adding or updating documentation
     * 🐛 when fixing a bug
     * ✨ when adding a new feature
     * 🧹 when refactoring code
