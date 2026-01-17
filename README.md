@@ -277,7 +277,7 @@ agent = create_agent(
 | [LangChain for LLM Application Development](https://learn.deeplearning.ai/courses/langchain/) | DeepLearning.AI | Beginner | ✅ |
 | [LangChain Academy - Foundation Track](https://academy.langchain.com/) | LangChain | Beginner-Advanced | ✅ Official |
 | [LangChain Academy - DeepAgents Track](https://academy.langchain.com/) | LangChain | Advanced | ✅ Official |
-| [Agentic AI with LangChain and LangGraph](https://www.coursera.org/courses? query=langchain) | IBM/Coursera | Intermediate | ✅ |
+| [Agentic AI with LangChain and LangGraph](https://www.coursera.org/courses?query=langchain) | IBM/Coursera | Intermediate | ✅ |
 | [Developing LLM Applications with LangChain](https://www.datacamp.com/courses/developing-llm-applications-with-langchain) | DataCamp | Intermediate | ✅ |
 | [LangChain Mastery Course](https://www.udemy.com/topic/langchain/) | Udemy | All Levels | ✅ |
 | [Free LangChain Basics](https://www.mygreatlearning.com/academy/learn-for-free/courses/langchain-basics-for-beginners) | Great Learning | Beginner | ✅ Free |
@@ -292,7 +292,7 @@ agent = create_agent(
 
 ### Tutorials and Articles
 - [LangChain Cookbook](https://github.com/gkamradt/langchain-tutorials)
-- [Building LLM Applications for Production](https://huyenchip.com/2023/04/11/llm-engineering. html) by Chip Huyen
+- [Building LLM Applications for Production](https://huyenchip.com/2023/04/11/llm-engineering.html) by Chip Huyen
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 - [RAG Application Development Guide 2026](https://www.leanware.co/insights/rag-application-development-guide)
 - [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
