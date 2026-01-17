@@ -9,7 +9,7 @@
 <div align="center">
   
 ![GitHub stars](https://img.shields.io/github/stars/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
-![GitHub forks](https://img.shields.io/github/forks/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain? style=social)
+![GitHub forks](https://img.shields.io/github/forks/AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain?style=social)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Last Updated](https://img.shields.io/badge/last%20updated-January%202026-brightgreen)
 
@@ -19,17 +19,17 @@ A comprehensive roadmap and resource collection for learning Generative AI with 
 
 ---
 
-## 🆕 What's New in 2026
+## What's New in 2026
 
 > **This roadmap has been updated for January 2026** to reflect the latest advancements in Generative AI and LangChain ecosystem.
 
 ### Key Updates:
-- 🤖 **LangChain v1.x Series** – Production-ready agent framework with `create_agent`, middleware, and LangGraph 1.0
-- 🧠 **Latest LLMs** – GPT-5. 2, Claude Opus 4.5, Gemini 3 Pro comparisons and integration
-- 🔗 **DeepAgents & LangGraph** – Long-running autonomous agent workflows
-- 🛡️ **Enterprise Features** – LangSmith v0.13, observability, cost tracking, and security
-- 📊 **Advanced RAG** – Multi-agent RAG, multimodal retrieval, and dynamic knowledge updating
-- 🎓 **New Courses & Certifications** – LangChain Academy certifications, updated DeepLearning.AI courses
+-  **LangChain v1.x Series** – Production-ready agent framework with `create_agent`, middleware, and LangGraph 1.0
+-  **Latest LLMs** – GPT-5. 2, Claude Opus 4.5, Gemini 3 Pro comparisons and integration
+-  **DeepAgents & LangGraph** – Long-running autonomous agent workflows
+-  **Enterprise Features** – LangSmith v0.13, observability, cost tracking, and security
+-  **Advanced RAG** – Multi-agent RAG, multimodal retrieval, and dynamic knowledge updating
+-  **New Courses & Certifications** – LangChain Academy certifications, updated DeepLearning.AI courses
 
 ---
 
@@ -54,7 +54,7 @@ This repository provides a structured learning path for developers interested in
 
 ## 2026 GenAI Landscape
 
-### 🌟 Current State of Large Language Models (January 2026)
+###  Current State of Large Language Models (January 2026)
 
 | Model | Provider | Context Window | Key Strengths | Best For |
 |-------|----------|----------------|---------------|----------|
@@ -64,7 +64,7 @@ This repository provides a structured learning path for developers interested in
 | **Llama 3.2** | Meta | 128,000 tokens | Open-source, customizable | Self-hosted, fine-tuning |
 | **DeepSeek-V3** | DeepSeek | 128,000 tokens | Cost-effective, strong reasoning | Budget-conscious deployments |
 
-### 🔥 Key GenAI Trends in 2026
+### Key GenAI Trends in 2026
 
 1. **Agentic AI Revolution** – AI agents now autonomously manage workflows, interact with tools, and orchestrate multi-step processes
 2. **Multimodal by Default** – Models seamlessly process text, images, video, audio, and code
