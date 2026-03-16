@@ -19,7 +19,13 @@ A comprehensive roadmap and resource collection for learning Generative AI with 
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left)](https://www.star-history.com/?repos=AdilShamim8%2FGenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left)
+<a href="https://www.star-history.com/?repos=AdilShamim8%2FGenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ---
 
