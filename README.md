@@ -17,6 +17,10 @@
 
 A comprehensive roadmap and resource collection for learning Generative AI with practical implementation using LangChain.  This repository serves as a guided journey from basic concepts to advanced applications, featuring the latest LangChain v1.x architecture, agentic AI patterns, and production-ready GenAI systems.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left)](https://www.star-history.com/?repos=AdilShamim8%2FGenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left)
+
 ---
 
 ## What's New in 2026
