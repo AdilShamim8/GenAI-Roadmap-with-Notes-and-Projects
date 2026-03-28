@@ -105,7 +105,7 @@ This repository provides a structured learning path for developers interested in
 
 ## GenAI Roadmap
 
-### 1. 📚 Foundations (2-4 weeks)
+### 1. Foundations (2-4 weeks)
 - **Machine Learning Basics**
   - Supervised vs. Unsupervised Learning
   - Neural Networks Fundamentals
@@ -142,7 +142,7 @@ This repository provides a structured learning path for developers interested in
   - Distillation & Quantization
   - MetaP Hyperparameter Transfer (Llama 4)
 
-### 3. 🔗 LangChain Mastery (4-6 weeks)
+### 3. LangChain Mastery (4-6 weeks)
 
 > **Updated for LangChain v1.2.13 (March 2026)**
 
@@ -176,7 +176,7 @@ This repository provides a structured learning path for developers interested in
   - MCP Adapters for Multimodal Tools
   - Provider integrations: anthropic, aws, azure-ai, deepseek, google-genai, google-vertexai, groq, huggingface, mistralai, ollama, openai, perplexity, together, xai
 
-### 4. 🕸️ LangGraph & Agentic AI (3-4 weeks)
+### 4. LangGraph & Agentic AI (3-4 weeks)
 
 > **New Section for 2026**
 
@@ -201,7 +201,7 @@ This repository provides a structured learning path for developers interested in
   - Dynamic tools, recovery from hallucinated tool calls, and better streaming error signals
   - Agent Memory & State Persistence
 
-### 5. 🔍 Advanced RAG Systems (3-4 weeks)
+### 5. Advanced RAG Systems (3-4 weeks)
 
 > **Updated RAG Best Practices for 2026**
 
@@ -222,7 +222,7 @@ This repository provides a structured learning path for developers interested in
   - Table Extraction & Processing
   - Cross-Modal Retrieval
 
-### 6. 💻 Applied GenAI Projects (4-8 weeks)
+### 6. Applied GenAI Projects (4-8 weeks)
 - **Building Conversational Agents**
   - Chatbots with Memory & Context
   - Multi-turn Dialogue Management
@@ -241,7 +241,7 @@ This repository provides a structured learning path for developers interested in
   - Document Analysis Pipelines
   - Semantic Search Engines
 
-### 7. 🚀 Production & Deployment (2-4 weeks)
+### 7. Production & Deployment (2-4 weeks)
 - **Model Optimization**
   - Quantization (INT8, INT4)
   - Distillation
