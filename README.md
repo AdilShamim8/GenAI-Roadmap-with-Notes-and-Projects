@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://python.langchain.com/docs/introduction/">
-    <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langchain.png" alt="LangChain Logo" width="200"/>
+    <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-avatar/avatars/langchain.webp" alt="LangChain Logo" width="200"/>
   </a>
 </p>
 
