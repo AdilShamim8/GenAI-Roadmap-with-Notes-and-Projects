@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://python.langchain.com/docs/introduction/">
-    <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/langchain-color.png" alt="LangChain Logo" width="200"/>
+    <img src="https://www.underconsideration.com/brandnew/wp/wp-content/uploads/2026/03/langchain_logo_before_after.png" alt="LangChain Logo" width="200"/>
   </a>
 </p>
 
