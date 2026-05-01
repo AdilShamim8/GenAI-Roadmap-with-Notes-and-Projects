@@ -19,11 +19,11 @@ A comprehensive roadmap and resource collection for learning Generative AI with 
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=AdilShamim8%2FGenAI-Roadmap-with-Notes-and-Projects&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=AdilShamim8%2FGenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=AdilShamim8/GenAI-Roadmap-with-Notes-and-Projects&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=AdilShamim8/GenAI-Roadmap-with-Notes-and-Projects&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=AdilShamim8/GenAI-Roadmap-with-Notes-and-Projects&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=AdilShamim8/GenAI-Roadmap-with-Notes-Using-LangChain&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -34,14 +34,13 @@ A comprehensive roadmap and resource collection for learning Generative AI with 
 > **This roadmap has been updated for May 1, 2026** to reflect the latest advancements in Generative AI and LangChain ecosystem.
 
 ### Key Updates:
-- ✅ **LangChain v1.2.16** – Latest stable release (v1.2.16) published April 29, 2026, with content-block-centric streaming (v2), model profile refreshes, and security patches (CVE-2026-4539)
-- ✅ **LangChain-Core v1.3.2** – langchain-core latest version 1.3.2, released April 24, 2026 (also maintaining stable 1.2.31 branch)
-- ✅ **LangGraph v1.1.10** – Released April 27, 2026 with type-safe streaming, type-safe invoke, Pydantic/dataclass coercion, and prebuilt v1.0.13 (April 30, 2026)
-- ✅ **Latest LLMs** – GPT-5.5 & GPT-5.5 Pro (April 2026), Claude Opus 4.7 (April 2026), Claude Mythos Preview (Project Glasswing), Gemini 3.1 Pro, Llama 4, DeepSeek-V4 comparisons and integration
-- ✅ **LangSmith Fleet** – Now includes agent identity, sharing, and permissions; Skills are now available to equip agents with specialized knowledge; Sandboxes in Private Preview
-- ✅ **deepagents v0.5.0 alpha** – Async (non-blocking) subagents, expanded multi-modal filesystem support, Anthropic prompt caching improvements, and backend changes
+- ✅ **LangChain v1.2.16** – Latest stable release (v1.2.16) published April 29, 2026, with GPT-5.5 Pro Responses API support, content-block-centric streaming (v2), and continued `create_agent` improvements
+- ✅ **LangChain-Core v1.3.2** – langchain-core latest version 1.3.2, released April 24, 2026
+- ✅ **LangGraph v1.1.10** – Released April 27, 2026, with type-safe streaming, type-safe invoke, Pydantic and dataclass coercion; LangGraph prebuilt v1.0.13 also released April 30, 2026
+- ✅ **Latest LLMs** – GPT-5.5 & GPT-5.5 Pro (April 23, 2026; API April 24), Claude Opus 4.7 (April 16, 2026), Claude Mythos Preview (April 7, 2026, restricted via Project Glasswing), Gemini 3.1 Pro, Llama 4, DeepSeek-V4 comparisons and integration
+- ✅ **LangSmith Fleet** – LangSmith Agent Builder has been renamed to LangSmith Fleet as of March 2026; now includes agent identity, sharing, permissions, and Skills
+- ✅ **DeepAgents v0.5.0 alpha** – async subagents, multi-modal support, backend changes, and Anthropic prompt caching improvements
 - ✅ **Advanced RAG** – Multi-agent RAG, multimodal retrieval, and dynamic knowledge updating
-- ✅ **Deep Agents Deploy (beta)** – Fastest way to deploy a model-agnostic, open-source agent harness
 - ✅ **New Courses & Certifications** – LangChain Academy certifications, updated DeepLearning.AI courses
 
 ---
@@ -71,34 +70,38 @@ This repository provides a structured learning path for developers interested in
 
 | Model | Provider | Context Window | Key Strengths | Best For |
 |-------|----------|----------------|---------------|----------|
-| **GPT-5.5 / GPT-5.5 Pro** | OpenAI | 256,000 tokens | Smartest agentic coding, computer use, autonomous multi-step workflows, improved tool orchestration | Enterprise, long-running agents, agentic coding, complex professional tasks |
-| **Claude Mythos Preview** | Anthropic | N/A (invite-only) | Most capable Anthropic model, advanced cyber capabilities, best-aligned model per Anthropic evals | Defensive cybersecurity (Project Glasswing, invitation-only) |
-| **Claude Opus 4.7** | Anthropic | 200,000 tokens | Step-change in agentic coding (SWE-bench Verified 87.6%), better vision (3x resolution), xhigh effort level, computer use | Complex coding, long-running agents, knowledge work, code review |
-| **Claude Sonnet 4.6** | Anthropic | 200,000 tokens | Near-Opus performance, improved computer use, cost-efficient | Default daily driver, coding, document analysis |
-| **Gemini 3.1 Pro** | Google | 1,000,000 tokens | Reasoning-first, agentic workflows, adaptive thinking, leads on several AA benchmarks | Complex multimodal, agentic coding, large-context tasks |
+| **GPT-5.5 / GPT-5.5 Pro** | OpenAI | 1,000,000 tokens | Smartest & most intuitive model yet; agentic coding, computer use, knowledge work, early scientific research; matches GPT-5.4 per-token latency with significantly fewer tokens per task | Enterprise, agentic workflows, complex professional tasks, coding |
+| **GPT-5.4 Thinking/Pro** | OpenAI | 1,000,000 tokens | State-of-the-art reasoning, computer use, Tool Search, 33% fewer errors vs GPT-5.2 | Enterprise, agentic workflows, complex professional tasks |
+| **GPT-5.4 mini / nano** | OpenAI | ~200,000 tokens | Fast everyday responses, lower-cost workloads | Quick-turn tasks, customer support, drafting |
+| **Claude Opus 4.7** | Anthropic | 1,000,000 tokens | Most capable generally available Anthropic model; 87.6% on SWE-bench Verified, 2x agentic throughput, high-resolution vision (3.75MP), new xhigh effort level, task budgets | Advanced software engineering, long-running agents, knowledge work |
+| **Claude Opus 4.6** | Anthropic | 1,000,000 tokens | Deep reasoning, longest autonomous task horizon (14.5h), coding, computer use | Research, long-running agents, code review, cybersecurity |
+| **Claude Sonnet 4.6** | Anthropic | 1,000,000 tokens (beta) | Near-Opus performance, improved computer use, cost-efficient | Default daily driver, coding, document analysis |
+| **Claude Mythos Preview** | Anthropic | N/A (restricted) | Most capable Anthropic model; capable of finding critical vulnerabilities in major OSes and browsers; NOT publicly available — restricted via Project Glasswing (invitation-only) | Defensive cybersecurity workflows only (invite-only consortium) |
+| **Gemini 3.1 Pro** | Google | 1,000,000 tokens | Reasoning-first, agentic workflows, adaptive thinking | Complex multimodal, agentic coding |
 | **Gemini 3 Flash / 3.1 Flash** | Google | 1,000,000 tokens | PhD-level reasoning at flash speed, multimodal | Cross-format tasks, real-time apps, cost-sensitive |
 | **Llama 4 (Scout/Maverick/Behemoth)** | Meta | 10M (Scout) / 1M (Maverick) | Open-weight, MoE architecture, multimodal | Self-hosted, fine-tuning, cost-efficient deployment |
 | **DeepSeek-V4** | DeepSeek | 128,000+ tokens | Engram memory architecture, strong coding, cost-effective | Budget-conscious deployments, coding, reasoning |
 
 #### Key Model Changes Since March 2026:
-- 🆕 OpenAI released **GPT-5.5** on April 23, 2026 — described as their "smartest and most intuitive model yet," with major improvements in agentic coding, computer use, and autonomous multi-step workflows. GPT-5.5 Pro was also made available in the API on April 24, 2026. The model uses ~40% fewer output tokens than GPT-5.4 to complete equivalent tasks.
-- 🆕 OpenAI also added **gpt-5.5 pro** to the Responses API in its langchain-openai partner package (v1.2.1).
-- 🆕 Anthropic released **Claude Opus 4.7** on April 16, 2026 — notable improvements in advanced software engineering (SWE-bench Verified 87.6%), 3× vision resolution upgrade, and a new `xhigh` effort level for finer reasoning/latency control. Priced the same as Opus 4.6 at $5/$25 per MTok. Claude Code now defaults to xhigh thinking for Opus 4.7.
-- 🆕 **Claude Mythos Preview** — Anthropic's most capable model to date, released as an invitation-only gated preview for defensive cybersecurity workflows under **Project Glasswing**. Mythos outperforms Opus 4.7 on nearly all benchmarks but remains restricted due to safety considerations.
-- 🆕 Anthropic introduced **Memory for Claude Managed Agents** (now in public beta), allowing agents to persist context and knowledge across sessions.
-- 🆕 Anthropic retired **Claude Haiku 3** (`claude-3-haiku-20240307`); all requests now return an error. Upgrade recommended to Claude Haiku 4.5.
-- 🆕 Anthropic is retiring the 1M token context window beta for Claude Sonnet 4.5 and Claude Sonnet 4 on April 30, 2026.
-- 🔮 Anthropic confirmed a new product tier called **"Capybara"** will be added above Opus when a Mythos-class model eventually gets a broad release.
-- 🔮 OpenAI's **GPT-5.2 Thinking** will be retired on June 5, 2026 as a legacy option.
+- 🆕 OpenAI released **GPT-5.5** on April 23, 2026 — described as "our smartest and most intuitive to use model yet," excelling at writing and debugging code, researching online, analyzing data, creating documents, and operating software. GPT-5.5 matches GPT-5.4 per-token latency while performing at a much higher level of intelligence and using significantly fewer tokens to complete the same tasks.
+- 🆕 **GPT-5.5 and GPT-5.5 Pro** became available in the Responses and Chat Completions APIs on April 24, 2026. GPT-5.5 is priced at $5/1M input tokens and $30/1M output tokens; GPT-5.5 Pro at $30/1M input and $180/1M output.
+- 🆕 GPT-5.5 Pro is the same underlying model as GPT-5.5 but uses parallel test-time compute for even higher accuracy.
+- 🆕 Anthropic released **Claude Opus 4.7** on April 16, 2026 — a notable improvement on Opus 4.6 in advanced software engineering, with particular gains on the most difficult tasks. It features better coding, sharper vision (3.75MP resolution), a new xhigh effort level for finer reasoning control, task budgets for developer cost management, and 2x agentic throughput. Priced the same as Opus 4.6 at $5/$25 per million tokens.
+- 🆕 **Claude Mythos Preview** was announced April 7, 2026 — Anthropic's most powerful model, capable of finding critical vulnerabilities in major operating systems and web browsers. The UK AI Security Institute confirmed it was the first model to solve a 32-step cyber range end-to-end. Anthropic chose NOT to release it publicly, instead deploying it through **Project Glasswing**, an invitation-only consortium for defensive cybersecurity workflows.
+- 🆕 Anthropic is using the Opus 4.7 rollout to test real-world cybersecurity safeguards that automatically detect and block prohibited or high-risk uses, with the stated goal of eventually enabling a broad release of Mythos-class models.
+- 🆕 On February 19, 2026, Google released Gemini 3.1 Pro. It is Google's latest reasoning-first model optimized for complex agentic workflows and coding, with adaptive thinking and a 1M token context window.
+- 🆕 Gemini 3 Flash is now the default model in the Gemini app, offering next-generation intelligence at lightning speed with PhD-level reasoning comparable to larger models.
+- 🆕 Meta released Llama 4 — Llama 4 Maverick is a multimodal Mixture-of-Experts model built for textual and visual understanding and efficient deployment.
+- 🔮 Anthropic confirmed a new in-development model called **"Claude Mythos"** (full release TBD) — currently the most capable model Anthropic has built, but not broadly released due to cybersecurity safety concerns. A new product tier called "Capybara" will be added above Opus when Claude Mythos launches publicly.
 
 ### Key GenAI Trends in 2026
 
 1. **Agentic AI Revolution** – AI agents now autonomously manage workflows, interact with tools, use computers directly, and orchestrate multi-step processes
 2. **Computer Use & Tool Search** – Models can now control browsers, desktops, and software UIs; API-level tool search reduces token overhead
 3. **Multimodal by Default** – Models seamlessly process text, images, video, audio, and code; native image/video generation built in
-4. **Smaller, Greener Models** – Quantization, MoE architectures, and pruning enable efficient edge deployment (GPT-5.5 mini/nano, Gemini Flash Lite)
+4. **Smaller, Greener Models** – Quantization, MoE architectures, and pruning enable efficient edge deployment (GPT-5.4 mini/nano, Gemini Flash Lite)
 5. **AI-Native Enterprises** – GenAI embedded in core business operations with autonomous coding agents (Claude Code, Codex)
-6. **Ethics as Engineering** – Responsible AI practices built directly into development pipelines; cybersecurity implications of frontier models (Mythos, GPT-5.5) driving cautious, gated rollouts
+6. **Ethics as Engineering** – Responsible AI practices built directly into development pipelines; cybersecurity implications of frontier models (Claude Mythos Preview) driving cautious, governance-first rollouts
 
 ---
 
@@ -122,13 +125,13 @@ This repository provides a structured learning path for developers interested in
 
 ### 2. 🤖 Generative AI Models (4-6 weeks)
 - **Transformer-Based Models**
-  - GPT Family (GPT-4, GPT-5, GPT-5.2, GPT-5.3 Instant, GPT-5.4 Thinking/Pro, GPT-5.5/Pro)
-  - Claude Series (Sonnet 4.6, Opus 4.6/4.7, Mythos Preview/upcoming Capybara tier)
-  - Gemini Family (2.5 Pro/Flash, 3 Pro/Flash, 3.1 Pro/Flash)
+  - GPT Family (GPT-5.4 Thinking/Pro, GPT-5.4 mini/nano, GPT-5.5 / GPT-5.5 Pro)
+  - Claude Series (Sonnet 4.6, Opus 4.6, Opus 4.7, Mythos Preview [restricted, Project Glasswing])
+  - Gemini Family (3 Pro/Flash, 3.1 Pro/Flash)
   - Open-Source: Llama 4 (Scout, Maverick, Behemoth), Mistral Medium 3, DeepSeek-V4, Qwen
   
 - **Multimodal Models**
-  - Vision-Language Models (GPT-5.5 Vision, Gemini 3 Vision, Claude Opus 4.7 computer use with 3× resolution)
+  - Vision-Language Models (GPT-5.5 Vision, Gemini 3.1 Vision, Claude Opus 4.7 high-res vision)
   - Image Generation (DALL-E 3, Stable Diffusion 3, Midjourney v6, Gemini Nano Banana 2)
   - Video Generation (Sora, Runway Gen-3, Google Veo 3)
   - Audio Models (Whisper, ElevenLabs, Gemini 2.5 Flash TTS)
@@ -143,7 +146,7 @@ This repository provides a structured learning path for developers interested in
 
 ### 3. LangChain Mastery (4-6 weeks)
 
-> **Updated for LangChain v1.2.16 (April 2026)**
+> **Updated for LangChain v1.2.16 (April 2026) & LangChain-Core v1.3.2**
 
 - **LangChain v1.2.x Basics**
   - `create_agent` abstraction: the fastest way to build an agent with any model provider, built on LangGraph runtime for reliability
@@ -151,7 +154,6 @@ This repository provides a structured learning path for developers interested in
   - Chains, Agents, and Memory Types
   - LangChain Expression Language (LCEL)
   - Improved structured output generation integrated directly into the main agent loop, reducing both latency and cost
-  - Content-block-centric streaming (v2) — new in v1.3.x core
   
 - **Middleware & Guardrails**
   - Built-in middleware for human-in-the-loop, summarization, and PII redaction; support for custom middleware to hook into any point in agent execution
@@ -186,18 +188,15 @@ This repository provides a structured learning path for developers interested in
   - Multi-Agent Orchestration
   - Conditional Branching & Loops
   - Human-in-the-Loop Patterns
-  - Type-safe streaming and type-safe invoke (new in v1.1)
-  - Pydantic and dataclass coercion support (new in v1.1)
+  - Type-safe streaming & type-safe invoke (new in v1.1)
+  - Pydantic and dataclass coercion (new in v1.1)
 
-- **deepagents (v0.5.0 alpha)**
-  - Async (non-blocking) subagents for parallel execution
-  - Expanded multi-modal filesystem support
-  - Anthropic prompt caching improvements
+- **DeepAgents (v0.5.0 alpha)**
+  - Async subagents, multi-modal support, backend changes, and Anthropic prompt caching improvements
   - Long-running Autonomous Workflows
   - Pluggable Storage Backends (S3, Cloud)
   - Remote Sandboxes for Security
   - Composite Agent Architectures
-  - Deep Agents Deploy (beta) — model-agnostic open-source agent harness
 
 - **Building Production Agents**
   - Task Decomposition Patterns
@@ -205,7 +204,6 @@ This repository provides a structured learning path for developers interested in
   - Error Recovery & Fallbacks
   - Dynamic tools, recovery from hallucinated tool calls, and better streaming error signals
   - Agent Memory & State Persistence
-  - Task Budgets for developer control over reasoning on longer tasks (new in Claude Opus 4.7)
 
 ### 5. Advanced RAG Systems (3-4 weeks)
 
@@ -258,13 +256,13 @@ This repository provides a structured learning path for developers interested in
   - Containerization (Docker, Kubernetes)
   - Serverless Deployment (AWS Lambda, Cloud Functions)
   - Edge Deployment
-  - Deep Agents Deploy (beta) — open-source agent harness for model-agnostic deployment
   
 - **Observability with LangSmith**
-  - **Polly** (GA) — LangSmith's AI assistant that can take action like an engineer on your team; analyzes traces to detect usage patterns, common agent behaviors and failure modes
-  - **LangSmith Fleet** (formerly Agent Builder) — now includes agent identity, sharing, and permissions to manage your agent fleet across the company securely
-  - **Skills in LangSmith Fleet** — equip agents with specialized knowledge for particular tasks; share skills across your team
-  - **LangSmith Sandboxes** (Private Preview) — locked-down, temporary environments where agents can run code safely, with granular access and resource controls
+  - Insights Agent automatically analyzes your traces to detect usage patterns, common agent behaviors and failure modes
+  - LangSmith Fleet (formerly Agent Builder) – describe what you want and it figures out the approach, including prompt, tool selection, subagents, and skills; now includes agent identity, sharing, and permissions to manage your agent fleet across the company securely
+  - Skills are now available in LangSmith Fleet — equip agents across your team with knowledge for specialized tasks
+  - LangSmith Sandboxes (Private Preview) – locked-down, temporary environments where agents can run code safely, with granular control over access and resources
+  - Polly (GA) – LangSmith's AI assistant is now generally available; can take action like an engineer on your team
   - Pin any experiment as your baseline so every subsequent run is automatically measured against it
   - Trace Debugging & Analysis
   - Performance Monitoring
@@ -287,7 +285,7 @@ This repository demonstrates how to leverage LangChain for:
 - **Connecting LLMs to External Tools and APIs** via MCP Adapters
 - **Deploying Secure, Observable AI Systems** with LangSmith Fleet
 
-### LangChain v1.2.16 Key Features (April 2026)
+### LangChain v1.2.16 Key Features (May 2026)
 
 ```python
 # create_agent API (LangChain v1.2.16)
@@ -299,7 +297,7 @@ from langchain.middleware import (
 )
 
 agent = create_agent(
-    model="gpt-5.5",  # Updated: GPT-5.5 is the latest OpenAI frontier model
+    model="gpt-5.5",  # Updated: GPT-5.5 is the latest frontier model as of May 2026
     tools=[search_tool, calculator_tool],
     middleware=[
         PIIMiddleware(),
@@ -310,9 +308,6 @@ agent = create_agent(
 ```
 
 ### Important Version Notes:
-- LangChain **v1.2.16** is the latest stable release (April 29, 2026)
-- LangChain **Core v1.3.2** is the latest core release (April 24, 2026), introducing content-block-centric streaming (v2)
-- LangGraph **v1.1.10** is the latest (April 27, 2026) with type-safe streaming and Pydantic coercion
 - LangChain 0.3 is now in MAINTENANCE mode with support until December 2026, including only security patches and critical bug fixes
 - Legacy functionality has been moved to langchain-classic for backwards compatibility
 - langchain-community has been released as version 0.4 to reflect a different stability policy where minor releases may include breaking changes
@@ -344,7 +339,7 @@ agent = create_agent(
 | [Free LangChain Basics](https://www.mygreatlearning.com/academy/learn-for-free/courses/langchain-basics-for-beginners) | Great Learning | Beginner | ✅ Free |
 
 ### Upcoming Events
-- 🎤 **Interrupt 2026**, the AI Agent Conference — **May 13–14, 2026** at The Midway, San Francisco. Keynotes from Harrison Chase, Jensen Huang, and Andrew Ng. Speakers from Clay, Rippling, Honeywell, and more.
+- 🎤 Interrupt 2026, the AI Agent Conference — May 13-14 at The Midway, San Francisco. Keynotes from Harrison Chase, Jensen Huang, and Andrew Ng; talks from teams at Clay, Rippling, and Honeywell.
 
 ### Books
 - "Building LLM Powered Applications" by Simon Willison
@@ -378,12 +373,12 @@ agent = create_agent(
 - [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) - DPO paper
 
 ### Tools & Platforms
-- [LangSmith](https://smith.langchain.com/) - Observability & debugging (now with Fleet, Skills, Sandboxes & Polly)
+- [LangSmith](https://smith.langchain.com/) - Observability & debugging (now with Fleet, Polly GA, Skills & Sandboxes)
 - [Pinecone](https://www.pinecone.io/) - Vector database
 - [ChromaDB](https://www.trychroma.com/) - Open-source embeddings database
 - [Weaviate](https://weaviate.io/) - Vector search engine
 - [vLLM](https://vllm.ai/) - High-throughput inference
-- [Claude Code](https://docs.anthropic.com/claude-code) - Agentic coding CLI by Anthropic (now defaults to xhigh thinking with Opus 4.7)
+- [Claude Code](https://docs.anthropic.com/claude-code) - Agentic coding CLI by Anthropic
 
 ---
 
@@ -434,7 +429,7 @@ GenAI-Roadmap-with-Notes-Using-LangChain/
 │   ├── nlp_basics/            # NLP fundamentals
 │   ├── transformers/          # Transformer architecture notes
 │   └── llm_concepts/          # LLM theory and concepts
-├── langchain_basics/          # Introduction to LangChain v1.2.x
+├── langchain_basics/          # Introduction to LangChain v1.2.16
 │   ├── components/            # Core components of LangChain
 │   ├── chains/                # Building and using chains
 │   ├── memory/                # Working with different memory types
@@ -444,10 +439,10 @@ GenAI-Roadmap-with-Notes-Using-LangChain/
 │   ├── rag/                   # Retrieval Augmented Generation
 │   ├── agents/                # Building autonomous agents
 │   └── tools/                 # Tool integration
-├── langgraph/                 # LangGraph v1.1 tutorials
+├── langgraph/                 # LangGraph v1.1.10 tutorials
 │   ├── basics/                # State machines & workflows
 │   ├── multi_agent/           # Multi-agent orchestration
-│   └── deep_agents/           # Long-running agent patterns (v0.5 alpha)
+│   └── deep_agents/           # Long-running agent patterns (v0.5.0 alpha)
 ├── projects/                  # Complete project implementations
 │   ├── chatbot/               # Conversational agent examples
 │   ├── document_qa/           # Document Q&A system
@@ -455,7 +450,7 @@ GenAI-Roadmap-with-Notes-Using-LangChain/
 │   └── agentic_assistant/     # Autonomous agent project
 ├── deployment/                # Deployment guides and examples
 │   ├── langserve/             # LangServe API deployment
-│   ├── langsmith/             # Observability setup (Fleet + Skills + Sandboxes + Polly)
+│   ├── langsmith/             # Observability setup (Fleet + Polly GA + Sandboxes)
 │   ├── optimization/          # Model optimization techniques
 │   └── monitoring/            # Production monitoring
 ├── resources/                 # Additional learning resources
@@ -469,7 +464,7 @@ GenAI-Roadmap-with-Notes-Using-LangChain/
 
 ## Examples
 
-### Basic LangChain Chain (v1.2.x)
+### Basic LangChain Chain (v1.2.16)
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -542,7 +537,7 @@ response = rag_chain.invoke("What are the key points?")
 print(response.content)
 ```
 
-### LangGraph Agent (Updated April 2026 — LangGraph v1.1.x)
+### LangGraph Agent (Updated May 2026 — LangGraph v1.1.10)
 
 ```python
 from langgraph.prebuilt import create_react_agent
@@ -560,7 +555,7 @@ def calculate(expression: str) -> str:
     """Evaluate a mathematical expression."""
     return str(eval(expression))
 
-# Create agent with LangGraph v1.1 (type-safe streaming)
+# Create agent with LangGraph
 llm = ChatOpenAI(model="gpt-5.5")
 agent = create_react_agent(llm, [search_web, calculate])
 
@@ -641,3 +636,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ⭐ **If you find this repository helpful, please consider giving it a star!** ⭐
 
 </div>
+```
