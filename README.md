@@ -1,4 +1,4 @@
-# GenAI Roadmap with Notes Using LangChain
+# GenAI Roadmap with Notes and Projects
 
 <p align="center">
   <a href="https://python.langchain.com/docs/introduction/">
