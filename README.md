@@ -146,8 +146,5 @@ If this roadmap helps you, star it. Stars keep the project maintained.
 <sub>Building • Learning • Researching • Sharing</sub>
 
 <br/>
-
 ⭐ <strong>If this repository helped you, consider giving it a star!</strong> ⭐
-
 </div>
-
