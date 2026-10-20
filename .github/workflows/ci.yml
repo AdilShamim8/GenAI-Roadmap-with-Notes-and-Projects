@@ -43,6 +43,7 @@ jobs:
             --exclude 'ai\.meta\.com'
             --exclude 'llama\.meta\.com'
             --exclude 'devday\.openai\.com'
+            --exclude 'usenix\.org'
             --exclude 'oreilly\.com'
             --exclude 'packtpub\.com'
             --exclude 'levels\.fyi'
