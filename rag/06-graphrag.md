@@ -1,6 +1,6 @@
 # GraphRAG
 
-> **Level:** ADV · **Last verified:** 2026-07-30 · **Sources:** [Microsoft GraphRAG](https://microsoft.github.io/graphrag/)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Microsoft GraphRAG](https://microsoft.github.io/graphrag/)
 
 ## Why this matters
 
@@ -28,21 +28,20 @@ Vector RAG retrieves similar chunks. It cannot answer "What are the main themes 
 - Cost-sensitive workloads (indexing is 10–100× more expensive than vector RAG).
 - Small corpuses (<1K chunks).
 
-## Code: minimal GraphRAG with Microsoft's lib
+## Code: minimal GraphRAG with Microsoft's lib (CLI-driven)
 
-```python
-# pip install graphrag
-from graphrag.index import run_pipeline
-from graphrag.query import structured_search
+The `graphrag` package is CLI-first — there is no stable `run_pipeline`/`GlobalSearch` Python API:
 
-# 1. Index (one-time, expensive)
-run_pipeline(config="settings.yaml")  # extracts entities, builds communities
-
-# 2. Query
-from graphrag.query.structured_search import GlobalSearch
-search = GlobalSearch(...)  # uses community summaries
-result = search.search("What are the main themes in this corpus?")
+```bash
+pip install graphrag
+graphrag init --root ./ragtest          # scaffolds settings.yaml + prompts
+# put your .txt corpus in ./ragtest/input/
+graphrag index --root ./ragtest         # one-time, expensive: entities + communities
+graphrag query --root ./ragtest --method global "What are the main themes in this corpus?"
+graphrag query --root ./ragtest --method local "What did Acme announce in Q3?"
 ```
+
+Global queries answer across the whole corpus via community summaries; local queries start from entities near your question. For a cheaper/simpler graph, consider LightRAG or nano-graphrag.
 
 ## Production concerns
 
@@ -59,5 +58,5 @@ result = search.search("What are the main themes in this corpus?")
 
 ## References
 
-- [Microsoft GraphRAG](https://microsoft.github.io/graphrag/) — verified 2026-07-30
-- [GraphRAG paper](https://arxiv.org/abs/2404.16130) — verified 2026-07-30
+- [Microsoft GraphRAG](https://microsoft.github.io/graphrag/) — verified 2026-10-20
+- [GraphRAG paper](https://arxiv.org/abs/2404.16130) — verified 2026-10-20

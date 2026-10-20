@@ -49,7 +49,8 @@ def extract_pdf(path: str):
     for page in doc:
         pages.append({
             "text": page.get_text(),
-            "images": [pix.tobytes("png") for pix in page.get_images(full=True)],
+            # get_images returns xref tuples, not Pixmaps — wrap them:
+            "images": [fitz.Pixmap(doc, img[0]).tobytes("png") for img in page.get_images(full=True)],
             "page_num": page.number,
         })
     return pages
@@ -70,6 +71,6 @@ def extract_pdf(path: str):
 
 ## References
 
-- [Cohere Embed v4 (multimodal)](https://cohere.com/blog/embed-v4) — verified 2026-07-30
-- [Unstructured](https://github.com/Unstructured-IO/unstructured) — verified 2026-07-30
-- [CLIP](https://openai.com/research/clip) — verified 2026-07-30
+- [Cohere Embed v4](https://docs.cohere.com/docs/embed) — verified 2026-10-20
+- [Unstructured](https://github.com/Unstructured-IO/unstructured) — verified 2026-10-20
+- [CLIP](https://openai.com/research/clip) — verified 2026-10-20
