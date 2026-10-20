@@ -1,6 +1,6 @@
 # RAG vs Long Context
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The question
 
@@ -15,7 +15,7 @@ Models now support 1M+ token context windows. Is RAG still necessary?
 | Dimension | Long context | RAG |
 |-----------|--------------|-----|
 | Latency | Linear with input tokens | Constant + small retrieval |
-| Cost | Linear with input tokens | Embedding cost (small) + retrieved-chunk tokens |
+| Cost | Linear with input tokens — but cached prefixes bill ~10x less (see `../../llm-calling/06-prompt-caching.md`) | Embedding cost (small) + retrieved-chunk tokens |
 | Recall | Excellent if it fits | Depends on retrieval quality |
 | Freshness | Re-send every time | Update index once |
 | Multi-doc dedup | Manual | Index handles it |
@@ -46,5 +46,5 @@ In 2026, the best pattern is often:
 
 ## References
 
-- [Anthropic: contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-07-30
-- [Lost in the Middle paper](https://arxiv.org/abs/2307.03172) — verified 2026-07-30
+- [Anthropic: contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-10-20
+- [Lost in the Middle paper](https://arxiv.org/abs/2307.03172) — verified 2026-10-20

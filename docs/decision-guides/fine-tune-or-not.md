@@ -1,6 +1,6 @@
 # Fine-tune or Not
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The default answer
 
@@ -31,11 +31,11 @@
 ## If you decide to fine-tune
 
 1. Start with **LoRA** on a 7B-13B base. Don't go full fine-tune.
-2. Use **DPO** or **ORPO** for alignment, not RLHF (too expensive).
+2. Use **DPO/ORPO** for preference alignment, or **GRPO-style RL** if you are tuning for reasoning (the 2026 path).
 3. Build an eval set BEFORE fine-tuning. Run it before and after.
 4. Serve with **vLLM** with LoRA adapters enabled.
 
 ## References
 
-- [It's Hype Till It Isn't — Chip Huyen](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-07-30
-- [PEFT (LoRA) paper](https://arxiv.org/abs/2106.09685) — verified 2026-07-30
+- [It's Hype Till It Isn't — Chip Huyen](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-10-20
+- [PEFT (LoRA) paper](https://arxiv.org/abs/2106.09685) — verified 2026-10-20

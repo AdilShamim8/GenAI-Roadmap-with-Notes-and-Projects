@@ -1,6 +1,6 @@
 # Self-Host vs API
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The breakeven math
 
@@ -34,7 +34,11 @@ Where `ops_overhead` is real: ~0.25 FTE for a single GPU cluster in production.
 - **Model upgrades**: APIs give you the new model instantly.
 - **Multimodal**: APIs cover audio/vision more completely than self-host.
 
+### The middle option most teams miss
+
+Before raw self-hosting, price **managed open-weight inference** (Together, Fireworks, Groq, Bedrock/Vertex custom endpoints): open-weight economics, zero ops, no 0.25-FTE tax. Most workloads land here; raw self-hosting wins only at large steady-state volume or hard compliance constraints. The math behind these bands lives in `../../fine-tuning-and-self-hosting/05-breakeven-math.md`.
+
 ## References
 
-- [vLLM](https://github.com/vllm-project/vllm) — verified 2026-07-30
-- [SGLang](https://github.com/sgl-project/sglang) — verified 2026-07-30
+- [vLLM](https://github.com/vllm-project/vllm) — verified 2026-10-20
+- [SGLang](https://github.com/sgl-project/sglang) — verified 2026-10-20

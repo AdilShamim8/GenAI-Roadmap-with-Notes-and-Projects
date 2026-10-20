@@ -1,6 +1,6 @@
 # Choosing a Vector Database
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The candidates
 
@@ -34,7 +34,7 @@ graph TD
 
 ## References
 
-- [pgvector](https://github.com/pgvector/pgvector) — verified 2026-07-30
-- [Pinecone](https://www.pinecone.io/) — verified 2026-07-30
-- [Qdrant](https://qdrant.tech/) — verified 2026-07-30
-- [Vector DB benchmark — ann-benchmarks](https://ann-benchmarks.com/) — verified 2026-07-30
+- [pgvector](https://github.com/pgvector/pgvector) — verified 2026-10-20
+- [Pinecone](https://www.pinecone.io/) — verified 2026-10-20
+- [Qdrant](https://qdrant.tech/) — verified 2026-10-20
+- [Vector DB benchmark — ann-benchmarks](https://ann-benchmarks.com/) — verified 2026-10-20
