@@ -1,6 +1,6 @@
 # Model Versioning & Migration
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenAI model deprecations](https://developers.openai.com/api/docs/deprecations), [Claude model overview](https://platform.claude.com/docs/en/models/overview)
 
 ## Why this matters
 
@@ -58,14 +58,15 @@ def compare_models(query: str, old: str, new: str):
 ```python
 def call_chat(query: str) -> str:
     if is_enabled("use_gpt_5_canary", default=False):
-        return call_model("gpt-5", query)
-    return call_model("gpt-5-previous", query)
+        return call_model(MODELS["chat"], query)
+    return call_model(previous_alias, query)  # dated snapshot, e.g. ...-2026-09-29
 ```
 
 ## Production concerns
 
 - **Latency:** No additional latency.
 - **Cost:** Side-by-side evals double cost temporarily.
+- **Alias vs snapshot:** rolling aliases (`gpt-6.1-sol`) update silently — pin dated snapshots (`...-2026-09-29` style suffixes; Anthropic exposes dated aliases too) anywhere reproducibility matters, and alias everywhere else so you inherit fixes.
 - **Failure modes:** Models have different tokenizers; token counts shift.
 - **Security:** New models may have different data policies (e.g., new vendor). Review DPA.
 
@@ -77,5 +78,5 @@ def call_chat(query: str) -> str:
 
 ## References
 
-- [OpenAI: Model deprecations](https://platform.openai.com/docs/deprecations) — verified 2026-07-30
-- [Anthropic: Model versions](https://docs.anthropic.com/en/docs/about-claude/models) — verified 2026-07-30
+- [OpenAI: Model deprecations](https://platform.openai.com/docs/deprecations) — verified 2026-10-20
+- [Anthropic: Model versions](https://docs.anthropic.com/en/docs/about-claude/models) — verified 2026-10-20

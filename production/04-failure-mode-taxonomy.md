@@ -4,7 +4,7 @@
 
 ## Why this matters
 
-Most production GenAI incidents fall into ~8 categories. Knowing the taxonomy lets you build detection, mitigation, and runbooks for each — instead of treating every incident as a surprise.
+Most production GenAI incidents fall into ~8 categories — plus a 2026-era set you must now also watch: **MCP tool poisoning** (a malicious/compromised server returns instructions that hijack the agent), **rogue MCP server** (supply-chain risk in third-party servers), and **inter-agent confused deputy** (in multi-agent or A2A systems, a mis-scoped agent acts with another's privileges). Knowing the taxonomy lets you build detection, mitigation, and runbooks for each — instead of treating every incident as a surprise.
 
 ## The taxonomy
 
@@ -104,5 +104,5 @@ class AgentLoop:
 
 ## References
 
-- [OpenAI: Error codes](https://platform.openai.com/docs/guides/error-codes) — verified 2026-07-30
-- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-07-30
+- [OpenAI: Error codes](https://platform.openai.com/docs/guides/error-codes) — verified 2026-10-20
+- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-10-20

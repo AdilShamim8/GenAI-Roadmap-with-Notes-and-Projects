@@ -51,6 +51,10 @@ def agent_endpoint(query: str) -> str:
         return safe_fallback(query, e)
 ```
 
+### Agent-specific IR mechanics
+
+Generic SRE practice covers most of it; agents add three moves: **quarantine in-flight runs** (long-horizon agents keep working after the kill switch — revoke their tool credentials too), **recall delivered outputs** (harmful answers already shown to users need follow-up, not just rollback), and **scope the blast radius per tenant** (multi-tenant memory stores make one bad deployment every tenant's incident).
+
 ## Production concerns
 
 - **Latency:** Kill switch check is <5ms.
@@ -66,6 +70,6 @@ def agent_endpoint(query: str) -> str:
 
 ## References
 
-- [Google SRE: Incident Response](https://sre.google/sre-book/incident-response/) — verified 2026-07-30
-- [Statsig](https://www.statsig.com/) — verified 2026-07-30
-- [LaunchDarkly](https://launchdarkly.com/) — verified 2026-07-30
+- [Google SRE: Incident Response](https://sre.google/sre-book/incident-response/) — verified 2026-10-20
+- [Statsig](https://www.statsig.com/) — verified 2026-10-20
+- [LaunchDarkly](https://launchdarkly.com/) — verified 2026-10-20
