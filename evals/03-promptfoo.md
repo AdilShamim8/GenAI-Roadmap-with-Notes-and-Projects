@@ -1,6 +1,6 @@
 # promptfoo
 
-> **Level:** INT · **Last verified:** 2026-07-30 · **Sources:** [promptfoo](https://www.promptfoo.dev/)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [promptfoo docs](https://www.promptfoo.dev/docs/intro/), [promptfoo releases](https://github.com/promptfoo/promptfoo/releases) · **Sources:** [promptfoo](https://www.promptfoo.dev/)
 
 ## Why this matters
 
@@ -38,8 +38,8 @@ prompts:
   - file://prompts/billing_v2.txt
 
 providers:
-  - id: openai:gpt-5
-  - id: anthropic:claude-sonnet-4-5
+  - id: openai:gpt-6.1-sol
+  - id: anthropic:claude-sonnet-5-5
 
 tests:
   - description: Simple refund
@@ -77,8 +77,10 @@ npx promptfoo view  # opens web UI with results
 - name: Run evals
   run: npx promptfoo eval -c promptfooconfig.yaml --no-cache
 - name: Fail on regression
-  run: npx promptfoo eval --failOnThreshold --threshold 0.85
+  run: npx promptfoo eval --fail-under 0.85   # fail CI below 85% pass rate
 ```
+
+promptfoo also ships a **red-teaming module** (`npx promptfoo redteam`) that generates injection/jailbreak/datamarking attacks against your target — the lightest way to wire agent-security checks into CI (see `../safety/02-garak-pyrit.md` for deeper scanners).
 
 ## Production concerns
 
@@ -95,5 +97,5 @@ npx promptfoo view  # opens web UI with results
 
 ## References
 
-- [promptfoo docs](https://www.promptfoo.dev/docs/) — verified 2026-07-30
-- [promptfoo GitHub](https://github.com/promptfoo/promptfoo) — verified 2026-07-30
+- [promptfoo docs](https://www.promptfoo.dev/docs/) — verified 2026-10-20
+- [promptfoo GitHub](https://github.com/promptfoo/promptfoo) — verified 2026-10-20

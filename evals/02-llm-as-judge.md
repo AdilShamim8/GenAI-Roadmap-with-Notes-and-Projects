@@ -49,15 +49,15 @@ def judge(query: str, answer: str, context: str) -> dict:
     - concise: no unnecessary detail.
     - tone: professional and helpful.
     '''
-    resp = client.beta.chat.completions.parse(
-        model="gpt-5",
+    resp = client.chat.completions.parse(   # out of beta
+        model="gpt-6.1-sol",
         messages=[
             {"role": "system", "content": rubric},
             {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {query}\n\nAnswer: {answer}"},
         ],
         response_format=JudgeOutput,
     )
-    return resp.choices[0].message.parsed.dict()
+    return resp.choices[0].message.parsed.model_dump()
 ```
 
 ## Code: pairwise comparison (with position randomization)
@@ -72,7 +72,7 @@ def pairwise(query: str, answer_a: str, answer_b: str) -> str:
     else:
         flipped = False
     prompt = f"Question: {query}\n\nAnswer A: {answer_a}\n\nAnswer B: {answer_b}\n\nWhich is better? Reply 'A' or 'B'."
-    choice = client.chat.completions.create(model="gpt-5", messages=[{"role": "user", "content": prompt}]).choices[0].message.content.strip()
+    choice = client.chat.completions.create(model="gpt-6.1-sol", messages=[{"role": "user", "content": prompt}]).choices[0].message.content.strip()
     if flipped:
         choice = "B" if choice == "A" else "A"
     return choice
@@ -93,6 +93,6 @@ def pairwise(query: str, answer_a: str, answer_b: str) -> str:
 
 ## References
 
-- [Anthropic: LLM-as-judge](https://docs.anthropic.com/en/docs/build-with-claude/llm-judging) — verified 2026-07-30
-- [Judging LLM-as-a-Judge (positional bias)](https://arxiv.org/abs/2306.05685) — verified 2026-07-30
-- [Chatbot Arena: pairwise eval](https://chat.lmsys.org/) — verified 2026-07-30
+- [Anthropic: LLM-as-judge](https://docs.anthropic.com/en/docs/build-with-claude/llm-judging) — verified 2026-10-20
+- [Judging LLM-as-a-Judge (positional bias)](https://arxiv.org/abs/2306.05685) — verified 2026-10-20
+- [Chatbot Arena: pairwise eval](https://chat.lmsys.org/) — verified 2026-10-20

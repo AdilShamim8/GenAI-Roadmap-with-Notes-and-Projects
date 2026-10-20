@@ -77,6 +77,10 @@ def run_evals(agent, golden_path: str):
     return results
 ```
 
+### Format convention
+
+This file uses YAML for readability; the repo's projects standardize on **JSONL** (`evals/golden.jsonl`, one case per line) so runners can stream cases. Same fields, different serialization. For execution at scale, load either into promptfoo or DeepEval rather than hand-rolling runners (see `03-promptfoo.md`, `04-deepeval-ragas.md`).
+
 ## Production concerns
 
 - **Latency:** Eval runs are offline; latency doesn't matter, cost does.
@@ -92,5 +96,5 @@ def run_evals(agent, golden_path: str):
 
 ## References
 
-- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-07-30
-- [Anthropic: Evals guide](https://docs.anthropic.com/en/docs/build-with-claude/evals) — verified 2026-07-30
+- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20
+- [Anthropic: Evals guide](https://docs.anthropic.com/en/docs/build-with-claude/evals) — verified 2026-10-20
