@@ -54,6 +54,10 @@ def billing(state: State) -> State:
     return {**state, "billing_decision": {"refund_id": "r_123", "amount": 49.99}}
 ```
 
+### Cross-vendor handoffs: A2A
+
+Framework-native handoffs (Agents SDK, LangGraph) assume one process. When agents live in *different* systems — different vendors, companies, or trust domains — the **Agent2Agent (A2A) protocol** (Linux Foundation) is the interop layer: agents advertise capability documents (agent cards), communicate over JSON-RPC with task lifecycle semantics, and negotiate content types per message. A2A complements MCP rather than competing with it: MCP connects an agent to tools; A2A connects agents to agents.
+
 ## Production concerns
 
 - **Latency:** Each handoff is a fresh LLM call with new context.
@@ -69,5 +73,5 @@ def billing(state: State) -> State:
 
 ## References
 
-- [OpenAI Agents SDK handoffs](https://openai.github.io/openai-agents-python/handoffs/) — verified 2026-07-30
-- [LangGraph multi-agent](https://langchain-ai.github.io/langgraph/concepts/multi_agent/) — verified 2026-07-30
+- [OpenAI Agents SDK handoffs](https://openai.github.io/openai-agents-python/handoffs/) — verified 2026-10-20
+- [LangGraph multi-agent](https://langchain-ai.github.io/langgraph/concepts/multi_agent/) — verified 2026-10-20

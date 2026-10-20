@@ -1,6 +1,6 @@
 # Multi-Agent Orchestration Topologies
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [LangGraph multi-agent](https://docs.langchain.com/oss/python/langgraph/concepts/multi_agent/), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
 
 ## Why this matters
 
@@ -58,6 +58,37 @@ graph TD
     D -->|No| NET[Network]
 ```
 
+## Code: minimal supervisor (LangGraph)
+
+```python
+from typing import TypedDict, Literal
+from langgraph.graph import StateGraph, START, END
+
+class State(TypedDict):
+    query: str
+    plan: list[str]
+    results: list[str]
+
+def supervisor(state: State) -> State:
+    plan = ["research", "write"] if "report" in state["query"] else ["answer"]
+    return {**state, "plan": plan}
+
+def route(state: State) -> Literal["researcher", "writer", END]:
+    if "research" in state["plan"]:
+        return "researcher"
+    return END
+
+g = StateGraph(State)
+g.add_node("supervisor", supervisor)
+g.add_node("researcher", lambda s: {**s, "results": ["..."]})
+g.add_node("writer", lambda s: {**s, "results": s["results"] + ["..."]})
+g.add_edge(START, "supervisor")
+g.add_conditional_edges("supervisor", route, ["researcher", "writer", END])
+g.add_edge("researcher", "writer")
+g.add_edge("writer", END)
+app = g.compile()
+```
+
 ## Production concerns
 
 - **Latency:** Every handoff adds an LLM call. Cap depth.
@@ -73,6 +104,6 @@ graph TD
 
 ## References
 
-- [LangGraph: Multi-agent topologies](https://langchain-ai.github.io/langgraph/concepts/multi_agent/) — verified 2026-07-30
-- [CrewAI: Crew architecture](https://docs.crewai.com/concepts/crews) — verified 2026-07-30
-- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-07-30
+- [LangGraph: Multi-agent concepts](https://docs.langchain.com/oss/python/langgraph/concepts/multi_agent/) — verified 2026-10-20
+- [CrewAI: Crew architecture](https://docs.crewai.com/concepts/crews) — verified 2026-10-20
+- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-10-20

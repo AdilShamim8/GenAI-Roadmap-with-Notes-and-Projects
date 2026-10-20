@@ -4,7 +4,7 @@
 
 ## Why this matters
 
-These are the four multi-agent frameworks you'll see in 2026 job postings. Each has a distinct philosophy. Picking one is a 6-month commitment; understanding the trade-offs upfront saves rewrites.
+These are the multi-agent frameworks you'll see in 2026 job postings. Note the big 2025-26 shift: Microsoft retired AutoGen (Oct 2025) in favor of the unified **Microsoft Agent Framework**, and the OpenAI Agents SDK + Claude Agent SDK joined the top of the hiring list (see `../agents/`). Each has a distinct philosophy. Picking one is a 6-month commitment; understanding the trade-offs upfront saves rewrites.
 
 ## The comparison
 
@@ -16,25 +16,34 @@ These are the four multi-agent frameworks you'll see in 2026 job postings. Each 
 | **Multi-vendor** | Yes | Yes | Yes | Gemini-first |
 | **Human-in-loop** | First-class | Add-on | Add-on | First-class |
 | **Streaming** | First-class | Limited | First-class | First-class |
-| **Maturity** | High | Medium | High (v0.4 rewrite) | Medium |
+| **Maturity** | High | Medium | Moderate (typed Workflow graph) | Medium |
 | **Best for** | Production workflows | Rapid prototyping | Async, distributed | Google Cloud shops |
 
 ## When to pick what
 
 - **LangGraph** — you need durable, checkpointed, stateful workflows with conditional logic. The default for production.
 - **CrewAI** — you want to ship a multi-agent demo in an afternoon and don't need fine control.
-- **AutoGen v0.4** — your workload is fundamentally async/event-driven (many agents, low coupling).
-- **Google ADK** — you're all-in on Vertex AI and want first-class Google Workspace integration.
+- **Microsoft Agent Framework** — the AutoGen successor (AutoGen stopped active development Oct 2025); typed graph workflows, MCP clients, Responses API support.
+- **Google ADK** — model-agnostic (not Vertex-only); strong if you want Google's hosted agent tooling.
 
-## Code: same task, three frameworks
+## Code: same task, three frameworks (LangGraph + CrewAI + Agent Framework)
+
+### LangGraph (supervisor, condensed — full version in `01-orchestration-topologies.md`)
+
+```python
+# LangGraph multi-agent = a StateGraph whose nodes are agents
+# and whose edges are the handoff policy. Durable by default.
+from langgraph.graph import StateGraph, START, END
+# ... build supervisor/worker nodes as in 01-orchestration-topologies.md
+```
 
 ### CrewAI
 
 ```python
 from crewai import Agent, Task, Crew
 
-researcher = Agent(role="Researcher", goal="Find sources", backstory="...", llm="gpt-5")
-writer = Agent(role="Writer", goal="Write report", backstory="...", llm="gpt-5")
+researcher = Agent(role="Researcher", goal="Find sources", backstory="...", llm="openai/gpt-6.1-sol")
+writer = Agent(role="Writer", goal="Write report", backstory="...", llm="openai/gpt-6.1-sol")
 
 crew = Crew(agents=[researcher, writer], tasks=[
     Task(description="Research {topic}", agent=researcher),
@@ -43,19 +52,20 @@ crew = Crew(agents=[researcher, writer], tasks=[
 result = crew.kickoff(inputs={"topic": "MoE architectures"})
 ```
 
-### AutoGen v0.4
+### Microsoft Agent Framework (successor to AutoGen)
 
 ```python
-from autogen_agentchat.agents import AssistantAgent
-from autogen_agentchat.teams import RoundRobinGroupChat
-from autogen_ext.models.openai import OpenAIChatCompletionClient
+from agent_framework import Agent
+from agent_framework.openai import OpenAIChatCompletionClient
 
-model = OpenAIChatCompletionClient(model="gpt-5")
-researcher = AssistantAgent("researcher", model_client=model, system_message="Research the topic.")
-writer = AssistantAgent("writer", model_client=model, system_message="Write a 1-page report.")
+client = OpenAIChatCompletionClient(model="gpt-6.1-sol")
+researcher = Agent(name="researcher", client=client,
+                   instructions="Research the topic.")
+writer = Agent(name="writer", client=client,
+               instructions="Write a 1-page report.")
 
-team = RoundRobinGroupChat([researcher, writer], max_turns=4)
-result = await team.run(task="MoE architectures")
+result = await researcher.run("MoE architectures")
+result = await writer.run(result.text)
 ```
 
 ## Production concerns
@@ -68,12 +78,12 @@ result = await team.run(task="MoE architectures")
 ## Anti-patterns
 
 - ❌ **Starting with CrewAI for production.** Fine for prototypes; rewrite in LangGraph for prod.
-- ❌ **AutoGen for simple workflows.** The async overhead isn't worth it.
-- ❌ **Google ADK if you're not on Vertex.** Lock-in isn't worth it.
+- ❌ **Starting new projects on AutoGen.** It stopped active development in Oct 2025; use Microsoft Agent Framework.
+- ❌ **Assuming Google ADK is Vertex-only.** It is model-agnostic; judge it on the workflow tooling.
 
 ## References
 
-- [LangGraph](https://langchain-ai.github.io/langgraph/) — verified 2026-07-30
-- [CrewAI](https://docs.crewai.com/) — verified 2026-07-30
-- [AutoGen](https://microsoft.github.io/autogen/) — verified 2026-07-30
-- [Google ADK](https://google.github.io/adk-docs/) — verified 2026-07-30
+- [LangGraph](https://docs.langchain.com/oss/python/langgraph/) — verified 2026-10-20
+- [CrewAI](https://docs.crewai.com/) — verified 2026-10-20
+- [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/) — verified 2026-10-20
+- [Google ADK](https://google.github.io/adk-docs/) — verified 2026-10-20
