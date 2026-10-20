@@ -47,7 +47,7 @@ import asyncio, json, websockets
 import base64
 
 async def realtime_conversation():
-    url = "wss://api.openai.com/v1/realtime?model=gpt-realtime"
+    url = "wss://api.openai.com/v1/realtime?model=gpt-realtime-2.1"
     headers = {"Authorization": "Bearer YOUR_API_KEY", "OpenAI-Beta": "realtime=v1"}
 
     async with websockets.connect(url, extra_headers=headers) as ws:
@@ -75,16 +75,21 @@ async def realtime_conversation():
                 event = json.loads(msg)
                 if event["type"] == "response.audio.delta":
                     speaker.play(base64.b64decode(event["delta"]))
-                elif event["type"] == "conversation.item.interruption":
+                elif event["type"] == "input_audio_buffer.speech_started":  # barge-in
+        await ws.send(json.dumps({"type": "response.cancel"}))
                     speaker.stop()  # user interrupted
 
         await asyncio.gather(send_audio(), receive())
 ```
 
+### Transports
+
+WebSocket is the server-to-server default. **WebRTC** is the right choice for browsers and mobile (client-side audio, NAT traversal); **SIP/telephony** connects the phone network. All three speak the same session protocol.
+
 ## Production concerns
 
 - **Latency:** WebSocket keepalive; reuse connection.
-- **Cost:** Realtime API bills by audio minute. ~$0.06/min.
+- **Cost:** Billed per audio token, not per minute: gpt-realtime-2.1 is $32/1M audio input ($0.40 cached) and $64/1M audio output — roughly $0.05/min all-in with caching working; gpt-realtime-2.1-mini ($10/$20) lands near $0.016/min. Cached audio input is ~80x cheaper than fresh — keep the session prefix stable.
 - **Failure modes:** Network jitter causes audio gaps. Buffer client-side.
 - **Security:** Don't log audio; it's PII.
 
@@ -96,5 +101,5 @@ async def realtime_conversation():
 
 ## References
 
-- [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) — verified 2026-07-30
-- [OpenAI Realtime API reference](https://platform.openai.com/docs/api-reference/realtime) — verified 2026-07-30
+- [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) — verified 2026-10-20
+- [OpenAI Realtime API reference](https://platform.openai.com/docs/api-reference/realtime) — verified 2026-10-20

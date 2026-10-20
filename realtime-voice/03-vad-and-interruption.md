@@ -1,6 +1,6 @@
 # VAD & Interruption Handling
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Silero VAD](https://github.com/snakers4/silero-vad), [OpenAI Realtime VAD](https://developers.openai.com/api/docs/guides/voice-activity-detection)
 
 ## Why this matters
 
@@ -91,6 +91,12 @@ async def realtime_session(ws):
     await asyncio.gather(receive(), send_audio())
 ```
 
+### Model choice
+
+Prefer **Silero VAD** as your local default — tiny, accurate, actively maintained. `py-webrtcvad` is unmaintained (dormant since ~2019) and builds break on newer Pythons; treat it as legacy. Provider-side turn detection (`server_vad` on OpenAI) removes the local VAD entirely if you accept its tuning.
+
+Also: without **acoustic echo cancellation**, your mic hears your own speaker output and false-triggers barge-in. AEC before VAD, always.
+
 ## Production concerns
 
 - **Latency:** Client-side VAD adds 20–50ms. Worth it for control.
@@ -106,6 +112,6 @@ async def realtime_session(ws):
 
 ## References
 
-- [webrtcvad](https://github.com/wiseman/py-webrtcvad) — verified 2026-07-30
-- [Silero VAD](https://github.com/snakers4/silero-vad) — verified 2026-07-30
-- [OpenAI Realtime: VAD](https://platform.openai.com/docs/guides/realtime) — verified 2026-07-30
+- [webrtcvad](https://github.com/wiseman/py-webrtcvad) — verified 2026-10-20
+- [Silero VAD](https://github.com/snakers4/silero-vad) — verified 2026-10-20
+- [OpenAI Realtime: VAD](https://platform.openai.com/docs/guides/realtime) — verified 2026-10-20

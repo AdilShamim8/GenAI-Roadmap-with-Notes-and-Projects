@@ -36,8 +36,8 @@ async def gemini_live():
         # Configure
         await ws.send(json.dumps({
             "setup": {
-                "model": "gemini-2.5-flash-preview-native-audio-dialog",
-                "generation_config": {"response_modalities": ["AUDIO"]},
+                "model": "gemini-2.5-flash-native-audio",  # or gemini-2.5-flash-preview; use google-genai SDK live module for current IDs
+                "generationConfig": {"responseModalities": ["AUDIO"]},  # proto fields are camelCase
             }
         }))
 
@@ -58,6 +58,10 @@ async def gemini_live():
         await asyncio.gather(send_audio(), receive())
 ```
 
+### Native audio vs DSP
+
+The Live API has two audio modes: **DSP-based** (audio → text → model → text → audio; cheaper, works on any model) and **native audio** (end-to-end speech; lower latency, more natural prosody, billed per audio token). Price both per use case. Also prefer the official `google-genai` SDK's Live module over raw WebSockets unless you need protocol-level control.
+
 ## Production concerns
 
 - **Latency:** Competitive with OpenAI.
@@ -73,5 +77,5 @@ async def gemini_live():
 
 ## References
 
-- [Gemini Live API](https://ai.google.dev/gemini-api/docs/live) — verified 2026-07-30
-- [Vertex AI Gemini Live](https://cloud.google.com/vertex-ai/generative-ai/docs) — verified 2026-07-30
+- [Gemini Live API](https://ai.google.dev/gemini-api/docs/live) — verified 2026-10-20
+- [Vertex AI Gemini Live](https://cloud.google.com/vertex-ai/generative-ai/docs) — verified 2026-10-20
