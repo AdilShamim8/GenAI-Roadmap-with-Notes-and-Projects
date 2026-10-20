@@ -1,6 +1,6 @@
 # Writing an MCP Server
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk), [MCP spec 2026-07-28](https://modelcontextprotocol.io/docs/2026-07-28/basic/)
 
 ## Why this matters
 
@@ -14,7 +14,7 @@ Off-the-shelf MCP servers cover common cases (filesystem, Postgres, GitHub). But
 pip install mcp
 ```
 
-The SDK exposes a `Server` class. You register handlers for `tools/list`, `tools/call`, `resources/list`, `resources/read`.
+The SDK exposes two layers: the low-level `Server` class (manual handler registration) and **FastMCP** (`from mcp.server.fastmcp import FastMCP`) — the high-level, decorator-based standard used in virtually all current examples. Use FastMCP unless you need raw protocol control. Test any server with `mcp dev server.py` (MCP Inspector).
 
 ### The lifecycle
 
@@ -25,67 +25,50 @@ The SDK exposes a `Server` class. You register handlers for `tools/list`, `tools
 5. Server executes, returns result.
 6. Repeat.
 
-## Code: a Postgres-querying MCP server
+## Code: a Postgres-querying MCP server (FastMCP)
 
 ```python
-# server.py
-from mcp.server import Server
-from mcp.types import Tool, TextContent
+# server.py  —  pip install "mcp[cli]" psycopg2-binary
+from mcp.server.fastmcp import FastMCP
 import psycopg2, json
 
-server = Server("postgres-readonly")
+mcp = FastMCP("postgres-readonly")
 conn = psycopg2.connect("dbname=sales user=readonly host=localhost")
 
-@server.list_tools()
-async def list_tools() -> list[Tool]:
-    return [Tool(
-        name="query_sales",
-        description="Run a read-only SQL query against the sales database. SELECT only.",
-        inputSchema={
-            "type": "object",
-            "properties": {"sql": {"type": "string", "description": "SELECT query"}},
-            "required": ["sql"],
-        },
-    )]
-
-@server.call_tool()
-async def call_tool(name: str, arguments: dict) -> list[TextContent]:
-    if name != "query_sales":
-        raise ValueError(f"Unknown tool: {name}")
-    sql = arguments["sql"].strip()
-    if not sql.lower().startswith("select"):
-        return [TextContent(type="text", text="Error: only SELECT queries allowed.")]
+@mcp.tool()
+def query_sales(sql: str) -> str:
+    """Run a read-only SQL query against the sales database. SELECT only."""
+    if not sql.strip().lower().startswith("select"):
+        return "Error: only SELECT queries allowed."
     with conn.cursor() as cur:
         cur.execute(sql)
-        cols = [d[0] for d in cur.description]
         rows = cur.fetchall()
-    return [TextContent(type="text", text=json.dumps({"columns": cols, "rows": rows}, default=str))]
+        cols = [d[0] for d in cur.description]
+    return json.dumps({"columns": cols, "rows": rows}, default=str)
 
 if __name__ == "__main__":
-    import asyncio
-    from mcp.server.stdio import stdio_server
-    async def main():
-        async with stdio_server() as (read, write):
-            await server.run(read, write, server.create_initialization_options())
-    asyncio.run(main())
+    mcp.run()  # stdio transport; mcp.run("streamable-http") for remote
+
 ```
 
-Run with an MCP-aware client (Claude Desktop, Cursor, your own agent).
+Run with an MCP-aware client (Claude Desktop, Cursor, your own agent), or debug interactively with `mcp dev server.py`.
 
 ## Production concerns
 
 - **Latency:** Each tool call is a request/response. Use connection pooling for DB-backed servers.
 - **Cost:** Self-hosted; the cost is your infra.
 - **Failure modes:** Unhandled exceptions in a tool handler crash the server. Wrap everything in try/except.
-- **Security:** Enforce least privilege at the server level. Don't trust the LLM to police itself.
+- **Security:** Enforce least privilege at the server level (read-only DB user) and add `readOnlyHint`-style annotations. Don't trust the LLM to police itself.
 
 ## Anti-patterns
 
 - ❌ **Exposing mutating SQL (INSERT/UPDATE/DELETE).** Use read-only DB users.
+- ❌ **Hand-rolling the low-level Server when FastMCP suffices.** Half the code, fewer protocol bugs.
+- ❌ **stdio transport for a remote server.** Remote deployments use Streamable HTTP with OAuth 2.1.
 - ❌ **Returning huge result sets.** Paginate or summarize.
 - ❌ **Hardcoding credentials.** Use env vars.
 
 ## References
 
-- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) — verified 2026-07-30
-- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) — verified 2026-07-30
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) — verified 2026-10-20
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) — verified 2026-10-20
