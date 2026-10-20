@@ -9,9 +9,10 @@ Anthropic's Claude is the second pillar of the frontier-model landscape. The API
 ## Core concepts
 
 - **Top-level system prompt** — not a message in the list; a parameter on the request.
-- **Messages** — list of `{role, content}` where `content` can be a string or a list of content blocks (text, image, tool_use, tool_result, thinking).
+- **Messages** — list of `{role, content}` where `content` can be a string or a list of content blocks (text, image, tool_use, tool_result, thinking, document). The block model is the real interface: tool calling works by the assistant emitting a `tool_use` block and you replying with a `tool_result` block *in the next user message* — the pairing is enforced, and unpaired blocks are a hard API error.
+- **`stop_reason`** — read it on every response to drive your control loop: `end_turn` (natural stop), `max_tokens` (truncation — your bug), `stop_sequence` (custom halt), `tool_use` (you owe a tool_result). Agents that only check for text content silently mishandle the last two.
 - **Prompt caching** — explicit. You mark cacheable blocks with `cache_control`. Cache reads are 0.1x base price; cache writes cost 1.25x (5-minute TTL) or 2x (1-hour TTL).
-- **Extended thinking** — all Claude 5.5 models think by default and expose an `effort` setting (low → max); you get a `thinking` block in the response. You can still set an explicit token budget.
+- **Extended thinking** — all Claude 5.5 models think by default and expose an `effort` setting (low → max); you get a `thinking` block in the response (billed as output). You can still set an explicit token budget.
 - **Computer use** — Claude can drive a virtual computer (browser, terminal) via the computer-use tool.
 - **Message Batches** — async batches completed within 24h at 50% off.
 
@@ -31,7 +32,12 @@ resp = client.messages.create(
 )
 print(resp.content[0].text)
 print(f"Tokens: in={resp.usage.input_tokens} out={resp.usage.output_tokens}")
+# The two cache telemetry fields (pair with stop_reason in your logs):
+print(f"cache_write={resp.usage.cache_creation_input_tokens}"
+      f" cache_read={resp.usage.cache_read_input_tokens}")
 ```
+
+`cache_read_input_tokens` is where the savings live — a healthy multi-turn workload shows it climbing toward the full static-prefix length per request. `cache_creation_input_tokens` spiking instead means your prefix is churning: something at the front of the prompt (timestamp, per-request ID) is breaking the common prefix, and every request is paying the 1.25-2x write fee again.
 
 ## Prompt caching
 
@@ -48,12 +54,14 @@ resp = client.messages.create(
 # Reads of the cached prefix bill at 0.1x base price (Sonnet 5.5: $0.20/1M).
 ```
 
+The break-even math from the write/read prices: a 5-min cache (1.25x write, 0.1x reads) pays for itself after ~2 hits within the TTL; the 1h option (2x write) after ~3. So the TTL choice is a traffic-shape question — requests arriving within minutes take `5m` and pay the cheaper write, slow-drip traffic (humans returning within the hour) takes `1h`. Up to 4 cache breakpoints per request: typically system prompt, tool definitions, long few-shot header, and the conversation prefix — front-load the static parts so each breakpoint maximizes shared prefix length.
+
 ## Production concerns
 
 - **Latency:** Opus 5.5 is the deep-work model; Sonnet 5.5 runs 30%+ faster and Haiku 5.5 is the fastest Claude yet. Route by task.
 - **Cost:** Prompt caching is the single biggest lever — cache system prompts, few-shot examples, and tool definitions (up to 4 cache breakpoints). Stack with Batches for another 50% off.
-- **Failure modes:** `overloaded_error` during peak; retry with backoff.
-- **Security:** Anthropic's usage policies are stricter than OpenAI's; some content gets blocked that other APIs allow.
+- **Failure modes:** the error taxonomy worth automating on — `overloaded_error` (529, capacity; retry with backoff and a cap), 429 rate limits (honor the headers; the Python SDK retries automatically), `invalid_request_error` (your bug; don't retry). During peak windows, fail over to Sonnet 5.5 for Opus-bound traffic rather than hammering retries.
+- **Security:** Anthropic's usage policies are stricter than OpenAI's; some content gets blocked that other APIs allow. `system`-level injection defenses (`02-context-engineering/04-prompt-injection-defense.md`) compose cleanly with the top-level system prompt — use that.
 
 ## Anti-patterns
 
