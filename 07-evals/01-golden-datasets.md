@@ -96,5 +96,5 @@ This file uses YAML for readability; the repo's projects standardize on **JSONL*
 
 ## References
 
-- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/07-evals/) — verified 2026-10-20
+- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20
 - [Anthropic: Evals guide](https://docs.anthropic.com/en/docs/build-with-claude/evals) — verified 2026-10-20

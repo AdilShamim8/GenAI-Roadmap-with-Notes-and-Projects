@@ -1,6 +1,6 @@
 # Multi-Agent Orchestration Topologies
 
-> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [LangGraph multi-agent](https://docs.langchain.com/oss/python/langgraph/concepts/multi_agent/), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [LangGraph multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
 
 ## Why this matters
 
@@ -104,6 +104,6 @@ app = g.compile()
 
 ## References
 
-- [LangGraph: Multi-agent concepts](https://docs.langchain.com/oss/python/langgraph/concepts/multi_agent/) — verified 2026-10-20
+- [LangGraph: Multi-agent concepts](https://docs.langchain.com/oss/python/langchain/multi-agent) — verified 2026-10-20
 - [CrewAI: Crew architecture](https://docs.crewai.com/concepts/crews) — verified 2026-10-20
 - [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-10-20

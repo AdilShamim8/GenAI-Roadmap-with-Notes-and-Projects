@@ -74,4 +74,4 @@ Framework-native handoffs (Agents SDK, LangGraph) assume one process. When agent
 ## References
 
 - [OpenAI Agents SDK handoffs](https://openai.github.io/openai-agents-python/handoffs/) — verified 2026-10-20
-- [LangGraph multi-agent](https://langchain-ai.github.io/langgraph/concepts/multi_agent/) — verified 2026-10-20
+- [LangGraph multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent) — verified 2026-10-20

@@ -25,7 +25,7 @@ Every model you use has known limitations, biases, and intended-use constraints 
 | OpenAI | https://openai.com/index/ (per-model announcements) + system card PDFs |
 | Anthropic | https://www.anthropic.com/news (model release posts) + model card PDFs |
 | Google | https://deepmind.google/technologies/gemini/ (per-model docs) |
-| Meta (Llama) | https://llama.meta.com/model-card/ |
+| Meta (Llama) | https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md |
 | HuggingFace | Per-model README.md tab |
 
 ### Auditing your stack

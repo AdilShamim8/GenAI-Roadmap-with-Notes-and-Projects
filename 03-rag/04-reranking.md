@@ -70,4 +70,4 @@ top_docs = [candidate_docs[r.index] for r in results.results]
 
 - [Cohere rerank](https://docs.cohere.com/docs/reranking) — verified 2026-10-20
 - [BGE reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3) — verified 2026-10-20
-- [Voyage rerank](https://docs.voyageai.com/docs/reranking) — verified 2026-10-20
+- [Voyage rerank](https://docs.voyageai.com/docs/reranker) — verified 2026-10-20

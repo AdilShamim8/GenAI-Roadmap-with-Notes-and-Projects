@@ -12,7 +12,7 @@ Real corpuses aren't text-only. They're PDFs with embedded charts, slide decks w
 
 1. **Text-only with image captions** — extract images, caption with a VLM, embed the caption. Cheap, loses visual detail.
 2. **Multi-vector** — embed text with a text embedder, images with an image embedder, store both. Retrieve from either, merge.
-3. **Unified multimodal embedding** — Cohere Embed v4, Voyage multimodal, or BGE-M3+visual — embed text and images into the same space.
+3. **Unified multimodal embedding** — Cohere Embed 5, Voyage multimodal, or BGE-M3+visual — embed text and images into the same space.
 
 ### The PDF special case
 
@@ -71,6 +71,6 @@ def extract_pdf(path: str):
 
 ## References
 
-- [Cohere Embed v4](https://docs.cohere.com/docs/embed) — verified 2026-10-20
+- [Cohere Embed 5 (embed-v5.0)](https://docs.cohere.com/v2/reference/embed) — verified 2026-10-20
 - [Unstructured](https://github.com/Unstructured-IO/unstructured) — verified 2026-10-20
 - [CLIP](https://openai.com/research/clip) — verified 2026-10-20

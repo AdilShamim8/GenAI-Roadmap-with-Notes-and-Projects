@@ -34,8 +34,8 @@ from e2b_code_interpreter import Sandbox
 sbx = Sandbox()
 result = sbx.run_code('''
 import pandas as pd
-df = pd.read_csv("https://example.com/data.csv")
-df.groupby("region").revenue.sum().to_dict()
+df = pd.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv")
+df.groupby("species").sepal_length.mean().to_dict()
 ''')
 print(result.text)  # last expression's value
 sbx.close()

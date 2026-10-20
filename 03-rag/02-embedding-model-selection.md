@@ -13,7 +13,7 @@ Your embedding model is the lens through which retrieval sees your corpus. A wea
 | Model | Dim | Open-weight? | Strengths | Notes |
 |-------|-----|--------------|-----------|-------|
 | OpenAI `text-embedding-3-large` / `-small` | 3072 / 1536 | No | Strong baseline; Matryoshka truncation supported | API only |
-| Cohere `embed-v4` | 1536 | No | Multilingual, multimodal (image+text) | API only |
+| Cohere `embed-v5.0-pro` / `-fast` | 256–2048 (default 2048) | No | Multilingual, multimodal (image+text+PDF), 128k context | API only; `embed-v4.0` still served |
 | Voyage AI `voyage-3-large` | 2048 | No | Top-tier retrieval quality | API only; supports int8/binary |
 | Qwen3-Embedding series | up to 4096 | Yes | Top of the open MTEB boards (2025-26) | Self-host |
 | BGE-M3 | 1024 | Yes | Multi-lingual, multi-function (dense+sparse+colbert) | Self-host |

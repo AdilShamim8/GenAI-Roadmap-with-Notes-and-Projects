@@ -1,6 +1,6 @@
 # MCP Architecture
 
-> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MCP spec (2026-07-28)](https://modelcontextprotocol.io/docs/2026-07-28/basic/), [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MCP spec (2026-07-28)](https://modelcontextprotocol.io/specification/2026-07-28/basic/), [Anthropic announcement](https://www.anthropic.com/news/model-context-protocol)
 
 ## Why this matters
 
@@ -67,6 +67,6 @@ Remote servers use **OAuth 2.1** authorization (resource server metadata, PKCE) 
 
 ## References
 
-- [MCP spec, revision 2026-07-28](https://modelcontextprotocol.io/docs/2026-07-28/basic/) — verified 2026-10-20
+- [MCP spec, revision 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/basic/) — verified 2026-10-20
 - [Anthropic MCP announcement](https://www.anthropic.com/news/model-context-protocol) — verified 2026-10-20
 - [MCP servers repo](https://github.com/modelcontextprotocol/servers) — verified 2026-10-20

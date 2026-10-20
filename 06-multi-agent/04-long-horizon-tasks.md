@@ -1,6 +1,6 @@
 # Long-Horizon Tasks
 
-> **Level:** EXP · **Last verified:** 2026-10-20 · **Sources:** [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/concepts/persistence/), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
+> **Level:** EXP · **Last verified:** 2026-10-20 · **Sources:** [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
 
 ## Why this matters
 
@@ -94,6 +94,6 @@ with PostgresSaver.from_conn_string("postgresql://...") as checkpointer:
 
 ## References
 
-- [LangGraph: Long-running agents](https://langchain-ai.github.io/langgraph/concepts/persistence/) — verified 2026-10-20
+- [LangGraph: Long-running agents](https://docs.langchain.com/oss/python/langgraph/persistence) — verified 2026-10-20
 - [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-10-20
 - [DeepAgents](https://github.com/langchain-ai/deepagents) — verified 2026-10-20

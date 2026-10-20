@@ -1,6 +1,6 @@
 # Writing an MCP Server
 
-> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk), [MCP spec 2026-07-28](https://modelcontextprotocol.io/docs/2026-07-28/basic/)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk), [MCP spec 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/basic/)
 
 ## Why this matters
 

@@ -91,4 +91,4 @@ If you're picking a model for a task:
 
 - [The Illustrated Transformer — Jay Alammar](http://jalammar.github.io/illustrated-transformer/) — verified 2026-10-20
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762) — verified 2026-10-20
-- [The Illustrated GPT-2 — Jay Alammar](https://jalammar.github.io/illustrated-gpt-2/) — verified 2026-10-20
+- [The Illustrated GPT-2 — Jay Alammar](https://jalammar.github.io/illustrated-gpt2/) — verified 2026-10-20

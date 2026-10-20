@@ -39,7 +39,7 @@ resp = client.chat.completions.create(
         "role": "user",
         "content": [
             {"type": "text", "text": "What's in this image?"},
-            {"type": "image_url", "image_url": {"url": "https://example.com/photo.jpg", "detail": "low"}},
+            {"type": "image_url", "image_url": {"url": "https://www.gstatic.com/webp/gallery3/1.png", "detail": "low"}},
         ],
     }],
 )

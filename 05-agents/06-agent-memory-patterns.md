@@ -102,4 +102,4 @@ def build_messages(user_input: str) -> list[dict]:
 
 - [Letta (formerly MemGPT)](https://github.com/letta-ai/letta) — verified 2026-10-20
 - [Mem0](https://github.com/mem0ai/mem0) — verified 2026-10-20
-- [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/concepts/persistence/) — verified 2026-10-20
+- [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) — verified 2026-10-20

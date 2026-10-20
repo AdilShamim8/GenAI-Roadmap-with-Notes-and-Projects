@@ -1,6 +1,6 @@
 # Self-Host vs API Breakeven Math
 
-> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [vLLM](https://docs.vllm.ai/), [Lambda Labs pricing](https://lambdalabs.com/service/gpu-cloud)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [vLLM](https://docs.vllm.ai/), [Lambda pricing](https://lambda.ai/pricing)
 
 ## Why this matters
 

@@ -37,7 +37,7 @@
 | LangChain 1.0, LangGraph 1.0, and langchain-core 1.0 released October 2025 (`create_agent`, middleware, standard content blocks) | https://blog.langchain.com/langchain-langgraph-1dot0/ | 2026-10-20 |
 | OpenAI Agents SDK (Python), current stable line | https://github.com/openai/openai-agents-python | 2026-10-20 |
 | Anthropic Claude Agent SDK (Python) | https://github.com/anthropics/claude-agent-sdk-python | 2026-10-20 |
-| Model Context Protocol spec revision 2026-07-28 (revisions: 2024-11-05 → 2025-03-26 → 2025-06-18 → 2025-11-25 → 2026-07-28); HTTP+SSE transport removed in favor of Streamable HTTP; OAuth 2.1 authorization; MCP Registry | https://modelcontextprotocol.io/docs/2026-07-28/basic/ | 2026-10-20 |
+| Model Context Protocol spec revision 2026-07-28 (revisions: 2024-11-05 → 2025-03-26 → 2025-06-18 → 2025-11-25 → 2026-07-28); HTTP+SSE transport removed in favor of Streamable HTTP; OAuth 2.1 authorization; MCP Registry | https://modelcontextprotocol.io/specification/2026-07-28/basic/ | 2026-10-20 |
 | Microsoft retired AutoGen (Oct 1, 2025) in favor of Microsoft Agent Framework (`pip install agent-framework`) | https://learn.microsoft.com/en-us/agent-framework/ | 2026-10-20 |
 | A2A (Agent2Agent) protocol under Linux Foundation governance | https://a2a-protocol.org/ | 2026-10-20 |
 | Pydantic AI 1.x stable | https://ai.pydantic.dev/ | 2026-10-20 |

@@ -28,9 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # Advisory for now: several linked domains (platform.openai.com,
-      # openai.com, oreilly.com, levels.fyi, builtin.com, reddit.com)
-      # block or rate-limit automated clients, which produces false
-      # negatives. Tighten once the exclude list is proven stable.
+      # openai.com, ai.meta.com, llama.meta.com, oreilly.com, levels.fyi,
+      # builtin.com, reddit.com) block or rate-limit automated clients, which
+      # produces false negatives. Tighten once the exclude list is proven stable.
       - name: Run lychee
         uses: lycheeverse/lychee-action@v2
         with:
@@ -40,6 +40,9 @@ jobs:
             --timeout 20
             --exclude 'platform\.openai\.com'
             --exclude 'openai\.com'
+            --exclude 'ai\.meta\.com'
+            --exclude 'llama\.meta\.com'
+            --exclude 'devday\.openai\.com'
             --exclude 'oreilly\.com'
             --exclude 'packtpub\.com'
             --exclude 'levels\.fyi'
