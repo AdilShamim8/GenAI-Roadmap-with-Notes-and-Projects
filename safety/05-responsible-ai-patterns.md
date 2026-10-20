@@ -1,6 +1,6 @@
 # Responsible AI Patterns
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [EU AI Act](https://artificialintelligenceact.eu/), [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 
 ## Why this matters
 
@@ -61,7 +61,7 @@ def audit_log(user_id: str, session_id: str, model: str, prompt_id: str,
         "tool_calls": tool_calls,
         "output": output_text,
         # Don't log full input_text — PII. Log hash instead.
-        "input_hash": hash(input_text),
+        "input_hash": hashlib.sha256(input_text.encode()).hexdigest(),  # Python hash() is salted per process - not forensic
     }
     logger.info(json.dumps(record))
 ```
@@ -98,6 +98,6 @@ def response_endpoint(response_id: str, response_text: str):
 
 ## References
 
-- [EU AI Act](https://artificialintelligenceact.eu/) — verified 2026-07-30
-- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — verified 2026-07-30
-- [Anthropic: Responsible AI](https://www.anthropic.com/news) — verified 2026-07-30
+- [EU AI Act](https://artificialintelligenceact.eu/) — verified 2026-10-20
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — verified 2026-10-20
+- [Anthropic: Responsible AI](https://www.anthropic.com/news) — verified 2026-10-20

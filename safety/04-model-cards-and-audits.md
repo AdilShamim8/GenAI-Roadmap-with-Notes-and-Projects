@@ -1,6 +1,6 @@
 # Model Cards & Audits
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Model Cards for Model Reporting](https://arxiv.org/abs/1810.03993), [EU AI Act timeline](https://artificialintelligenceact.eu/implementation-timeline/)
 
 ## Why this matters
 
@@ -60,6 +60,10 @@ Maintain a `model_audit.md` per project:
 - EU AI Act: classify our use as "limited risk"; documentation in /docs/eu-ai-act.md.
 ```
 
+### EU AI Act timeline (verified 2026-10-20)
+
+The Act entered into force 2024-08-01. Prohibited-practice bans applied 2025-02-02; GPAI-model obligations (transparency, copyright, training-data summaries) since 2025-08-02; high-risk system obligations phase in from 2026-08-02. If you integrate third-party foundation models, you inherit documentation duties under Article 50 and the GPAI chain-of-interest rules. Source: artificialintelligenceact.eu timeline.
+
 ## Production concerns
 
 - **Latency:** None.
@@ -75,6 +79,6 @@ Maintain a `model_audit.md` per project:
 
 ## References
 
-- [Model Cards for Model Reporting (paper)](https://arxiv.org/abs/1810.03993) — verified 2026-07-30
-- [OpenAI GPT-5 system card](https://openai.com/index/gpt-5/) — verified 2026-07-30
-- [Anthropic Claude model cards](https://www.anthropic.com/news) — verified 2026-07-30
+- [Model Cards for Model Reporting (paper)](https://arxiv.org/abs/1810.03993) — verified 2026-10-20
+- [OpenAI GPT-5 system card](https://openai.com/index/gpt-5/) — verified 2026-10-20
+- [Anthropic Claude model cards](https://www.anthropic.com/news) — verified 2026-10-20
