@@ -70,7 +70,7 @@ def maybe_summarize(history: list[dict], threshold: int = 20) -> list[dict]:
 | Long-running coding/file agent | Provider-native compaction (Anthropic memory tool / Claude-style) |
 | Conversation drift on turn count | Rolling summary (this file's pattern) |
 | Huge tool outputs (API dumps) | Tool-output compaction right after the call |
-| Cross-session personalization | Hierarchical memory + a memory layer (see `../agents/06-agent-memory-patterns.md`) |
+| Cross-session personalization | Hierarchical memory + a memory layer (see `../05-agents/06-agent-memory-patterns.md`) |
 
 ## References
 

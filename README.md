@@ -31,18 +31,20 @@ This is **not** a link dump. This is **not** a single 600-line README. This is *
 
 | Rung | Topic | Folder | Est. time |
 |------|-------|--------|-----------|
-| 0 | Foundations | [`foundations/`](./foundations) | 1 week |
-| 1 | Applied LLM Calling | [`llm-calling/`](./llm-calling) | 1 week |
-| 2 | Context Engineering | [`context-engineering/`](./context-engineering) | 2 weeks |
-| 3 | Modern RAG | [`rag/`](./rag) | 3 weeks |
-| 4 | Tools & MCP | [`tools-and-mcp/`](./tools-and-mcp) | 2 weeks |
-| 5 | Single-Agent Engineering | [`agents/`](./agents) | 2 weeks |
-| 6 | Multi-Agent Orchestration | [`multi-agent/`](./multi-agent) | 3 weeks |
-| 7 | Evals & Test-Driven LLM Dev | [`evals/`](./evals) | 2 weeks |
-| 8 | Production & Economics | [`production/`](./production) | 2 weeks |
-| 9 | Fine-tuning & Self-Hosting | [`fine-tuning-and-self-hosting/`](./fine-tuning-and-self-hosting) | 2 weeks |
-| 10 | Safety, Alignment & Red-Teaming | [`safety/`](./safety) | 1 week |
-| 11 | Real-Time & Voice | [`realtime-voice/`](./realtime-voice) | 1 week |
+| 0 | Foundations | [`00-foundations/`](./00-foundations) | 1 week |
+| 1 | Applied LLM Calling | [`01-llm-calling/`](./01-llm-calling) | 1 week |
+| 2 | Context Engineering | [`02-context-engineering/`](./02-context-engineering) | 2 weeks |
+| 3 | Modern RAG | [`03-rag/`](./03-rag) | 3 weeks |
+| 4 | Tools & MCP | [`04-tools-and-mcp/`](./04-tools-and-mcp) | 2 weeks |
+| 5 | Single-Agent Engineering | [`05-agents/`](./05-agents) | 2 weeks |
+| 6 | Multi-Agent Orchestration | [`06-multi-agent/`](./06-multi-agent) | 3 weeks |
+| 7 | Evals & Test-Driven LLM Dev | [`07-evals/`](./07-evals) | 2 weeks |
+| 8 | Production & Economics | [`08-production/`](./08-production) | 2 weeks |
+| 9 | Fine-tuning & Self-Hosting | [`09-fine-tuning-and-self-hosting/`](./09-fine-tuning-and-self-hosting) | 2 weeks |
+| 10 | Safety, Alignment & Red-Teaming | [`10-safety/`](./10-safety) | 1 week |
+| 11 | Real-Time & Voice | [`11-realtime-voice/`](./11-realtime-voice) | 1 week |
+
+Folders are numbered by rung — `00-foundations/` through `11-realtime-voice/` — so the order is always visible at a glance: work them in numerical order. Supporting material (learning paths, decision guides, projects, curated resources, career guide) lives outside the ladder in `docs/`, `projects/`, `awesome/`, and `field-guide/`.
 
 ## Pick your starting point
 
@@ -68,7 +70,7 @@ Career and industry context — separate from the technical curriculum.
 
 ## Portfolio projects
 
-15 portfolio-grade builds, each with `README.md`, `src/`, `tests/`, `evals/`, `DEPLOYMENT.md`. See [`projects/`](./projects).
+15 portfolio-grade builds, each with `README.md`, `src/`, `tests/`, `07-evals/`, `DEPLOYMENT.md`. See [`projects/`](./projects).
 
 ## Decision guides
 

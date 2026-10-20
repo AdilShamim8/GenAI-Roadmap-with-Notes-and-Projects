@@ -4,7 +4,7 @@
 
 ## Why this matters
 
-These are the multi-agent frameworks you'll see in 2026 job postings. Note the big 2025-26 shift: Microsoft retired AutoGen (Oct 2025) in favor of the unified **Microsoft Agent Framework**, and the OpenAI Agents SDK + Claude Agent SDK joined the top of the hiring list (see `../agents/`). Each has a distinct philosophy. Picking one is a 6-month commitment; understanding the trade-offs upfront saves rewrites.
+These are the multi-agent frameworks you'll see in 2026 job postings. Note the big 2025-26 shift: Microsoft retired AutoGen (Oct 2025) in favor of the unified **Microsoft Agent Framework**, and the OpenAI Agents SDK + Claude Agent SDK joined the top of the hiring list (see `../05-agents/`). Each has a distinct philosophy. Picking one is a 6-month commitment; understanding the trade-offs upfront saves rewrites.
 
 ## The comparison
 

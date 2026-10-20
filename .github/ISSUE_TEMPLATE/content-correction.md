@@ -12,7 +12,7 @@ assignees: []
 
 ## File and line
 
-<!-- e.g. llm-calling/01-openai-api.md, line 42 -->
+<!-- e.g. 01-llm-calling/01-openai-api.md, line 42 -->
 
 ## Source contradicting it
 

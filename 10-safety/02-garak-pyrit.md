@@ -47,7 +47,7 @@ print(result)
 
 ## Which scanner when
 
-**Garak** is the fast, probe-library scanner — run it in CI on every model change. **PyRIT** is the framework for custom multi-turn attack orchestrators — use it when you need to simulate a specific adversary. **promptfoo redteam** (see `../evals/03-promptfoo.md`) is the lightest option and lives in your existing eval config.
+**Garak** is the fast, probe-library scanner — run it in CI on every model change. **PyRIT** is the framework for custom multi-turn attack orchestrators — use it when you need to simulate a specific adversary. **promptfoo redteam** (see `../07-evals/03-promptfoo.md`) is the lightest option and lives in your existing eval config.
 
 ## Production concerns
 

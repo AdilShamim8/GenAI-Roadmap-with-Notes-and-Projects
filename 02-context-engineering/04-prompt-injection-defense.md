@@ -65,7 +65,7 @@ def sanitize_input(text: str) -> str:
 - ❌ **Trusting the model to "ignore instructions in retrieved docs."** It can't reliably.
 - ❌ **Allowing arbitrary tool selection.** Always constrain.
 - ❌ **Putting untrusted input in the system prompt slot.** Always user role.
-- ❌ **Deploying with no injection evals.** Run Garak/PyRIT against your agent in CI (`../safety/02-garak-pyrit.md`).
+- ❌ **Deploying with no injection evals.** Run Garak/PyRIT against your agent in CI (`../10-safety/02-garak-pyrit.md`).
 
 ## Decision framework
 
@@ -77,7 +77,7 @@ def sanitize_input(text: str) -> str:
 | Destructive tools | Human approval gate — no exceptions |
 | Whole system | Red-team harness in CI + audit logging |
 
-The deeper taxonomy of injection classes lives in `../safety/01-prompt-injection-taxonomy.md`.
+The deeper taxonomy of injection classes lives in `../10-safety/01-prompt-injection-taxonomy.md`.
 
 ## References
 

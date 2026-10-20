@@ -37,4 +37,4 @@ You are ready for Rung 0 when you can do all four of these without help, using o
 3. Explain, in one sentence each, what a 301, 401, 429, and 503 means and what your script should do about each.
 4. Deliberately break your script (wrong URL, bad key name) and describe the error before fixing it.
 
-If you pass: move on to [`foundations/`](../foundations). If any step takes more than 30 minutes, go back to the matching section above — the ladder is steep, and this is the cheapest place to build the base.
+If you pass: move on to [`00-foundations/`](../00-foundations). If any step takes more than 30 minutes, go back to the matching section above — the ladder is steep, and this is the cheapest place to build the base.

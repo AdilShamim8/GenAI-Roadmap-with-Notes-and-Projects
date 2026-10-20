@@ -41,7 +41,7 @@ The rebuilt curriculum covers OpenAI, Anthropic, Google, open-weight ecosystems,
 
 ## 3. What's now in the repo (and why)
 
-- **12-rung skill ladder** — foundations → real-time/voice. Each rung is a directory.
+- **12-rung skill ladder** — `00-foundations/` → `11-realtime-voice/`. Each rung is a numbered directory (the prefix matches the rung number).
 - **6 learning paths** branched by background (backend, frontend, data eng, data sci, ML, zero).
 - **6 decision guides** for the forks in the road (agent SDK, vector DB, RAG vs long-context, fine-tune or not, self-host vs API, open-weight selection).
 - **4 architecture diagrams** as Mermaid.

@@ -40,7 +40,7 @@ graph TD
 
 ## Default recommendation
 
-If you don't know, ask first whether you need a framework at all — a plain agent loop over your provider SDK is ~50 lines and zero magic, and senior interviewers increasingly respect that answer. When you do want one: **OpenAI Agents SDK** (Python) for greenfield single/multi-agent work in 2026 — the simplest path to production. Switch to **LangGraph** when you need durable, multi-agent state machines. Also consider Hugging Face **smolagents** and **Agno** if you want lightweight, code-first agents; per-SDK notes live in `../../agents/` and the framework comparison in `../../multi-agent/03-langgraph-vs-crewai-vs-autogen-vs-adk.md`.
+If you don't know, ask first whether you need a framework at all — a plain agent loop over your provider SDK is ~50 lines and zero magic, and senior interviewers increasingly respect that answer. When you do want one: **OpenAI Agents SDK** (Python) for greenfield single/multi-agent work in 2026 — the simplest path to production. Switch to **LangGraph** when you need durable, multi-agent state machines. Also consider Hugging Face **smolagents** and **Agno** if you want lightweight, code-first agents; per-SDK notes live in `../../05-agents/` and the framework comparison in `../../06-multi-agent/03-langgraph-vs-crewai-vs-autogen-vs-adk.md`.
 
 ## References
 

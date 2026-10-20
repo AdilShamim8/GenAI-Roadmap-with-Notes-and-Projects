@@ -15,7 +15,7 @@ Models now support 1M+ token context windows. Is RAG still necessary?
 | Dimension | Long context | RAG |
 |-----------|--------------|-----|
 | Latency | Linear with input tokens | Constant + small retrieval |
-| Cost | Linear with input tokens — but cached prefixes bill ~10x less (see `../../llm-calling/06-prompt-caching.md`) | Embedding cost (small) + retrieved-chunk tokens |
+| Cost | Linear with input tokens — but cached prefixes bill ~10x less (see `../../01-llm-calling/06-prompt-caching.md`) | Embedding cost (small) + retrieved-chunk tokens |
 | Recall | Excellent if it fits | Depends on retrieval quality |
 | Freshness | Re-send every time | Update index once |
 | Multi-doc dedup | Manual | Index handles it |

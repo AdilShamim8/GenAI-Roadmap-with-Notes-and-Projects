@@ -67,10 +67,10 @@ SYSTEM_PROMPT = '''You are a tier-1 customer-support agent for Acme Corp, a SaaS
 
 | Need | Approach |
 |------|----------|
-| Stable policy across all requests | Long system prompt + prompt caching (`../llm-calling/06-prompt-caching.md`) |
+| Stable policy across all requests | Long system prompt + prompt caching (`../01-llm-calling/06-prompt-caching.md`) |
 | Per-user or per-tenant behavior | Small shared core + dynamic block appended after the cacheable prefix |
-| Output must be machine-parseable | Structured outputs (`../llm-calling/04-structured-outputs.md`), not format prose |
-| Behavior changes between model versions | Version prompts and regression-test them (`../evals/01-golden-datasets.md`) |
+| Output must be machine-parseable | Structured outputs (`../01-llm-calling/04-structured-outputs.md`), not format prose |
+| Behavior changes between model versions | Version prompts and regression-test them (`../07-evals/01-golden-datasets.md`) |
 
 ## References
 

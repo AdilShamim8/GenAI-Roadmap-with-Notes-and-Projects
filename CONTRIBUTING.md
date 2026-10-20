@@ -12,7 +12,7 @@ Thank you for considering a contribution. This repo enforces a strict quality ba
 
 ## Topic file template
 
-Every file under `foundations/`, `llm-calling/`, `context-engineering/`, `rag/`, `tools-and-mcp/`, `agents/`, `multi-agent/`, `evals/`, `production/`, `fine-tuning-and-self-hosting/`, `safety/`, `realtime-voice/`, and `field-guide/` must follow this template:
+Every file under `00-foundations/`, `01-llm-calling/`, `02-context-engineering/`, `03-rag/`, `04-tools-and-mcp/`, `05-agents/`, `06-multi-agent/`, `07-evals/`, `08-production/`, `09-fine-tuning-and-self-hosting/`, `10-safety/`, `11-realtime-voice/`, and `field-guide/` must follow this template:
 
 ```markdown
 # [Topic Name]
@@ -52,7 +52,7 @@ Every folder under `projects/` must contain:
 - `pyproject.toml` — pinned dependencies.
 - `src/` — runnable code.
 - `tests/` — at least one unit test and one integration test.
-- `evals/` — golden dataset + eval runner. The eval runner must be invokable via `make eval`.
+- `07-evals/` — golden dataset + eval runner. The eval runner must be invokable via `make eval`.
 - `DEPLOYMENT.md` — how to deploy (Docker, serverless, etc.).
 
 ## Pull request checklist

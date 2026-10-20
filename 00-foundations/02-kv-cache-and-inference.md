@@ -53,7 +53,7 @@ print(f"Without cache: {time.time()-t:.2f}s")
 - **Latency:** Decode is sequential; cache size drives memory bandwidth, which drives per-token latency. Prefill-decode disaggregation (separate pools) is the 2026 answer at scale.
 - **Cost:** KV-cache is often the binding GPU-memory constraint, not weights — it caps your batch size and therefore $/token. Anthropic/OpenAI prompt caching saves 50–90% on cache hits at the API layer.
 - **Failure modes:** Long-context requests can OOM mid-decode and silently retry. FP8/INT8 KV-cache quantization halves memory for a small quality cost; speculative decoding (vLLM, SGLang) multiplies effective decode speed.
-- **Security:** Cached prefixes are shared state — never cache user-specific data across tenants (see `llm-calling/06-prompt-caching.md`).
+- **Security:** Cached prefixes are shared state — never cache user-specific data across tenants (see `01-llm-calling/06-prompt-caching.md`).
 
 ## Anti-patterns
 

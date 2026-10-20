@@ -88,4 +88,4 @@ def maybe_eval(query: str, response: str, context: str):
 
 - [Arize Phoenix](https://github.com/Arize-ai/phoenix) — verified 2026-10-20
 - [LangSmith: Online evals](https://docs.smith.langchain.com/evaluation) — verified 2026-10-20
-- [Hamel Husain: Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20
+- [Hamel Husain: Evals](https://hamel.dev/blog/posts/07-evals/) — verified 2026-10-20

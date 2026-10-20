@@ -51,7 +51,7 @@ resp = client.models.generate_content(
 
 ## Anti-patterns
 
-- ❌ **Stuffing the whole corpus into every request** — slow, expensive, and recall degrades. Retrieve instead; see `rag/08-long-context-vs-rag.md`.
+- ❌ **Stuffing the whole corpus into every request** — slow, expensive, and recall degrades. Retrieve instead; see `03-rag/08-long-context-vs-rag.md`.
 - ❌ **Mixing AI Studio API keys with Vertex auth.** Pick one path per environment.
 - ❌ **Starting new projects on Gemini 2.5.** Access is limited to legacy users as of Sept 2026; build on the 3.x line.
 

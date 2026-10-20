@@ -55,7 +55,7 @@ def trim_history(history: list[dict], budget_tokens: int = 30000) -> list[dict]:
 
 ## Production concerns
 
-- **Latency:** Every 1K tokens adds ~30ms prefill on a frontier model — unless cached; prompt-cache hits skip most of it (see `llm-calling/06-prompt-caching.md`).
+- **Latency:** Every 1K tokens adds ~30ms prefill on a frontier model — unless cached; prompt-cache hits skip most of it (see `01-llm-calling/06-prompt-caching.md`).
 - **Cost:** Linear in input tokens for fresh content; put the stable prefix (system + tools) first so caching can work.
 - **Failure modes:** Models ignore instructions in the middle of long contexts. Put critical instructions at the start or end.
 - **Security:** Retrieved context is untrusted — it can contain prompt injections (see `04-prompt-injection-defense.md`).
@@ -73,7 +73,7 @@ def trim_history(history: list[dict], budget_tokens: int = 30000) -> list[dict]:
 | Cost spikes on long sessions | Cache the stable prefix; compact history past the budget |
 | Model misses early instructions | Re-state critical rules at the end; shrink working set |
 | Recall drops mid-conversation | Distill old turns (`03-context-distillation.md`) instead of truncating |
-| Window genuinely too small | Retrieve instead of stuffing (`../rag/08-long-context-vs-rag.md`) |
+| Window genuinely too small | Retrieve instead of stuffing (`../03-rag/08-long-context-vs-rag.md`) |
 
 ## References
 

@@ -36,7 +36,7 @@ Where `ops_overhead` is real: ~0.25 FTE for a single GPU cluster in production.
 
 ### The middle option most teams miss
 
-Before raw self-hosting, price **managed open-weight inference** (Together, Fireworks, Groq, Bedrock/Vertex custom endpoints): open-weight economics, zero ops, no 0.25-FTE tax. Most workloads land here; raw self-hosting wins only at large steady-state volume or hard compliance constraints. The math behind these bands lives in `../../fine-tuning-and-self-hosting/05-breakeven-math.md`.
+Before raw self-hosting, price **managed open-weight inference** (Together, Fireworks, Groq, Bedrock/Vertex custom endpoints): open-weight economics, zero ops, no 0.25-FTE tax. Most workloads land here; raw self-hosting wins only at large steady-state volume or hard compliance constraints. The math behind these bands lives in `../../09-fine-tuning-and-self-hosting/05-breakeven-math.md`.
 
 ## References
 

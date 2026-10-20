@@ -29,7 +29,7 @@ An agent without memory repeats itself, forgets decisions, and can't learn from 
 - **Mem0** — extract/update memory operations over your existing vector/graph store; the lightest integration path.
 - **Letta (formerly MemGPT)** — full agent OS with core/archival memory blocks and sleep-time compute.
 - **Zep / Graphiti** — temporal knowledge graphs: facts with validity intervals, good for "what was true when."
-- **Provider-native** — Anthropic's memory tool (see `../context-engineering/03-context-distillation.md`) covers the simple end.
+- **Provider-native** — Anthropic's memory tool (see `../02-context-engineering/03-context-distillation.md`) covers the simple end.
 
 ### The retrieval problem
 
@@ -96,7 +96,7 @@ def build_messages(user_input: str) -> list[dict]:
 | Conversational memory at scale | Mem0 over your existing store |
 | Long-running autonomous agents | Letta (core/archival blocks, sleep-time compute) |
 | Time-aware facts ("what was true when") | Zep/Graphiti temporal graph |
-| Measuring any of this | Memory recall evals — golden Q&A over past sessions (`../evals/01-golden-datasets.md`) |
+| Measuring any of this | Memory recall evals — golden Q&A over past sessions (`../07-evals/01-golden-datasets.md`) |
 
 ## References
 

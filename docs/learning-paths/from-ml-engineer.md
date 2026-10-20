@@ -26,7 +26,7 @@
 | 6–7 | Rung 6 — Multi-Agent Orchestration | |
 | 7–8 | Rung 7 — Evals | |
 | 8–9 | Rung 8 — Production | |
-| 8–9 | Rung 9 — Fine-tuning & Self-Hosting | Fast pass: you already train models; focus on serving economics ([`05-breakeven-math.md`](../../fine-tuning-and-self-hosting/05-breakeven-math.md)) and quantization. |
+| 8–9 | Rung 9 — Fine-tuning & Self-Hosting | Fast pass: you already train models; focus on serving economics ([`05-breakeven-math.md`](../../09-fine-tuning-and-self-hosting/05-breakeven-math.md)) and quantization. |
 | 9–10 | Projects 5, 10, 13 | |
 
 ## Projects to prioritize

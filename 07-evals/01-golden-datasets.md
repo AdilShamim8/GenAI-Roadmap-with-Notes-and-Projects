@@ -39,7 +39,7 @@ Each row contains:
 ## Code: a minimal golden dataset
 
 ```yaml
-# evals/golden.yaml
+# 07-evals/golden.yaml
 - id: refund_simple
   input: "I want a refund for order 123"
   expected:
@@ -59,7 +59,7 @@ Each row contains:
 ```
 
 ```python
-# evals/runner.py
+# 07-evals/runner.py
 import yaml
 
 def run_evals(agent, golden_path: str):
@@ -79,7 +79,7 @@ def run_evals(agent, golden_path: str):
 
 ### Format convention
 
-This file uses YAML for readability; the repo's projects standardize on **JSONL** (`evals/golden.jsonl`, one case per line) so runners can stream cases. Same fields, different serialization. For execution at scale, load either into promptfoo or DeepEval rather than hand-rolling runners (see `03-promptfoo.md`, `04-deepeval-ragas.md`).
+This file uses YAML for readability; the repo's projects standardize on **JSONL** (`07-evals/golden.jsonl`, one case per line) so runners can stream cases. Same fields, different serialization. For execution at scale, load either into promptfoo or DeepEval rather than hand-rolling runners (see `03-promptfoo.md`, `04-deepeval-ragas.md`).
 
 ## Production concerns
 
@@ -96,5 +96,5 @@ This file uses YAML for readability; the repo's projects standardize on **JSONL*
 
 ## References
 
-- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20
+- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/07-evals/) — verified 2026-10-20
 - [Anthropic: Evals guide](https://docs.anthropic.com/en/docs/build-with-claude/evals) — verified 2026-10-20

@@ -77,7 +77,7 @@ async for chunk in await client.chat.completions.create(
 
 - ❌ **Buffering the entire response before sending.** Defeats the point.
 - ❌ **Ignoring client disconnects.** Costs money and ties up provider rate limits.
-- ❌ **Using WebSockets when SSE suffices.** SSE is simpler and has better proxy support. (Exception: bidirectional audio — see `realtime-voice/`.)
+- ❌ **Using WebSockets when SSE suffices.** SSE is simpler and has better proxy support. (Exception: bidirectional audio — see `11-realtime-voice/`.)
 - ❌ **Assuming `data: [DONE]` terminates every provider's stream.** It's OpenAI-specific; Anthropic closes with `message_stop`.
 
 ## Decision framework
@@ -87,7 +87,7 @@ async for chunk in await client.chat.completions.create(
 | Browser/HTTP text streaming | SSE (this pattern) |
 | Python backend, many concurrent streams | `AsyncOpenAI` + `async for` |
 | Streaming JSON to a UI | Partial-JSON parsing with a terminal-object strategy |
-| Bidirectional audio/video | WebSockets or WebRTC (Realtime API — see `realtime-voice/01-openai-realtime-api.md`) |
+| Bidirectional audio/video | WebSockets or WebRTC (Realtime API — see `11-realtime-voice/01-openai-realtime-api.md`) |
 
 ## References
 

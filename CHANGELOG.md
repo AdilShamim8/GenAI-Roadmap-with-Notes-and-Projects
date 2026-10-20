@@ -3,17 +3,23 @@
 All notable changes to this repository are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed — folder structure
+
+- Topic folders renamed to carry their ladder-rung number: `foundations/` → `00-foundations/`, `llm-calling/` → `01-llm-calling/`, `context-engineering/` → `02-context-engineering/`, `rag/` → `03-rag/`, `tools-and-mcp/` → `04-tools-and-mcp/`, `agents/` → `05-agents/`, `multi-agent/` → `06-multi-agent/`, `evals/` → `07-evals/`, `production/` → `08-production/`, `fine-tuning-and-self-hosting/` → `09-fine-tuning-and-self-hosting/`, `safety/` → `10-safety/`, `realtime-voice/` → `11-realtime-voice/`. The prefix makes the intended study order visible at a glance. All internal references updated (`git mv` preserves file history); project-internal `evals/` harness folders untouched.
+
 ## [v1.1] — 2026-10-20
 
 Full audit-driven refresh. Every factual claim re-verified against primary sources (see `LAST_VERIFIED.md`); 45 commits, each pushed individually.
 
 ### Fixed — fabricated or broken code (P0)
 
-- `agents/02`: both code blocks used a nonexistent Claude Agent SDK API (`Agent()`, `.run()`, `.final_message`); rewritten against the real `query()` / `ClaudeSDKClient` / `create_sdk_mcp_server` surface.
-- `realtime-voice/01`: the `conversation.item.interruption` event does not exist; replaced with the real barge-in pair (`speech_started` + `response.cancel`).
-- `fine-tuning-and-self-hosting/05`: breakeven example added per-1M input and output prices together (dimensionally invalid) against wrong GPT-5 pricing; recomputed with a correct blended example and the honest open-weight baseline.
+- `05-agents/02`: both code blocks used a nonexistent Claude Agent SDK API (`Agent()`, `.run()`, `.final_message`); rewritten against the real `query()` / `ClaudeSDKClient` / `create_sdk_mcp_server` surface.
+- `11-realtime-voice/01`: the `conversation.item.interruption` event does not exist; replaced with the real barge-in pair (`speech_started` + `response.cancel`).
+- `09-fine-tuning-and-self-hosting/05`: breakeven example added per-1M input and output prices together (dimensionally invalid) against wrong GPT-5 pricing; recomputed with a correct blended example and the honest open-weight baseline.
 - `projects/*` (15 skeletons): `make install` failed for all 15 (`promptfoo>=0.100` is not on PyPI); `make run` and the Docker CMD failed (no `__main__`). Both fixed and verified end-to-end on Project 01.
-- Code-level bugs: `handdoff` typo (agents/01), undefined `JudgeOutput`/`EvalScore` schemas (evals), `MemorySaver` missing import (agents/03), FAISS dimension mismatch (agents/06), `min_items` removed in Pydantic v2 (agents/04), pymupdf xref crash (rag/07), critic double-registration in LangGraph (multi-agent/04), Gemini Live auth/field-casing (realtime-voice/02), `hash()` for forensics (safety/05).
+- Code-level bugs: `handdoff` typo (05-agents/01), undefined `JudgeOutput`/`EvalScore` schemas (evals), `MemorySaver` missing import (05-agents/03), FAISS dimension mismatch (05-agents/06), `min_items` removed in Pydantic v2 (05-agents/04), pymupdf xref crash (03-rag/07), critic double-registration in LangGraph (06-multi-agent/04), Gemini Live auth/field-casing (11-realtime-voice/02), `hash()` for forensics (10-safety/05).
 
 ### Fixed — false claims about the repo itself
 

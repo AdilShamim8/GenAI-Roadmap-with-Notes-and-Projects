@@ -80,7 +80,7 @@ npx promptfoo view  # opens web UI with results
   run: npx promptfoo eval --fail-under 0.85   # fail CI below 85% pass rate
 ```
 
-promptfoo also ships a **red-teaming module** (`npx promptfoo redteam`) that generates injection/jailbreak/datamarking attacks against your target — the lightest way to wire agent-security checks into CI (see `../safety/02-garak-pyrit.md` for deeper scanners).
+promptfoo also ships a **red-teaming module** (`npx promptfoo redteam`) that generates injection/jailbreak/datamarking attacks against your target — the lightest way to wire agent-security checks into CI (see `../10-safety/02-garak-pyrit.md` for deeper scanners).
 
 ## Production concerns
 
