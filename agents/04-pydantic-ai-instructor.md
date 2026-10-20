@@ -1,6 +1,6 @@
 # Pydantic AI & Instructor
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Instructor](https://github.com/567-labs/instructor), [Pydantic AI](https://ai.pydantic.dev/)
 
 ## Why this matters
 
@@ -17,10 +17,11 @@ Instructor wraps any OpenAI-compatible client and adds:
 
 ### Pydantic AI
 
-Pydantic AI is a thin agent framework built around:
+Pydantic AI is a thin agent framework (1.x stable since late 2025) built around:
 - Type-safe inputs and outputs.
 - Dependency injection (pass DB connections, etc.).
 - Multi-provider support.
+- Evals hooks and Logfire observability integration.
 
 Use Instructor when you just want structured outputs. Use Pydantic AI when you want a lightweight agent with tools.
 
@@ -33,13 +34,13 @@ from openai import OpenAI
 
 class Recipe(BaseModel):
     name: str
-    ingredients: list[str] = Field(min_items=1)
-    steps: list[str] = Field(min_items=1)
+    ingredients: list[str] = Field(min_length=1)
+    steps: list[str] = Field(min_length=1)
 
-client = instructor.from_openai(OpenAI())
+client = instructor.create(OpenAI())
 
 recipe = client.chat.completions.create(
-    model="gpt-5",
+    model="gpt-6.1-sol",
     response_model=Recipe,
     messages=[{"role": "user", "content": "Give me a recipe for carbonara."}],
 )
@@ -56,7 +57,7 @@ class Output(BaseModel):
     summary: str
     sentiment: str  # "positive" | "neutral" | "negative"
 
-agent = Agent("openai:gpt-5", output_type=Output, system_prompt="You analyze reviews.")
+agent = Agent("openai:gpt-6.1-sol", output_type=Output, system_prompt="You analyze reviews.")
 
 @agent.tool
 def lookup_order(ctx: RunContext[None], order_id: str) -> dict:
@@ -78,9 +79,18 @@ print(result.output.summary, result.output.sentiment)
 
 - ❌ **Using Instructor when the provider supports native structured outputs.** Use native.
 - ❌ **Huge nested schemas.** Split into multiple calls.
-- ❌ **Skipping Field constraints.** Always set `ge`, `le`, `min_items`, etc.
+- ❌ **Skipping Field constraints.** Always set `ge`, `le`, `min_length`, etc.
+
+## Decision framework
+
+| Need | Use |
+|------|-----|
+| Structured output only, any provider | Instructor (with native structured-output mode where available) |
+| Lightweight agent with tools + typed outputs | Pydantic AI |
+| Full agent loop, handoffs, guardrails, tracing | OpenAI Agents SDK (`01-openai-agents-sdk.md`) |
+| Deeper comparison | `../docs/decision-guides/choosing-an-agent-sdk.md` |
 
 ## References
 
-- [Instructor](https://github.com/jxnl/instructor) — verified 2026-07-30
-- [Pydantic AI](https://ai.pydantic.dev/) — verified 2026-07-30
+- [Instructor](https://github.com/567-labs/instructor) — verified 2026-10-20
+- [Pydantic AI](https://ai.pydantic.dev/) — verified 2026-10-20
