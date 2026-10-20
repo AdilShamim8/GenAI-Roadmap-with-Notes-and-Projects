@@ -1,6 +1,6 @@
 # Code Execution Sandboxes
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [E2B](https://e2b.dev/), [Modal](https://modal.com/)
 
 ## Why this matters
 
@@ -47,9 +47,10 @@ sbx.close()
 from openai import OpenAI
 client = OpenAI()
 
-assistant = client.beta.assistants.create(
-    model="gpt-5",
-    tools=[{"type": "code_interpreter"}],
+resp = client.responses.create(
+    model="gpt-6.1-sol",
+    tools=[{"type": "code_interpreter", "container": {"type": "auto"}}],
+    input="Analyze sales.csv and return the top 5 products by revenue.",
 )
 # Run a thread; the assistant can call code interpreter autonomously.
 ```
@@ -69,6 +70,6 @@ assistant = client.beta.assistants.create(
 
 ## References
 
-- [E2B](https://e2b.dev/) — verified 2026-07-30
-- [Modal](https://modal.com/) — verified 2026-07-30
-- [OpenAI Code Interpreter](https://platform.openai.com/docs/assistants/tools/code-interpreter) — verified 2026-07-30
+- [E2B](https://e2b.dev/) — verified 2026-10-20
+- [Modal](https://modal.com/) — verified 2026-10-20
+- [OpenAI Code Interpreter](https://platform.openai.com/docs/assistants/tools/code-interpreter) — verified 2026-10-20

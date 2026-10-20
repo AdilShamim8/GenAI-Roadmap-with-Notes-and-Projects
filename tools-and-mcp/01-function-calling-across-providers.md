@@ -27,6 +27,8 @@ All providers implement the same idea:
 
 ### The reliability problem
 
+On OpenAI, prefer the **Responses API** for new builds — tools are first-class there; `chat.completions` tool calling still works and remains the cross-provider convention.
+
 Even in 2026, models:
 - Hallucinate tool names that don't exist.
 - Emit JSON that doesn't match the schema.
@@ -59,7 +61,7 @@ tools = [{
 }]
 
 resp = client.chat.completions.create(
-    model="gpt-5",
+    model="gpt-6.1-sol",
     messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
     tools=tools,
 )
@@ -88,7 +90,7 @@ tools = [{
 }]
 
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
@@ -114,6 +116,6 @@ for block in resp.content:
 
 ## References
 
-- [OpenAI function calling](https://platform.openai.com/docs/guides/function-calling) — verified 2026-07-30
-- [Anthropic tool use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — verified 2026-07-30
-- [Gemini function calling](https://ai.google.dev/gemini-api/docs/function-calling) — verified 2026-07-30
+- [OpenAI function calling (Responses API)](https://developers.openai.com/api/docs/guides/function-calling) — verified 2026-10-20
+- [Anthropic tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) — verified 2026-10-20
+- [Gemini function calling](https://ai.google.dev/gemini-api/docs/function-calling) — verified 2026-10-20

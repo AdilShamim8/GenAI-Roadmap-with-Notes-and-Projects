@@ -1,6 +1,6 @@
 # Computer Use & Browser Automation
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Anthropic computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool), [Browser-Use](https://github.com/browser-use/browser-use)
 
 ## Why this matters
 
@@ -39,7 +39,7 @@ from langchain_openai import ChatOpenAI
 
 agent = Agent(
     task="Go to amazon.com, search for 'wireless mouse', sort by price low-to-high, return the top 3 product names and prices.",
-    llm=ChatOpenAI(model="gpt-5"),
+    llm=ChatOpenAI(model="gpt-6.1-sol"),
 )
 result = await agent.run()
 print(result.final_output)
@@ -52,14 +52,18 @@ import anthropic
 client = anthropic.Anthropic()
 
 resp = client.beta.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=4096,
-    tools=[{"type": "computer_20250124", "name": "computer", "display_width_px": 1280, "display_height_px": 800, "display_number": 0}],
+    tools=[{"type": "computer_20250919", "name": "computer", "display_width_px": 1280, "display_height_px": 800, "display_number": 0}],
     messages=[{"role": "user", "content": "Open Firefox and navigate to example.com."}],
-    betas=["computer-use-2025-01-24"],
+    betas=["computer-use-2025-09-19"],
 )
 # Then implement: screenshot, send to model, execute returned action (click, type, key), repeat.
 ```
+
+### The 2026 practical split
+
+For web-only workflows, **Playwright MCP** (drive a real browser through the MCP protocol) and DOM-level agents (Browser-Use, Stagehand) are cheaper and more reliable than pixel-level computer use — reach for pixel-level only when there is no DOM (desktop apps, RDP, games).
 
 ## Production concerns
 
@@ -76,6 +80,6 @@ resp = client.beta.messages.create(
 
 ## References
 
-- [Anthropic computer use](https://docs.anthropic.com/en/docs/build-with-claude/computer-use) — verified 2026-07-30
-- [Browser-Use](https://github.com/browser-use/browser-use) — verified 2026-07-30
-- [Stagehand](https://github.com/browserbase/stagehand) — verified 2026-07-30
+- [Anthropic computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) — verified 2026-10-20
+- [Browser-Use](https://github.com/browser-use/browser-use) — verified 2026-10-20
+- [Stagehand](https://github.com/browserbase/stagehand) — verified 2026-10-20
