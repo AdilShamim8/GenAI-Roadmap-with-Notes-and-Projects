@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: markdownlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run markdownlint-cli2
+        run: npx --yes markdownlint-cli2@latest "**/*.md" "#node_modules"
+
+  link-check:
+    name: link-check (lychee)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Advisory for now: several linked domains (platform.openai.com,
+      # openai.com, oreilly.com, levels.fyi, builtin.com, reddit.com)
+      # block or rate-limit automated clients, which produces false
+      # negatives. Tighten once the exclude list is proven stable.
+      - name: Run lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-retries 2
+            --timeout 20
+            --exclude 'platform\.openai\.com'
+            --exclude 'openai\.com'
+            --exclude 'oreilly\.com'
+            --exclude 'packtpub\.com'
+            --exclude 'levels\.fyi'
+            --exclude 'builtin\.com'
+            --exclude 'linkedin\.com'
+            --exclude 'reddit\.com'
+            --exclude 'img\.shields\.io'
+            './**/*.md'
+          fail: true
+        continue-on-error: true

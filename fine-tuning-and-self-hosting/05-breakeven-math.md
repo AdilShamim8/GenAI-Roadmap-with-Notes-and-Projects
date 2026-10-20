@@ -8,7 +8,7 @@
 
 ## The formula
 
-```
+```text
 monthly_self_host = gpu_hourly_cost × 730 × num_gpus + ops_overhead
 monthly_api = monthly_tokens_input × input_price + monthly_tokens_output × output_price
 
@@ -24,7 +24,7 @@ self_host wins when: monthly_api > monthly_self_host
 
 ### Breakeven for GPT-5
 
-```
+```text
 $2,190 + $5,000 = $7,190/month self-host (1× H100 on-demand)
 $7,190 / ($5/1M input + $15/1M output) → ~360M input tokens or ~120M output tokens
 ```

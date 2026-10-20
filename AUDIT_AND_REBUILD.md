@@ -24,15 +24,19 @@ The v1.0-alpha rebuild:
 ## 2. Critical issues that were fixed
 
 ### P0-1. Fabricated facts (resolved)
+
 All fabricated model names, version numbers, and events removed. Every factual claim now lives in `LAST_VERIFIED.md` with a source URL and verification date. A monthly GitHub Action opens an issue to re-verify.
 
 ### P0-2. Repo name / badge mismatch (resolved)
+
 All badges now point to the correct repo name.
 
 ### P0-3. Aspirational folder tree (resolved)
+
 Every folder described in the README now contains real `.md` files following the per-topic template.
 
 ### P0-4. LangChain-tunnel-vision (resolved)
+
 The rebuilt curriculum covers OpenAI, Anthropic, Google, open-weight ecosystems, plus 10+ agent frameworks (OpenAI Agents SDK, Claude Agent SDK, LangGraph, CrewAI, AutoGen, Google ADK, Pydantic AI, Instructor, LlamaIndex, Mastra, Vercel AI SDK).
 
 ## 3. What's now in the repo (and why)

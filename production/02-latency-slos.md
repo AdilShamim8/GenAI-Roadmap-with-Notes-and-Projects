@@ -25,7 +25,7 @@ p99 is often 5–10× p50 for LLM calls. A single slow call can block a request.
 
 A typical agent call:
 
-```
+```text
 User input          0ms
 Auth + validation   20ms
 Retrieval (RAG)     200ms

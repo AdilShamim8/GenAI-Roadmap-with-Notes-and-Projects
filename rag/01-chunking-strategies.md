@@ -13,7 +13,7 @@ Chunking is the highest-leverage RAG decision. Bad chunking = bad retrieval = ba
 | Strategy | How | Best for |
 |----------|-----|----------|
 | **Fixed-size** | Every N chars with overlap | Quick prototype, uniform docs |
-| **Recursive character** | Split on `\n\n`, then `\n`, then `. ` (LangChain default) | Heterogeneous text |
+| **Recursive character** | Split on `\n\n`, then `\n`, then `.` (LangChain default) | Heterogeneous text |
 | **Document-aware** | Split on Markdown headings, HTML tags, code blocks | Structured docs |
 | **Semantic** | Embed sentences, cluster by similarity | Long-form narrative |
 | **Late chunking** | Embed full doc, then chunk the embeddings | Preserves cross-chunk context |

@@ -53,7 +53,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 07-eval-driven-prompt-refinement/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies

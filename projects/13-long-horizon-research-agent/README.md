@@ -55,7 +55,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 13-long-horizon-research-agent/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies

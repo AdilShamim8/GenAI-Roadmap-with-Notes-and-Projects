@@ -59,10 +59,9 @@ Every folder under `projects/` must contain:
 
 - [ ] Every factual claim is in `LAST_VERIFIED.md` with a source.
 - [ ] The file follows the topic or project template.
-- [ ] Code snippets are runnable (CI runs notebooks via `nbmake`).
-- [ ] `markdownlint-cli2` passes.
-- [ ] `vale` prose linting passes.
-- [ ] No broken links (CI runs `lychee`).
+- [ ] Code snippets are runnable, copy-pastable, and ≤30 lines.
+- [ ] `markdownlint-cli2` passes (config in `.markdownlint-cli2.jsonc`).
+- [ ] No broken links (CI runs `lychee`; known bot-blocking domains are excluded).
 - [ ] If adding a new topic, the README table of rungs is updated.
 
 ## How to add a new topic

@@ -15,7 +15,8 @@ Instead of every token passing through every parameter, a **router** sends each 
 ### The math
 
 For a layer with N experts, top-k routing:
-```
+
+```python
 gate_scores = softmax(W_gate @ token)  # shape (N,)
 top_k_experts = topk(gate_scores, k=2)
 output = sum(gate_scores[i] * expert_i(token) for i in top_k_experts)

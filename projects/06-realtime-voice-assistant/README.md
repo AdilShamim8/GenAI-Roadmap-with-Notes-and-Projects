@@ -54,7 +54,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 06-realtime-voice-assistant/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies

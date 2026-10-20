@@ -53,7 +53,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 03-mcp-server-for-postgres/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies

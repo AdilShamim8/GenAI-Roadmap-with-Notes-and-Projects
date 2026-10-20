@@ -22,38 +22,46 @@ Most production GenAI incidents fall into ~8 categories. Knowing the taxonomy le
 ## Per-mode mitigations
 
 ### Hallucination
+
 - RAG with citations.
 - Faithfulness eval in pipeline.
 - "I don't know" allowed in system prompt.
 
 ### Context overflow
+
 - Pre-count tokens; trim history.
 - Summarize old turns.
 
 ### Tool-call loop
+
 - Cap iterations (5–10).
 - Detect repeated tool calls with same args.
 
 ### Prompt injection
+
 - Input filters (deterministic).
 - Constitutional pattern (second model checks).
 - Privilege separation.
 
 ### Rate limit / overload
+
 - Exponential backoff with jitter.
 - Multi-vendor fallback chain.
 
 ### Latency spike
+
 - Timeouts per call.
 - Stream to mask latency.
 - Cache common queries.
 
 ### Cost runaway
+
 - Per-request budget.
 - Per-user daily cap.
 - Alert on >2× baseline.
 
 ### Drift
+
 - Online evals (sample 1–5%).
 - Weekly comparison vs baseline.
 - Periodic prompt refresh.

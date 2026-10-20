@@ -6,7 +6,7 @@
 
 Self-hosting makes sense when:
 
-```
+```text
 monthly_api_cost > monthly_self_host_cost + ops_overhead
 ```
 

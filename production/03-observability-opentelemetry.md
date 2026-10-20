@@ -21,7 +21,7 @@ LangSmith is great but locks you in. OpenTelemetry (OTel) is the vendor-neutral 
 
 A production trace typically looks like:
 
-```
+```text
 agent.run (1.2s, $0.03)
 ├── retriever.search (180ms)
 │   ├── embed.query (40ms)

@@ -56,7 +56,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 02-hybrid-rag-over-notion/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies

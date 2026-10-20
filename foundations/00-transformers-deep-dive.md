@@ -26,7 +26,7 @@ Three operations dominate:
 
 ### Attention in one line
 
-```
+```text
 attention(Q, K, V) = softmax(Q·Kᵀ / sqrt(d_k)) · V
 ```
 

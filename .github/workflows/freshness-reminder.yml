@@ -1,0 +1,48 @@
+name: Freshness reminder
+
+# Monthly reminder to re-verify every factual claim in LAST_VERIFIED.md,
+# as documented in CONTRIBUTING.md and LAST_VERIFIED.md.
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  open-reverify-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "Re-verify claims (monthly audit)";
+            const body = [
+              "This issue is opened automatically once a month.",
+              "",
+              "Walk through [`LAST_VERIFIED.md`](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/LAST_VERIFIED.md):",
+              "",
+              "1. Click every source URL in every table.",
+              "2. Update the `Last verified` date for each claim that still holds.",
+              "3. Open a follow-up PR within 7 days for any claim whose source is dead or contradicted.",
+              "4. Update the `LAST_VERIFIED` badge in `README.md` to the most recent verification date.",
+              "",
+              "Do not close this issue until the full pass is complete."
+            ].join("\n");
+            const existing = await github.rest.issues.listForRepo({
+              ...context.repo,
+              state: "open",
+              labels: "freshness",
+            });
+            if (existing.data.some((issue) => issue.title === title)) {
+              console.log("An open freshness issue already exists; skipping.");
+              return;
+            }
+            await github.rest.issues.create({
+              ...context.repo,
+              title,
+              body,
+              labels: ["freshness", "documentation"],
+            });

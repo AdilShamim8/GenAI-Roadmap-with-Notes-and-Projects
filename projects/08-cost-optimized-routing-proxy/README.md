@@ -54,7 +54,7 @@ The `make eval` command runs the full eval suite and prints a report. Evals must
 
 ## Project structure
 
-```
+```text
 08-cost-optimized-routing-proxy/
 ├── README.md              # this file
 ├── pyproject.toml         # dependencies
