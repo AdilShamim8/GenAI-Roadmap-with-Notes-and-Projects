@@ -1,6 +1,6 @@
 # Papers
 
-> Verified 2026-07-30.
+> Verified 2026-10-20.
 
 ## Foundational
 
@@ -9,6 +9,13 @@
 - [Training Language Models to Follow Instructions (InstructGPT)](https://arxiv.org/abs/2203.02155) — The RLHF paper that became ChatGPT.
 - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) — The original RAG paper.
 - [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) — DPO; alignment without a reward model.
+- [DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](https://arxiv.org/abs/2501.12948) — The paper that made RL-trained reasoning models an open commodity; also the pure-RL training recipe.
+- [Kimi K2: Open Agentic Intelligence](https://arxiv.org/abs/2507.20534) — A 1T-parameter open-weight MoE built for tool use and agentic workflows.
+
+## Reasoning & test-time compute
+
+- [Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Model Parameters](https://arxiv.org/abs/2408.03314) — The case for spending compute at inference time; the shift behind o-series and thinking models.
+- [s1: Simple Test-time Scaling](https://arxiv.org/abs/2501.19393) — Budget forcing: 1K samples, 16x compute, near-frontier math reasoning.
 
 ## Evals
 
@@ -25,6 +32,9 @@
 
 - [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) — The original agent loop paper.
 - [Reflexion](https://arxiv.org/abs/2303.11366) — Self-reflection for agents.
+- [Building Effective Agents (Anthropic)](https://www.anthropic.com/research/building-effective-agents) — Not a paper, but the field's most-cited engineering essay on workflows vs agents and when not to build one.
+- [Model Context Protocol specification](https://modelcontextprotocol.io/) — The vendor-neutral tool-interop standard; read alongside the spec changelog.
+- [A2A (Agent2Agent) Protocol](https://a2a-protocol.org/) — Linux Foundation-governed agent-to-agent interop protocol; the complement to MCP for cross-vendor agents.
 
 ## Safety
 
