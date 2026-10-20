@@ -8,6 +8,14 @@ Prompt caching is the single highest-leverage cost optimization in 2026. Cache a
 
 ## Core concepts
 
+### What a prompt cache actually is
+
+It's the provider's KV-cache for your prefix, kept warm between requests (the same machinery as PagedAttention/prefix caching in `00-foundations/02-kv-cache-and-inference.md`, exposed and priced). A hit skips re-running prefill on those tokens — which is why it cuts both price (~10x) and TTFT (30-60%): you're not just paying less, the provider isn't recomputing.
+
+### The one rule: match is prefix-exact at the token level
+
+Caches match the token sequence from position 0 — not semantics, not fuzzy similarity. One changed token at the front invalidates everything after it; a 5,000-token identical suffix doesn't help. That single rule generates all the discipline: static content first, dynamic last; no timestamps/request-IDs/date-headers in the prefix; identical tool-definition serialization (key order included — a re-serialized dict is a new prefix); stable tokenization (a whitespace difference is a token difference).
+
 ### Two flavors
 
 | Provider | Behavior | Cache hit discount |
@@ -61,10 +69,12 @@ print(f"cached {cached} of {resp.usage.prompt_tokens} input tokens")
 
 ## Production concerns
 
-- **Latency:** Cache hits cut TTFT by 30–60%.
+- **Latency:** Cache hits cut TTFT by 30-60%.
 - **Cost:** Track `cached_tokens` (OpenAI) and `cache_read_input_tokens` (Anthropic) separately in your cost dashboard.
-- **Failure modes:** Default TTLs are ~5 minutes (Anthropic default; 1h optional; OpenAI is minutes-scale). Low-traffic prompts may never hit — use the 1-hour TTL or explicit cache keys for slow traffic.
-- **Security:** Don't cache prompts containing user-specific PII — cache hit = data leak across users.
+- **Failure modes:** Default TTLs are ~5 minutes (Anthropic default; 1h optional; OpenAI is minutes-scale). Low-traffic prompts may never hit — use the 1-hour TTL or explicit cache keys for slow traffic. Anthropic's write premium means a *churning* prompt costs MORE than no caching (1.25-2x writes, no reads) — if you can't keep a prefix stable, don't mark it cacheable.
+- **Multi-turn placement:** the conversation itself is the growing stable prefix — on Anthropic, put a breakpoint at the tool definitions and another at the latest assistant turn so each exchange extends a cached prefix rather than starting fresh. On OpenAI, just keep message order append-only and never edit history in place.
+- **Eviction is opaque.** Providers don't document exact eviction policy (capacity, LRU-ish, per-org). Treat hit rate as an observable to monitor and alert on, never a guarantee to depend on for correctness.
+- **Security:** Don't cache prompts containing user-specific PII — cache hit = data leak across users. Partition `prompt_cache_key` by tenant where the same static prompt serves multiple customers.
 
 ## Anti-patterns
 
