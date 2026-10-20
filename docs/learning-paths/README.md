@@ -29,9 +29,9 @@ All estimates assume ~10 hours/week of focused study. Halve them if you can go f
 
 | Path | Time to first project | Time to job-ready portfolio |
 |------|----------------------|------------------------------|
-| From backend engineer | 4 weeks | 12 weeks |
-| From frontend engineer | 6 weeks | 16 weeks |
-| From data engineer | 5 weeks | 14 weeks |
-| From data scientist | 5 weeks | 14 weeks |
-| From ML engineer | 3 weeks | 10 weeks |
-| From zero | 8 weeks | 24 weeks |
+| [From backend engineer](./from-backend-engineer.md) | 4 weeks | 12 weeks |
+| [From frontend engineer](./from-frontend-engineer.md) | 6 weeks | 16 weeks |
+| [From data engineer](./from-data-engineer.md) | 5 weeks | 14 weeks |
+| [From data scientist](./from-data-scientist.md) | 5 weeks | 14 weeks |
+| [From ML engineer](./from-ml-engineer.md) | 3 weeks | 10 weeks |
+| [From zero](./from-zero.md) | 8 weeks | 24 weeks |

@@ -32,6 +32,8 @@ If any of these are shaky, spend 2–4 weeks on [`docs/prereqs.md`](../prereqs.m
 | 21–22 | Projects 1, 2, 5 | Build three projects. Don't skip. |
 | 23–24 | Field guide + portfolio polish | |
 
+Rungs 9–11 (fine-tuning, safety, realtime) are deliberately out of the 24-week critical path — but read `safety/01` and `safety/05` before you ship anything with untrusted input, and skim `fine-tuning-and-self-hosting/01` so you can articulate when *not* to fine-tune (an interview favorite).
+
 ## Projects to prioritize
 
 1. **Project 1: Structured-output extractor** — quick win, builds confidence.
