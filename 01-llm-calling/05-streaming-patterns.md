@@ -17,6 +17,11 @@ Users abandon an LLM UI that takes 5 seconds to show a token. Streaming cuts per
 
 Most providers stream over SSE: each event is `data: {...}\n\n`. But the terminator is **not** standardized: OpenAI ends with `data: [DONE]`; Anthropic instead emits typed `event:` lines ending in `message_stop`. Never assume one vendor's SSE grammar works against another's.
 
+Two wire realities that bite in production:
+
+- **Proxies buffer unless told not to.** nginx and friends buffer `text/event-stream` by default, silently re-introducing the latency you streamed to remove. Set `X-Accel-Buffering: no` (nginx), disable compression for event-stream responses (gzip re-buffers), and emit a heartbeat/comment line every ~15s on long gaps (thinking models) so intermediaries don't close the connection as idle.
+- **SSE has reconnection built in — LLM streams can't use it.** The spec's `Last-Event-ID`/`retry` resume works for event logs, but a generation is not resumable mid-decode: if the client drops at token 500, you cancel upstream and regenerate (prompt caching makes the retry cheap, not free). Design reconnect at the *request* level with idempotency keys, not at the event level.
+
 ## Code: SSE in FastAPI (async, with disconnect handling)
 
 ```python
@@ -66,10 +71,14 @@ async for chunk in await client.chat.completions.create(
         pass  # wait for more tokens
 ```
 
+## Streaming tool calls (the fiddly part)
+
+Tool-call arguments arrive as **string fragments spread across multiple chunks, keyed by tool-call index** — you must accumulate per index and only `json.loads` when the finish event for that call lands. Event-stream APIs make this explicit (`tool_use_start` → `tool_input_delta` → `tool_use_stop`); Chat Completions deltas make it implicit in `delta.tool_calls[i].function.arguments`. Streaming agents that parse arguments per-chunk instead of per-call crash on exactly the long tool calls that matter.
+
 ## Production concerns
 
-- **Latency:** Aim for <500ms time-to-first-token. Anything above feels broken.
-- **Cost:** Streaming doesn't save tokens; it saves perceived latency. Capture final usage with `stream_options={"include_usage": True}` (OpenAI) or the `message_delta` usage event (Anthropic).
+- **Latency:** Two numbers, two causes — TTFT is dominated by queueing + prefill + (for thinking models) reasoning-before-first-visible-token; inter-token latency is decode-bound. A slow TTFT with healthy ITL means your prompt is long or your effort is high; a healthy TTFT with laggy ITL means decode contention. Diagnose which before tuning.
+- **Cost:** Streaming doesn't save tokens; it saves perceived latency. Capture final usage with `stream_options={"include_usage": True}` (OpenAI) or the `message_delta` usage event (Anthropic). Cancellation is metered: you pay for tokens generated up to the cancel — early `stream.close()` on disconnect is real money at scale.
 - **Failure modes:** Client disconnects mid-stream — your server must detect and cancel the upstream request or you'll pay for orphaned generations. Guard `chunk.choices` (usage-only final chunks have an empty list).
 - **Security:** Don't stream PII to logs.
 
