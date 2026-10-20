@@ -1,6 +1,6 @@
 # Chunking Strategies
 
-> **Level:** BEG → INT · **Last verified:** 2026-07-30
+> **Level:** BEG · **Last verified:** 2026-10-20
 
 ## Why this matters
 
@@ -26,7 +26,7 @@ Chunking is the highest-leverage RAG decision. Bad chunking = bad retrieval = ba
 
 ### Contextual chunking (Anthropic, 2024)
 
-Add a 1-sentence context prefix to each chunk before embedding. E.g., "This chunk is from the 'Pricing' section of the Acme API docs." Improves retrieval recall 30–50% in benchmarks.
+Add a 1-sentence context prefix to each chunk before embedding. E.g., "This chunk is from the 'Pricing' section of the Acme API docs." Anthropic reports 49% fewer retrieval failures than raw chunks alone, 67% when combined with BM25 hybrid search.
 
 ## Code: recursive character splitter
 
@@ -51,7 +51,7 @@ def add_context(chunks: list[str], doc_title: str) -> list[str]:
     contextualized = []
     for i, chunk in enumerate(chunks):
         ctx = client.chat.completions.create(
-            model="gpt-5-mini",
+            model="gpt-6-luna",
             messages=[
                 {"role": "system", "content": f"You are indexing a document titled '{doc_title}'. For the chunk below, output a 1-sentence context prefix describing where it sits in the document. Output ONLY the prefix."},
                 {"role": "user", "content": chunk},
@@ -76,6 +76,6 @@ def add_context(chunks: list[str], doc_title: str) -> list[str]:
 
 ## References
 
-- [Anthropic: Contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-07-30
-- [LangChain text splitters](https://python.langchain.com/docs/how_to/#text-splitters) — verified 2026-07-30
-- [Late chunking — Jina AI](https://jina.ai/news/late-chunking-in-long-context-embedding-models/) — verified 2026-07-30
+- [Anthropic: Contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-10-20
+- [LangChain text splitters](https://python.langchain.com/docs/how_to/#text-splitters) — verified 2026-10-20
+- [Late chunking — Jina AI](https://jina.ai/news/late-chunking-in-long-context-embedding-models/) — verified 2026-10-20

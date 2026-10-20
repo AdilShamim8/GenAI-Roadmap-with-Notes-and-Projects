@@ -1,6 +1,6 @@
 # Agentic RAG
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [CRAG](https://arxiv.org/abs/2401.15884), [Anthropic tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)
 
 ## Why this matters
 
@@ -52,7 +52,7 @@ agent = Agent(
     - Maximum 3 searches per question.
     - Always cite the source doc name in your answer.''',
     tools=[search_docs],
-    model="gpt-5",
+    model="gpt-6.1-sol",
 )
 
 result = Runner.run_sync(agent, "How does Acme's rate limiter compare to Globex's?")
@@ -74,6 +74,6 @@ print(result.final_output)
 
 ## References
 
-- [Anthropic: Agentic tools](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — verified 2026-07-30
-- [OpenAI Agents SDK](https://github.com/openai/openai-agents-python) — verified 2026-07-30
-- [Corrective RAG (CRAG) paper](https://arxiv.org/abs/2401.15884) — verified 2026-07-30
+- [Anthropic: Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) — verified 2026-10-20
+- [OpenAI Agents SDK](https://github.com/openai/openai-agents-python) — verified 2026-10-20
+- [Corrective RAG (CRAG) paper](https://arxiv.org/abs/2401.15884) — verified 2026-10-20

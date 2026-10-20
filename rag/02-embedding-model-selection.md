@@ -12,13 +12,16 @@ Your embedding model is the lens through which retrieval sees your corpus. A wea
 
 | Model | Dim | Open-weight? | Strengths | Notes |
 |-------|-----|--------------|-----------|-------|
-| OpenAI `text-embedding-3-large` | 3072 | No | Strong baseline, multi-modal-ish | API only |
-| Cohere `embed-v4` | 1536 | No | Multilingual, multi-modal | API only |
-| Voyage AI `voyage-3-large` | 1024 | No | Top of MTEB for English | API only |
+| OpenAI `text-embedding-3-large` / `-small` | 3072 / 1536 | No | Strong baseline; Matryoshka truncation supported | API only |
+| Cohere `embed-v4` | 1536 | No | Multilingual, multimodal (image+text) | API only |
+| Voyage AI `voyage-3-large` | 2048 | No | Top-tier retrieval quality | API only; supports int8/binary |
+| Qwen3-Embedding series | up to 4096 | Yes | Top of the open MTEB boards (2025-26) | Self-host |
 | BGE-M3 | 1024 | Yes | Multi-lingual, multi-function (dense+sparse+colbert) | Self-host |
-| gte-Qwen2 | 1536 | Yes | Strong open-weight | Self-host |
+| gte-Qwen2.5 / NV-Embed | 1536+ | Yes | Strong open-weight alternatives | Self-host |
 | Nomic Embed v1.5 | 768 | Yes | Open data, reproducible | Self-host |
-| Jina v3 | 1024 | Yes | Long-context (8K) | Self-host |
+| Jina v3/v4 | 1024 | Yes | Long-context | Self-host |
+
+Google also serves embeddings through the Gemini API (`text-embedding-004`-class models) — check current pricing before committing; and remember MTEB leaderboard positions churn monthly: pick from the top cluster, not the single #1.
 
 ### Selection criteria
 
@@ -73,6 +76,6 @@ embeddings = model.encode(
 
 ## References
 
-- [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) — verified 2026-07-30
-- [OpenAI embeddings guide](https://platform.openai.com/docs/guides/embeddings) — verified 2026-07-30
-- [BGE-M3](https://huggingface.co/BAAI/bge-m3) — verified 2026-07-30
+- [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) — verified 2026-10-20
+- [OpenAI embeddings guide](https://platform.openai.com/docs/guides/embeddings) — verified 2026-10-20
+- [BGE-M3](https://huggingface.co/BAAI/bge-m3) — verified 2026-10-20

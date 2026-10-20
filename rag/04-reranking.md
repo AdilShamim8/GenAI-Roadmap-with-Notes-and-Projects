@@ -1,6 +1,6 @@
 # Re-Ranking for Precision
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Cohere Rerank](https://docs.cohere.com/docs/reranking), [BGE reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3)
 
 ## Why this matters
 
@@ -22,10 +22,10 @@ Bi-encoders (your embedding model) encode query and doc separately; similarity i
 | Model | Type | Open-weight? | Latency (per pair) |
 |-------|------|--------------|---------------------|
 | Cohere Rerank v3.5 | API | No | ~50ms |
-| Voyage rerank-2 | API | No | ~50ms |
+| Voyage rerank-2.5 | API | No | ~50ms |
 | BGE-reranker-v2-m3 | Open | Yes | ~20ms on GPU |
-| Jina reranker v2 | Open | Yes | ~25ms on GPU |
-| LLM-as-reranker (GPT-5 mini) | API | No | ~200ms per pair (use batch) |
+| Jina reranker v2 / Qwen3-Reranker | Open | Yes | ~20-25ms on GPU |
+| LLM-as-reranker (GPT-6 Luna / Haiku 5.5) | API | No | ~200ms per pair (use batch) |
 
 ## Code: BGE reranker (self-hosted)
 
@@ -68,6 +68,6 @@ top_docs = [candidate_docs[r.index] for r in results.results]
 
 ## References
 
-- [Cohere rerank](https://docs.cohere.com/docs/reranking) — verified 2026-07-30
-- [BGE reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3) — verified 2026-07-30
-- [Voyage rerank](https://docs.voyageai.com/docs/reranking) — verified 2026-07-30
+- [Cohere rerank](https://docs.cohere.com/docs/reranking) — verified 2026-10-20
+- [BGE reranker](https://huggingface.co/BAAI/bge-reranker-v2-m3) — verified 2026-10-20
+- [Voyage rerank](https://docs.voyageai.com/docs/reranking) — verified 2026-10-20

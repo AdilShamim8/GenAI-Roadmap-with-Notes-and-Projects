@@ -1,6 +1,6 @@
 # Hybrid Search
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [RRF (Cormack et al., SIGIR 2009)](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf), [pgvector](https://github.com/pgvector/pgvector)
 
 ## Why this matters
 
@@ -78,6 +78,6 @@ def hybrid_search(conn, query_text, query_embedding, k=20):
 
 ## References
 
-- [Reciprocal Rank Fusion paper](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf) — verified 2026-07-30
-- [pgvector hybrid search](https://github.com/pgvector/pgvector#hybrid-search) — verified 2026-07-30
-- [Cohere: Hybrid search explainer](https://cohere.com/blog/introducing-hybrid-search) — verified 2026-07-30
+- [Reciprocal Rank Fusion paper](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf) — verified 2026-10-20
+- [pgvector hybrid search](https://github.com/pgvector/pgvector#hybrid-search) — verified 2026-10-20
+- [Weaviate: Hybrid search explained](https://weaviate.io/blog/hybrid-search-explained) — verified 2026-10-20
