@@ -1,6 +1,6 @@
 # Quantization
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [llama.cpp](https://github.com/ggml-org/llama.cpp), [vLLM quantization docs](https://docs.vllm.ai/)
 
 ## Why this matters
 
@@ -14,7 +14,8 @@ A 70B model in fp16 needs 140GB VRAM — out of reach for most GPUs. Quantized t
 |--------|------|--------------|-----|
 | fp16 | 16 | None | Baseline |
 | bf16 | 16 | None | Training; preferred over fp16 |
-| fp8 | 8 | ~1% | Modern inference (H100) |
+| fp8 | 8 | ~1% | Modern inference (H100/Blackwell) |
+| MXFP4 / NVFP4 | 4 | ~1-2% | Blackwell-native 4-bit; gpt-oss ships MXFP4 |
 | INT8 | 8 | ~1–2% | Older GPUs |
 | GPTQ | 4 | ~2–3% | Inference |
 | AWQ | 4 | ~1–2% | Inference; better than GPTQ |
@@ -23,7 +24,7 @@ A 70B model in fp16 needs 140GB VRAM — out of reach for most GPUs. Quantized t
 
 ### The tradeoff
 
-Lower bits = less VRAM = more throughput = lower quality. The sweet spot for production inference in 2026 is **4-bit AWQ or FP8**.
+Lower bits = less VRAM = more throughput = lower quality. The sweet spot for production inference in 2026 is **4-bit (AWQ, or MXFP4/NVFP4 on Blackwell) or FP8**.
 
 ### Calibration
 
@@ -33,7 +34,7 @@ Quantization isn't free: you need a small calibration dataset to choose quantiza
 
 ```bash
 # AWQ quantized model from HuggingFace
-vllm serve TheBloke/Llama-2-13B-AWQ \
+vllm serve Qwen/Qwen3-8B-AWQ  # modern quantized checkpoints ship from the model org \
     --quantization awq \
     --dtype float16
 ```
@@ -44,7 +45,7 @@ vllm serve TheBloke/Llama-2-13B-AWQ \
 from awq import AutoAWQForCausalLM
 from transformers import AutoTokenizer
 
-model_path = "meta-llama/Llama-3.1-8B"
+model_path = "meta-llama/Llama-3.1-8B"  # or a current open-weight base
 quant_path = "Llama-3.1-8B-awq"
 
 model = AutoAWQForCausalLM.from_pretrained(model_path)
@@ -72,6 +73,7 @@ model.save_quantized(quant_path)
 
 ## References
 
-- [AutoAWQ](https://github.com/casper-hansen/AutoAWQ) — verified 2026-07-30
-- [AutoGPTQ](https://github.com/AutoGPTQ/AutoGPTQ) — verified 2026-07-30
-- [llama.cpp GGUF](https://github.com/ggerganov/llama.cpp) — verified 2026-07-30
+- [AutoAWQ](https://github.com/casper-hansen/AutoAWQ) — verified 2026-10-20
+- [AutoAWQ](https://github.com/casper-hansen/AutoAWQ) — verified 2026-10-20
+- [llm-compressor (vLLM ecosystem)](https://github.com/vllm-project/llm-compressor) — verified 2026-10-20 — the maintained quantization path; AutoGPTQ is archived and TheBloke checkpoints are frozen ~2024
+- [llama.cpp GGUF](https://github.com/ggerganov/llama.cpp) — verified 2026-10-20

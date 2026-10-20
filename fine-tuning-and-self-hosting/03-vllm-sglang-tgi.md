@@ -1,10 +1,10 @@
 # vLLM, SGLang, TGI
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [vLLM](https://docs.vllm.ai/), [SGLang](https://github.com/sgl-project/sglang)
 
 ## Why this matters
 
-If you're self-hosting, the serving framework determines your throughput, latency, and cost. The three serious options in 2026 are vLLM, SGLang, and TGI. Pick wrong and you'll pay 2–5× more for the same throughput.
+If you're self-hosting, the serving framework determines your throughput, latency, and cost. The serious open-source options in 2026 are vLLM (v0.30.x) and SGLang, plus NVIDIA's TensorRT-LLM for maximum-throughput NVIDIA deployments. Hugging Face TGI was archived in 2025 — existing guides referencing it are stale. Pick wrong and you'll pay 2–5x more for the same throughput.
 
 ## The comparison
 
@@ -13,7 +13,7 @@ If you're self-hosting, the serving framework determines your throughput, latenc
 | **Throughput** | Industry-leading | Comparable; better for similar-prefix workloads | Good |
 | **KV-cache** | PagedAttention | PagedAttention + RadixAttention (prefix sharing) | Paged attention |
 | **Multi-LoRA** | Yes | Yes | Yes |
-| **Structured output** | Via outlines | Native (very fast) | Limited |
+| **Structured output** | xgrammar (default since late 2024) + outlines/JSON schemas | Native (very fast) | N/A |
 | **Multimodal** | Yes | Yes | Yes |
 | **Maturity** | Very high | High | Very high |
 | **Best for** | General high-throughput | Code completion, chatbots with shared prefixes | Enterprise HuggingFace stack |
@@ -23,11 +23,11 @@ If you're self-hosting, the serving framework determines your throughput, latenc
 ```bash
 # Start a server
 pip install vllm
-vllm serve meta-llama/Llama-3.1-8B-Instruct \
+vllm serve meta-llama/Llama-3.1-8B-Instruct  # or any 2026 open-weight model \
     --port 8000 \
     --tensor-parallel-size 1 \
     --max-model-len 8192 \
-    --enable-prefix-caching
+    # prefix caching is ON by default in the V1 engine
 ```
 
 ```python
@@ -51,7 +51,7 @@ import sglang as sgl
 def classify(s, text):
     s += "Classify the sentiment of this review as 'positive', 'neutral', or 'negative':\n"
     s += text + "\n"
-    s += "Sentiment:" + sgl.gen("sentiment", regex=r"(positive|neutral|negative)")
+    s += "Sentiment:" + sgl.gen("sentiment", regex=r"(positive|neutral|negative)")  # legacy DSL; prefer the OpenAI-compatible server + /v1/chat/completions with regex/json_schema
 
 state = classify.run(text="This product is amazing!")
 print(state["sentiment"])
