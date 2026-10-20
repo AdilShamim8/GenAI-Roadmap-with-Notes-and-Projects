@@ -4,7 +4,7 @@ install:
 	pip install -e ".[dev]"
 
 run:
-	python -m src
+	python -m src.main
 
 test:
 	pytest tests/ -v

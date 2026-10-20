@@ -36,5 +36,5 @@ In `.github/workflows/evals.yml`:
 - name: Run evals
   run: make eval
 - name: Fail on regression
-  run: python evals/check_threshold.py --min-pass-rate 0.85
+  run: python evals/eval_runner.py  (already exits non-zero below the 0.85 threshold)
 ```
