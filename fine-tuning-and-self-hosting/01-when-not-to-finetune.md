@@ -1,6 +1,6 @@
 # When NOT to Fine-Tune
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Chip Huyen: AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/), [LoRA paper](https://arxiv.org/abs/2106.09685)
 
 ## Why this matters
 
@@ -36,7 +36,9 @@ The default answer to "should I fine-tune?" is no. Most teams that fine-tune sho
 
 ## The 2026 reality
 
-Frontier models (GPT-5, Claude Opus 4.1, Gemini 3 Pro) are so strong that 95% of "I should fine-tune" use cases are better served by:
+One nuance that changed since 2024: if you *do* fine-tune for reasoning, the interesting frontier moved from SFT/LoRA to **RL post-training** (GRPO-style RLVR — reinforcement learning with verifiable rewards). For most product teams the decision matrix below still lands on "don't fine-tune" — but "improve reasoning on a small model" is now an RL problem, not a DPO problem.
+
+Frontier models (GPT-6 family, Claude 5.5, Gemini 3.x) are so strong that 95% of "I should fine-tune" use cases are better served by:
 1. Better prompting.
 2. RAG.
 3. Structured outputs.
@@ -59,5 +61,5 @@ If you've done all four and the model still fails your evals, then consider fine
 
 ## References
 
-- [Chip Huyen: AI Engineering](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-07-30
-- [It's Hype Till It Isn't](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-07-30
+- [Chip Huyen: AI Engineering (book)](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) — verified 2026-10-20
+- [Fine-tune or not — decision guide in this repo](../docs/decision-guides/fine-tune-or-not.md) — verified 2026-10-20

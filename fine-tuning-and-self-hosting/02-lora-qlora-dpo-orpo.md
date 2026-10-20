@@ -1,6 +1,6 @@
 # LoRA, QLoRA, DPO, ORPO
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [LoRA](https://arxiv.org/abs/2106.09685), [QLoRA](https://arxiv.org/abs/2305.14314), [TRL](https://github.com/huggingface/trl)
 
 ## Why this matters
 
@@ -23,7 +23,7 @@ Instead of updating all weights of the base model, LoRA adds small "adapter" mat
 
 ### QLoRA
 
-LoRA on a 4-bit quantized base. Lets you fine-tune a 70B model on a single 24GB consumer GPU. The catch: slight quality loss vs full-precision LoRA.
+LoRA on a 4-bit quantized base. Lets you fine-tune a 7-14B model comfortably on a single 24GB GPU (70B needs ~48GB in practice). The catch: slight quality loss vs full-precision LoRA.
 
 ### DPO / ORPO
 
@@ -47,7 +47,9 @@ bnb_config = BitsAndBytesConfig(
 model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B", quantization_config=bnb_config)
 tok = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B")
 
-peft_config = LoraConfig(r=16, lora_alpha=32, target_modules=["q_proj", "v_proj"], task_type="CAUSAL_LM")
+peft_config = LoraConfig(r=16, lora_alpha=32,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],  # + MLP modules for quality
+    task_type="CAUSAL_LM")
 
 dataset = load_dataset("your/dataset", split="train")
 
@@ -77,6 +79,10 @@ trainer = DPOTrainer(
 trainer.train()
 ```
 
+### TRL API note
+
+TRL's trainer signatures move (e.g. `tokenizer=` → `processing_class=`, argument relocations across 2025 releases). Treat the snippet above as the shape, pin your `trl`/`peft`/`transformers` versions, and copy from the TRL examples directory for your pinned release. For reasoning-style post-training, look at TRL's GRPO trainer rather than DPO.
+
 ## Production concerns
 
 - **Latency:** LoRA adapters add <5% inference overhead.
@@ -92,7 +98,7 @@ trainer.train()
 
 ## References
 
-- [PEFT (LoRA) paper](https://arxiv.org/abs/2106.09685) — verified 2026-07-30
-- [QLoRA paper](https://arxiv.org/abs/2305.14314) — verified 2026-07-30
-- [DPO paper](https://arxiv.org/abs/2305.18290) — verified 2026-07-30
-- [TRL library](https://github.com/huggingface/trl) — verified 2026-07-30
+- [PEFT (LoRA) paper](https://arxiv.org/abs/2106.09685) — verified 2026-10-20
+- [QLoRA paper](https://arxiv.org/abs/2305.14314) — verified 2026-10-20
+- [DPO paper](https://arxiv.org/abs/2305.18290) — verified 2026-10-20
+- [TRL library](https://github.com/huggingface/trl) — verified 2026-10-20
