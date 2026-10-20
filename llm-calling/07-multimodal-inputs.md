@@ -1,6 +1,6 @@
 # Multimodal Inputs
 
-> **Level:** INT · **Last verified:** 2026-07-30 · **Sources:** [OpenAI vision](https://platform.openai.com/docs/guides/vision), [Anthropic vision](https://docs.anthropic.com/en/docs/build-with-claude/vision)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenAI vision](https://developers.openai.com/api/docs/guides/vision), [Anthropic vision](https://platform.claude.com/docs/en/build-with-claude/vision)
 
 ## Why this matters
 
@@ -14,9 +14,12 @@ Most production GenAI systems in 2026 are multimodal: PDFs, screenshots, photos,
 2. **Base64 inline** — embed in the request. Bigger payload, no fetch dependency.
 3. **File upload** — provider-hosted file reference. Best for repeated use.
 
-### Resolution economics
+### Resolution economics (per-provider formulas — they differ)
 
-OpenAI and Anthropic both tile large images into 512×512 patches. A 4K screenshot can cost ~1500 tokens before any text is generated. Resize aggressively before sending.
+- **OpenAI:** `detail: "low"` = fixed ~85 tokens regardless of size. High detail: the image is resized to fit within 2048px, scaled so the short side is ≤768px, then tiled into 512×512 patches (~170 tokens each) plus a base ~85 tokens. A 4K screenshot at high detail ≈ 1,100–1,600 tokens.
+- **Anthropic:** tokens ≈ (width × height) / 750. Images longer than 1568px on the long edge are downscaled first, so pre-resizing to ≤1568px saves payload without changing billed tokens.
+
+A 4K screenshot can cost ~1,500 tokens before any text is generated. Resize deliberately — but to each provider's own thresholds, not a generic rule.
 
 ### PDF handling
 
@@ -31,7 +34,7 @@ from openai import OpenAI
 client = OpenAI()
 
 resp = client.chat.completions.create(
-    model="gpt-5",
+    model="gpt-6.1-sol",
     messages=[{
         "role": "user",
         "content": [
