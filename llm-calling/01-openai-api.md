@@ -1,64 +1,91 @@
 # OpenAI API
 
-> **Level:** BEG · **Last verified:** 2026-07-30 · **Sources:** [OpenAI Platform Docs](https://platform.openai.com/docs/overview)
+> **Level:** BEG · **Last verified:** 2026-10-20 · **Sources:** [OpenAI API Docs](https://developers.openai.com/api/docs/)
 
 ## Why this matters
 
-OpenAI's API is the default starting point for GenAI work. Even if you end up on Anthropic or self-hosted, the OpenAI client shape (messages, roles, tool calls) is the de facto industry interface.
+OpenAI's API is the default starting point for GenAI work. Even if you end up on Anthropic or self-hosted, the OpenAI client shape (messages, roles, tool calls) is the de facto industry interface. Two things changed since the GPT-4 era that you must internalize: the **Responses API** is now the primary interface, and the **GPT-6 family** (Astra / Sol / Luna tiers) replaced both GPT-4/5 flagships and the separate o-series reasoning models.
 
 ## Core concepts
 
-- **Messages** — list of `{role, content}` dicts. Roles: `system`, `user`, `assistant`, `tool`.
-- **Responses API** — newer endpoint that supports tools, computer use, and structured outputs more cleanly than Chat Completions.
-- **Reasoning models** — o-series (o1, o3, o4-mini) think before answering; you cannot customize their system prompt the same way.
-- **Prompt caching** — automatic for prompts >1024 tokens with a shared prefix.
+- **Messages** — list of `{role, content}` dicts. Roles: `system`/`developer`, `user`, `assistant`, `tool`.
+- **Responses API** — the primary endpoint: stateful conversations (`previous_response_id`), tools, computer use, structured outputs, and reasoning controls in one place. Chat Completions still works and remains the cross-provider compatibility layer.
+- **Reasoning effort** — GPT-6/5.x thinking models expose `reasoning.effort` (low → max); thinking tokens are billed as output. Reasoning is no longer a separate o-series — it is a dial on the same model line.
+- **Prompt caching** — automatic for prompts above the model's cache threshold with a shared prefix; cached input is ~10x cheaper (e.g. GPT-6.1 Sol: $2 input vs $0.10 cached).
+- **Batch API** — same models, async within 24h, 50% off both input and output.
 
-## Code: minimal chat
+## Code: minimal chat (Chat Completions, works everywhere)
 
 ```python
 from openai import OpenAI
 client = OpenAI()
 
 resp = client.chat.completions.create(
-    model="gpt-5",  # or "gpt-5-mini", "o3"
+    model="gpt-6.1-sol",  # Sol = balanced tier; luna = cheap; astra = flagship
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Summarize the KV-cache in one sentence."},
     ],
-    temperature=0.2,
 )
 print(resp.choices[0].message.content)
 print(f"Tokens: in={resp.usage.prompt_tokens} out={resp.usage.completion_tokens}")
 ```
 
+## Code: the Responses API (preferred for new builds)
+
+```python
+resp = client.responses.create(
+    model="gpt-6.1-sol",
+    instructions="You are a helpful assistant.",
+    input="Summarize the KV-cache in one sentence.",
+    reasoning={"effort": "low"},   # spend fewer thinking tokens
+    max_output_tokens=512,
+)
+print(resp.output_text)
+# continue the conversation server-side:
+# follow = client.responses.create(model=..., previous_response_id=resp.id, input="...")
+```
+
 ## Streaming
 
 ```python
-stream = client.chat.completions.create(
-    model="gpt-5",
-    messages=[{"role": "user", "content": "Write a haiku about KV-cache."}],
+stream = client.responses.create(
+    model="gpt-6.1-sol",
+    input="Write a haiku about KV-cache.",
     stream=True,
 )
-for chunk in stream:
-    delta = chunk.choices[0].delta.content
-    if delta:
-        print(delta, end="", flush=True)
+for event in stream:
+    if event.type == "response.output_text.delta":
+        print(event.delta, end="", flush=True)
 ```
 
 ## Production concerns
 
-- **Latency:** First-token latency (TTFT) for GPT-5 is ~500ms–2s depending on prompt size. Plan your UX around streaming.
-- **Cost:** GPT-5 is priced higher than mini. Route by task complexity.
-- **Failure modes:** Rate limits (TPM, RPM), 429s, occasional 5xx. Always retry with exponential backoff.
-- **Security:** Don't put PII in prompts unless your DPA allows it. Use the OpenAI zero-retention enterprise tier for sensitive data.
+- **Latency:** TTFT is ~300ms–2s depending on prompt size and reasoning effort. Plan your UX around streaming; drop `reasoning.effort` to `low` or `none` for latency-sensitive paths.
+- **Cost:** The GPT-6 family spans $0.10/$0.50 (Luna) to $10/$50 (Astra) per 1M tokens — a 100x spread. Route by task complexity and use Batch for anything that tolerates 24h.
+- **Failure modes:** Rate limits (TPM/RPM), 429s, occasional 5xx. Always retry with exponential backoff and honor `Retry-After`.
+- **Security:** Don't put PII in prompts unless your DPA allows it. Use the zero-retention enterprise tier for sensitive data.
 
 ## Anti-patterns
 
-- ❌ **Calling `chat.completions` synchronously in a request handler** — use streaming or async.
-- ❌ **Hardcoding `model="gpt-4"`** — pin to a specific snapshot or accept silent upgrades.
+- ❌ **Calling the API synchronously in a request handler** — use streaming or `AsyncOpenAI`.
+- ❌ **Hardcoding a model with no snapshot awareness** — rolling aliases (`gpt-6.1-sol`) update silently; pin dated snapshots for reproducibility, accept aliases for cost.
 - ❌ **Ignoring `usage` in the response** — that's your cost telemetry.
+- ❌ **Defaulting to the flagship tier** — most pipeline steps (classification, extraction, routing) belong on Luna-class models.
+
+## Decision framework
+
+| Situation | Use |
+|-----------|-----|
+| Cross-provider compatibility, simplest portability | Chat Completions |
+| New OpenAI-native build: tools, state, reasoning controls | Responses API |
+| Latency-sensitive UX | Streaming + `reasoning.effort: low/none` |
+| Offline workloads (evals, backfills, enrichment) | Batch API (50% off) |
+| High-volume simple steps (classification, extraction) | `gpt-6-luna` ($0.10/$0.50) |
+| Hard reasoning, agentic tool use | `gpt-6.1-sol` or `gpt-6-astra` by budget |
 
 ## References
 
-- [OpenAI API reference](https://platform.openai.com/docs/api-reference) — verified 2026-07-30
-- [OpenAI Cookbook](https://cookbook.openai.com/) — verified 2026-07-30
+- [OpenAI API docs](https://developers.openai.com/api/docs/) — verified 2026-10-20
+- [OpenAI Cookbook](https://developers.openai.com/cookbook/) — verified 2026-10-20
+- [OpenAI pricing](https://developers.openai.com/api/docs/pricing) — verified 2026-10-20
