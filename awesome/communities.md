@@ -1,13 +1,15 @@
 # Communities
 
-> Verified 2026-07-30.
+> Verified 2026-10-20.
 
 ## Discord / Slack
 
 - [LangChain Discord](https://discord.gg/langchain) — Active. Maintainers present.
 - [OpenAI Developer Forum](https://community.openai.com/) — Official.
-- [Anthropic Discord](https://www.anthropic.com/) — Active.
+- [Anthropic Discord](https://claude.com/discord) — Official invite link; docs and SDK discussion.
 - [MLOps Community Slack](https://mlops.community/) — Cross-vendor.
+- [Hugging Face Discord](https://huggingface.co/discord) — Models, datasets, and open-source tooling help.
+- [MCP Community](https://glama.ai/mcp) — MCP servers, clients, and registry ecosystem.
 - [AI Engineer Pack](https://www.aiengineerpack.com/) — Jobs + community.
 
 ## Reddit
@@ -18,6 +20,7 @@
 
 ## Newsletters
 
+- [AI Weekly](https://www.aiweekly.co/) — Weekly digest of the biggest AI news, papers, and releases; broadest coverage per minute of reading.
 - [Latent Space](https://www.latent.space/) — Weekly; practitioner interviews + news.
 - [The Batch (Andrew Ng)](https://www.deeplearning.ai/the-batch/) — Weekly summary.
 - [Import AI (Jack Clark)](https://importai.substack.com/) — Weekly; policy-aware.
