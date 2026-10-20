@@ -56,7 +56,7 @@ with open("doc.pdf", "rb") as f:
     pdf_b64 = base64.standard_b64encode(f.read()).decode()
 
 resp = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=4096,
     messages=[{
         "role": "user",
@@ -83,6 +83,6 @@ resp = client.messages.create(
 
 ## References
 
-- [OpenAI vision](https://platform.openai.com/docs/guides/vision) — verified 2026-07-30
-- [Anthropic vision](https://docs.anthropic.com/en/docs/build-with-claude/vision) — verified 2026-07-30
-- [Anthropic PDF support](https://docs.anthropic.com/en/docs/build-with-claude/pdf) — verified 2026-07-30
+- [OpenAI vision](https://platform.openai.com/docs/guides/vision) — verified 2026-10-20
+- [Anthropic vision](https://docs.anthropic.com/en/docs/build-with-claude/vision) — verified 2026-10-20
+- [Anthropic PDF support](https://docs.anthropic.com/en/docs/build-with-claude/pdf) — verified 2026-10-20

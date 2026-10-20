@@ -1,6 +1,6 @@
 # OpenAI Realtime API
 
-> **Level:** ADV · **Last verified:** 2026-07-30 · **Sources:** [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [OpenAI Realtime API](https://developers.openai.com/api/docs/realtime)
 
 ## Why this matters
 
@@ -101,5 +101,5 @@ WebSocket is the server-to-server default. **WebRTC** is the right choice for br
 
 ## References
 
-- [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) — verified 2026-10-20
+- [OpenAI Realtime API](https://developers.openai.com/api/docs/realtime) — verified 2026-10-20
 - [OpenAI Realtime API reference](https://platform.openai.com/docs/api-reference/realtime) — verified 2026-10-20

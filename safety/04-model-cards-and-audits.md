@@ -47,8 +47,8 @@ Maintain a `model_audit.md` per project:
 ## Production models
 | Model | Version snapshot | Provider | Intended use | Data handling | Last reviewed |
 |-------|------------------|----------|--------------|---------------|---------------|
-| GPT-5 | gpt-5-2026-04-15 | OpenAI | Chat, reasoning | Zero-retention enterprise | 2026-07-30 |
-| Claude Sonnet 4.5 | claude-sonnet-4-5-2026-04-15 | Anthropic | Chat, vision | Standard | 2026-07-30 |
+| GPT-6.1 Sol | gpt-6.1-sol-2026-09-29 | OpenAI | Chat, reasoning | Zero-retention enterprise | 2026-10-20 |
+| Claude Sonnet 5.5 | claude-sonnet-5-5 (dated alias) | Anthropic | Chat, vision | Standard | 2026-10-20 |
 
 ## Known limitations impacting us
 - GPT-5: weaker on non-English (per system card).

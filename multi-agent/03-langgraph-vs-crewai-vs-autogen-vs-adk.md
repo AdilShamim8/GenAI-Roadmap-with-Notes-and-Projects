@@ -1,6 +1,6 @@
 # LangGraph vs CrewAI vs AutoGen vs Google ADK
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20
 
 ## Why this matters
 

@@ -1,6 +1,6 @@
 # Embedding Model Selection
 
-> **Level:** INT · **Last verified:** 2026-07-30 · **Sources:** [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard)
 
 ## Why this matters
 

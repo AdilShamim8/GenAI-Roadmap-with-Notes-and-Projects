@@ -74,6 +74,6 @@ SGLang's regex-constrained decoding is the fastest way to serve structured outpu
 
 ## References
 
-- [vLLM](https://docs.vllm.ai/) — verified 2026-07-30
-- [SGLang](https://github.com/sgl-project/sglang) — verified 2026-07-30
-- [HuggingFace TGI](https://github.com/huggingface/text-generation-inference) — verified 2026-07-30
+- [vLLM](https://docs.vllm.ai/) — verified 2026-10-20
+- [SGLang](https://github.com/sgl-project/sglang) — verified 2026-10-20
+- [HuggingFace TGI](https://github.com/huggingface/text-generation-inference) — verified 2026-10-20

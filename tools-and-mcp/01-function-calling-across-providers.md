@@ -1,6 +1,6 @@
 # Function Calling Across Providers
 
-> **Level:** BEG → INT · **Last verified:** 2026-07-30
+> **Level:** BEG → INT · **Last verified:** 2026-10-20
 
 ## Why this matters
 

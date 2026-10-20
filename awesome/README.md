@@ -1,6 +1,6 @@
 # Awesome GenAI Engineering
 
-> Curated external resources. One-line reviews, not bare links. Last verified: 2026-07-30.
+> Curated external resources. One-line reviews, not bare links. Last verified: 2026-10-20.
 
 ## Sections
 

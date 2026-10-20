@@ -1,6 +1,6 @@
 # Handoff Protocols
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20
 
 ## Why this matters
 
@@ -29,8 +29,8 @@ When agent A hands off to agent B, what exactly passes between them? Get this wr
 ```python
 from agents import Agent, Runner
 
-billing = Agent(name="Billing", instructions="You handle refunds. Return a JSON with refund_id and amount.", model="gpt-5")
-triage = Agent(name="Triage", instructions="Route to billing.", handoffs=[billing], model="gpt-5")
+billing = Agent(name="Billing", instructions="You handle refunds. Return a JSON with refund_id and amount.", model="gpt-6.1-sol")
+triage = Agent(name="Triage", instructions="Route to billing.", handoffs=[billing], model="gpt-6.1-sol")
 
 result = Runner.run_sync(triage, "I want a refund for order 123.")
 # Triage calls handoff to billing; billing runs to completion; final output is billing's.

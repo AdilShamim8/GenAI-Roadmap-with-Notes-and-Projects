@@ -9,7 +9,7 @@
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
   <a href="./LAST_VERIFIED.md"><img src="https://img.shields.io/badge/claims%20last%20verified-2026--10-20-brightgreen.svg" alt="Last verified"/></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.0--alpha-orange.svg" alt="Changelog"/></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.1-orange.svg" alt="Changelog"/></a>
   <a href="https://github.com/AdilShamim8/GenAI-Roadmap-with-Notes-and-Projects/actions"><img src="https://img.shields.io/badge/CI-link--check%20%2B%20markdownlint-green.svg" alt="CI"/></a>
 </p>
 

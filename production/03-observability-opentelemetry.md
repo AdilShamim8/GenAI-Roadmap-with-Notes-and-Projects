@@ -48,7 +48,7 @@ tracer.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))
 OpenAIInstrumentor().instrument()  # auto-instruments openai calls
 
 # Now every OpenAI call emits a span automatically
-resp = client.chat.completions.create(model="gpt-5", messages=[...])
+resp = client.chat.completions.create(model="gpt-6.1-sol", messages=[...])
 ```
 
 ## Code: custom spans

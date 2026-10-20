@@ -26,7 +26,7 @@ Every production agent should log:
 
 ```json
 {
-  "timestamp": "2026-07-30T12:34:56Z",
+  "timestamp": "2026-10-20T12:34:56Z",
   "user_id": "u_abc",
   "session_id": "s_xyz",
   "model": "gpt-5-2026-04-15",
