@@ -1,10 +1,10 @@
 # Transformers Deep Dive
 
-> **Level:** BEG → INT · **Last verified:** 2026-07-30 · **Sources:** [Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/), [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+> **Level:** BEG · **Last verified:** 2026-10-20 · **Sources:** [Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/), [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 
 ## Why this matters
 
-Every model you'll touch in 2026 — GPT-5, Claude Opus 4.1, Gemini 3, Llama 4 — is a transformer. You don't need to implement one from scratch, but you need enough mental model to reason about context windows, KV-cache, MoE, and why inference is expensive.
+Every frontier model you'll touch in 2026 — GPT-6, Claude 5.5, Gemini 3.x, Llama 4, DeepSeek V4 — is a transformer. You don't need to implement one from scratch, but you need enough mental model to reason about context windows, KV-cache, MoE, and why inference is expensive.
 
 ## Core concepts
 
@@ -23,6 +23,16 @@ Three operations dominate:
 1. **Attention** — every token looks at every other token. O(n²) in sequence length.
 2. **Feed-forward** — per-token MLP. The "knowledge" lives here.
 3. **Residual + LayerNorm** — keeps gradients flowing.
+
+### Attention variants you'll actually meet (2026)
+
+The textbook multi-head attention (MHA) above is no longer what production models run. Three variants matter because they shrink the KV-cache (see `02-kv-cache-and-inference.md`):
+
+- **GQA (grouped-query attention)** — many query heads share a few KV heads (Llama 3/4, Qwen). ~8x smaller KV-cache than MHA.
+- **MLA (multi-head latent attention)** — DeepSeek's latent compression of KV (V3/V4 lines). An order of magnitude smaller cache; the reason DeepSeek serves so cheaply.
+- **Sliding-window / hybrid attention** — attention restricted to a local window for long contexts (Gemma, some open models).
+
+Positional encoding is RoPE (rotary) in essentially every current model — the detail that matters when serving stacks extend context (YaRN-style scaling).
 
 ### Attention in one line
 
@@ -73,12 +83,12 @@ def attention(Q, K, V, mask=None):
 ## Decision framework
 
 If you're picking a model for a task:
-- Long input + short output → favor cheap-input models (Gemini Flash, DeepSeek V3).
-- Short input + long output → favor cheap-output models (Claude Haiku, GPT-5 mini).
+- Long input + short output → favor cheap-input models (Gemini Flash-Lite, DeepSeek).
+- Short input + long output → favor cheap-output models (GPT-6 Luna, Claude Haiku 5.5).
 - Both long → use prompt caching aggressively.
 
 ## References
 
-- [The Illustrated Transformer — Jay Alammar](http://jalammar.github.io/illustrated-transformer/) — verified 2026-07-30
-- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) — verified 2026-07-30
-- [The Illustrated Transformer, KV-cache edition — Jay Alammar](https://jalammar.github.io/illustrated-gpt-2/) — verified 2026-07-30
+- [The Illustrated Transformer — Jay Alammar](http://jalammar.github.io/illustrated-transformer/) — verified 2026-10-20
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) — verified 2026-10-20
+- [The Illustrated GPT-2 — Jay Alammar](https://jalammar.github.io/illustrated-gpt-2/) — verified 2026-10-20

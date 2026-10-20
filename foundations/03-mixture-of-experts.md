@@ -1,10 +1,10 @@
 # Mixture of Experts (MoE)
 
-> **Level:** INT · **Last verified:** 2026-07-30 · **Sources:** [Mixtral paper](https://arxiv.org/abs/2401.04088), [DeepSeek-V3 technical report](https://github.com/deepseek-ai/DeepSeek-V3)
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Mixtral paper](https://arxiv.org/abs/2401.04088), [DeepSeek-V3 technical report](https://github.com/deepseek-ai/DeepSeek-V3)
 
 ## Why this matters
 
-Llama 4, DeepSeek V3, Mixtral, and likely the next GPT/Claude generations all use MoE. MoE is why a 671B-parameter DeepSeek V3 serves at the cost of a 37B dense model. If you don't understand MoE, you'll misread model cards and overpay for inference.
+Llama 4, DeepSeek V3/V4, Qwen3, Kimi K2/K3, GLM, gpt-oss — essentially every frontier and frontier-adjacent release since 2024 — uses MoE. MoE is why a 671B-parameter DeepSeek V3 serves at the cost of a 37B dense model. If you don't understand MoE, you'll misread model cards and overpay for inference.
 
 ## Core concepts
 
@@ -22,16 +22,22 @@ top_k_experts = topk(gate_scores, k=2)
 output = sum(gate_scores[i] * expert_i(token) for i in top_k_experts)
 ```
 
-### What this means for inference
+### The 2025-26 MoE roster (verified)
 
-| Metric | Dense 70B | MoE 8x22B (Mixtral) |
-|--------|-----------|---------------------|
-| Total params | 70B | 141B |
-| Active params per token | 70B | 39B |
-| VRAM to serve | ~140GB (fp16) | ~280GB (fp16) |
-| Throughput | baseline | ~2× baseline |
+| Model | Total / active params | Notes |
+|--------|----------------------|-------|
+| Mixtral 8x22B | 141B / 39B | The 2024 reference implementation |
+| DeepSeek V3 → V4-Flash | 671B / 37B → 284B / 13B | Fine-grained experts + shared expert + auxiliary-loss-free routing |
+| Llama 4 Scout / Maverick | ~109B/400B-class / 17B active | Multimodal MoE |
+| Qwen3 MoE line | up to 235B / 22B active | Open-weight, Apache-2.0 (most sizes) |
+| Kimi K2 → K3 | 1T-class / 32-50B active | Agentic-specialized MoE |
+| gpt-oss-120b / 20b | 117B/5.1B, 21B/3.6B | OpenAI's Apache-2.0 open weights (Aug 2025), MXFP4-quantized |
 
 MoE trades VRAM for throughput. The model is bigger on disk but cheaper per token.
+
+### Serving-side reality
+
+Serving MoE at scale needs **expert parallelism** (experts spread across GPUs with all-to-all token routing) — vLLM and SGLang both support it. Expert offloading fits a big MoE on fewer GPUs at the cost of PCIe traffic. Budget VRAM for *all* experts resident, not just active ones.
 
 ## Code: see the router
 
@@ -64,17 +70,28 @@ class MoELayer(nn.Module):
 
 ## Production concerns
 
-- **VRAM:** MoE models need more VRAM than dense models of equivalent throughput. Plan for it.
+- **VRAM:** MoE models need more VRAM than dense models of equivalent throughput — all experts must be resident. Plan for it.
 - **Load balancing:** Bad routers send all tokens to one expert, killing throughput. Pretraining includes load-balancing loss; verify your fine-tune doesn't break it.
-- **Quantization:** MoE + quantization is finicky. Use AWQ or FP8, not naive INT4.
+- **Quantization:** MoE + quantization is finicky. Use FP8/MXFP4-aware pipelines (vLLM + llm-compressor) rather than naive INT4 GPTQ.
 
 ## Anti-patterns
 
 - ❌ **Comparing MoE and dense models by total parameter count.** Compare by active params.
 - ❌ **Fine-tuning one expert in isolation.** Breaks the routing distribution.
+- ❌ **Reading "120B" on gpt-oss-120b and budgeting for a 120B dense model.** Only 5.1B are active per token.
+
+## Decision framework
+
+| Situation | Choose |
+|-----------|--------|
+| Max quality per serving dollar | Frontier MoE (DeepSeek V4, Qwen3-MoE, Kimi) |
+| Single-GPU self-hosting | Small MoE (gpt-oss-20b) or dense small model |
+| Fine-tuning on modest hardware | Dense or LoRA-on-MoE with care (router frozen) |
+| Comparing models on a leaderboard | Always normalize by active params and price per 1M tokens |
 
 ## References
 
-- [Mixtral of Experts](https://arxiv.org/abs/2401.04088) — verified 2026-07-30
-- [DeepSeek-V3 Technical Report](https://github.com/deepseek-ai/DeepSeek-V3) — verified 2026-07-30
-- [Outrageously Large Neural Networks (original MoE)](https://arxiv.org/abs/1701.06538) — verified 2026-07-30
+- [Mixtral of Experts](https://arxiv.org/abs/2401.04088) — verified 2026-10-20
+- [DeepSeek-V3 Technical Report](https://github.com/deepseek-ai/DeepSeek-V3) — verified 2026-10-20
+- [Outrageously Large Neural Networks (original MoE)](https://arxiv.org/abs/1701.06538) — verified 2026-10-20
+- [gpt-oss model cards](https://github.com/openai/gpt-oss) — verified 2026-10-20
