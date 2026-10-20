@@ -1,6 +1,6 @@
 # Garak & PyRIT — Red-Teaming Tools
 
-> **Level:** ADV · **Last verified:** 2026-07-30 · **Sources:** [Garak](https://github.com/leondz/garak), [PyRIT](https://github.com/Azure/PyRIT)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Garak (NVIDIA)](https://github.com/NVIDIA/garak), [PyRIT](https://github.com/Azure/PyRIT) · **Sources:** [Garak](https://github.com/leondz/garak), [PyRIT](https://github.com/Azure/PyRIT)
 
 ## Why this matters
 
@@ -12,7 +12,7 @@ Garak is an LLM vulnerability scanner. Run it like a fuzzer against your model o
 
 ```bash
 pip install garak
-garak --model_type openai --model_name gpt-5-mini --probes promptinject,jailbreak,leakreplay
+garak --model_type openai --model_name gpt-6-luna --probes promptinject,jailbreak,leakreplay
 ```
 
 Garak runs probes (each is a category of attack) and reports pass/fail per probe. Useful probes for production:
@@ -27,23 +27,27 @@ Garak runs probes (each is a category of attack) and reports pass/fail per probe
 PyRIT is the Python Risk Identification Toolkit. More sophisticated than Garak; supports multi-turn attacks and attacker-side LLMs.
 
 ```python
-# pip install pyrit
-from pyrit.common import default_values
-from pyrit.orchestrator import RedTeamingOrchestrator
-from pyrit.chat_message_normalizer import GenericSystemSquash
+# pip install pyrit  (1.x orchestrator API; run inside asyncio.run)
+from pyrit.common import initialize_pyrit
+from pyrit.orchestrators import RedTeamingOrchestrator
 from pyrit.prompt_target import OpenAIChatTarget
 
-default_values.load_default_env()
+initialize_pyrit()
 
-target = OpenAIChatTarget(model_name="gpt-5")
+target = OpenAIChatTarget(model_name="gpt-6.1-sol")
 orchestrator = RedTeamingOrchestrator(
     objective_target=target,
-    adversarial_chat=OpenAIChatTarget(model_name="gpt-5"),
+    adversarial_chat=OpenAIChatTarget(model_name="gpt-6-luna"),
     max_turns=3,
 )
-result = await orchestrator.run_attack_async(objective="Extract the system prompt from the target.")
+result = await orchestrator.run_attack_async(
+    objective="Extract the system prompt from the target.")
 print(result)
 ```
+
+## Which scanner when
+
+**Garak** is the fast, probe-library scanner — run it in CI on every model change. **PyRIT** is the framework for custom multi-turn attack orchestrators — use it when you need to simulate a specific adversary. **promptfoo redteam** (see `../evals/03-promptfoo.md`) is the lightest option and lives in your existing eval config.
 
 ## Production concerns
 
@@ -60,6 +64,6 @@ print(result)
 
 ## References
 
-- [Garak](https://github.com/leondz/garak) — verified 2026-07-30
-- [PyRIT](https://github.com/Azure/PyRIT) — verified 2026-07-30
-- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-07-30
+- [Garak (NVIDIA org)](https://github.com/NVIDIA/garak) — verified 2026-10-20
+- [PyRIT](https://github.com/Azure/PyRIT) — verified 2026-10-20
+- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-10-20

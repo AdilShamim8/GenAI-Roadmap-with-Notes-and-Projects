@@ -1,6 +1,6 @@
 # Prompt Injection Taxonomy
 
-> **Level:** ADV · **Last verified:** 2026-07-30 · **Sources:** [OWASP LLM Top 10](https://genai.owasp.org/), [Simon Willison](https://simonwillison.net/series/prompt-injection/)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [OWASP LLM Top 10 (2025 ed.)](https://genai.owasp.org/), [Simon Willison](https://simonwillison.net/series/prompt-injection/)
 
 ## Why this matters
 
@@ -114,6 +114,6 @@ def detect_injection(text: str) -> tuple[bool, str | None]:
 
 ## References
 
-- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-07-30
-- [Simon Willison: Prompt injection series](https://simonwillison.net/series/prompt-injection/) — verified 2026-07-30
-- [Not what you've signed up for (indirect injection)](https://arxiv.org/abs/2302.12173) — verified 2026-07-30
+- [OWASP LLM Top 10](https://genai.owasp.org/) — verified 2026-10-20
+- [Simon Willison: Prompt injection series](https://simonwillison.net/series/prompt-injection/) — verified 2026-10-20
+- [Not what you've signed up for (indirect injection)](https://arxiv.org/abs/2302.12173) — verified 2026-10-20

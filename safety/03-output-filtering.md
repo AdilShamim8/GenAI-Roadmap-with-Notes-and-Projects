@@ -1,6 +1,6 @@
 # Output Filtering
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenAI moderation](https://developers.openai.com/api/docs/guides/moderation), [Microsoft Presidio](https://github.com/data-privacy-stack/presidio)
 
 ## Why this matters
 
@@ -78,6 +78,22 @@ def domain_filter(text: str, ctx: dict) -> tuple[bool, str | None]:
     return True, None
 ```
 
+### Robust PII: Presidio over regex
+
+The regex redactor above is a demo. In production use [Presidio](https://github.com/data-privacy-stack/presidio) — named-entity recognition plus checksum-verified detectors for phone/email/credit-card/IDs, with a simple API:
+
+```python
+from presidio_analyzer import AnalyzerEngine
+from presidio_anonymizer import AnonymizerEngine
+
+analyzer, anonymizer = AnalyzerEngine(), AnonymizerEngine()
+result = analyzer.analyze(text=llm_output, language="en")
+clean = anonymizer.anonymize(text=llm_output, analyzer_results=result)
+print(clean.text)   # "<PHONE_NUMBER>" replaces the literal number
+```
+
+Note both filters run on **completed text** — with streaming, tokens reach the user before a mid-stream filter can act. Filter at the buffer boundary or gate streams behind a first-chunk check.
+
 ## Production concerns
 
 - **Latency:** PII + regex = <5ms. Moderation API = 100–300ms.
@@ -93,6 +109,6 @@ def domain_filter(text: str, ctx: dict) -> tuple[bool, str | None]:
 
 ## References
 
-- [OpenAI Moderation API](https://platform.openai.com/docs/guides/moderation) — verified 2026-07-30
-- [Azure Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/) — verified 2026-07-30
-- [Presidio (PII redaction)](https://github.com/microsoft/presidio) — verified 2026-07-30
+- [OpenAI Moderation API](https://platform.openai.com/docs/guides/moderation) — verified 2026-10-20
+- [Azure Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/) — verified 2026-10-20
+- [Presidio (PII redaction)](https://github.com/microsoft/presidio) — verified 2026-10-20
