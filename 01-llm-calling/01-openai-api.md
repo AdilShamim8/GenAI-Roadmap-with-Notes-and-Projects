@@ -11,7 +11,9 @@ OpenAI's API is the default starting point for GenAI work. Even if you end up on
 - **Messages** — list of `{role, content}` dicts. Roles: `system`/`developer`, `user`, `assistant`, `tool`.
 - **Responses API** — the primary endpoint: stateful conversations (`previous_response_id`), tools, computer use, structured outputs, and reasoning controls in one place. Chat Completions still works and remains the cross-provider compatibility layer.
 - **Reasoning effort** — GPT-6/5.x thinking models expose `reasoning.effort` (low → max); thinking tokens are billed as output. Reasoning is no longer a separate o-series — it is a dial on the same model line.
-- **Prompt caching** — automatic for prompts above the model's cache threshold with a shared prefix; cached input is ~10x cheaper (e.g. GPT-6.1 Sol: $2 input vs $0.10 cached).
+- **Prompt caching** — automatic for prompts above the model's cache threshold with a shared prefix; cached input is ~10x cheaper (verified Astra rates: $10 input vs $1 cached per 1M). Order prompts static-first, dynamic-last (see `06-prompt-caching.md`).
+- **Context window** — a *per-tier* property, not a family property: Astra is verified at 1.05M tokens, and the cheaper tiers are smaller — check the current per-model window in the docs before routing long-context work to a mid or cheap tier.
+- **Built-in tools** — the Responses API also hosts server-side tools (`web_search`, `file_search`, `code_interpreter`) that run on OpenAI infrastructure and bill separately from token pricing. They remove code you'd otherwise write, at the price of less control and per-call billing — the classic build-vs-rent trade-off.
 - **Batch API** — same models, async within 24h, 50% off both input and output.
 
 ## Code: minimal chat (Chat Completions, works everywhere)
@@ -46,6 +48,20 @@ print(resp.output_text)
 # follow = client.responses.create(model=..., previous_response_id=resp.id, input="...")
 ```
 
+The `previous_response_id` continuation is convenience, not a discount: prior turns still count as input tokens on the next call (only the provider's prefix cache makes them cheap). For multi-turn in production, weigh server-side state (simpler, locks you in, one more failure surface) against re-sending the transcript (portable across providers, cache-friendly if you keep the prefix stable).
+
+## Reading `usage` like an expert
+
+```python
+u = resp.usage
+# Responses API: prompt/completion/total + the two fields that actually matter:
+print(u.input_tokens, u.output_tokens, u.total_tokens)
+# u.input_tokens_details.cached_tokens  -> tokens billed at the ~10x-cheaper cached rate
+# u.output_tokens_details.reasoning_tokens -> thinking you paid for but never displayed
+```
+
+Wire `cached_tokens` and `reasoning_tokens` into your metrics pipeline on day one: they are the two levers that move OpenAI bills the most, and neither appears in `total_tokens` breakdowns unless you ask for them. A drop in cache-hit rate or a silent rise in reasoning share is often the first visible symptom of a prompt-structure regression or a model-alias swap.
+
 ## Streaming
 
 ```python
@@ -63,7 +79,7 @@ for event in stream:
 
 - **Latency:** TTFT is ~300ms–2s depending on prompt size and reasoning effort. Plan your UX around streaming; drop `reasoning.effort` to `low` or `none` for latency-sensitive paths.
 - **Cost:** The GPT-6 family spans $0.10/$0.50 (Luna) to $10/$50 (Astra) per 1M tokens — a 100x spread. Route by task complexity and use Batch for anything that tolerates 24h.
-- **Failure modes:** Rate limits (TPM/RPM), 429s, occasional 5xx. Always retry with exponential backoff and honor `Retry-After`.
+- **Failure modes:** Rate limits (TPM/RPM, and separate input/output-token meters), 429s, occasional 5xx. The Python client retries connection errors and 429/5xx automatically (`max_retries`, default 2) with exponential backoff — know that before you wrap calls in your own retry loop and double-retry. Honor `Retry-After` when present; add jitter to your own backoff; set explicit `timeout=` per call-path (the client default is 10 min, which is wrong for interactive paths).
 - **Security:** Don't put PII in prompts unless your DPA allows it. Use the zero-retention enterprise tier for sensitive data.
 
 ## Anti-patterns
