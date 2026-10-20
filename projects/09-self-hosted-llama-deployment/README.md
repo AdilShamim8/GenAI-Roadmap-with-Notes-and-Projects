@@ -43,14 +43,14 @@ make eval
 
 ## Evals
 
-This project ships with a golden dataset and eval runner. Eval metrics:
+This project ships with an eval harness (runner + a golden-dataset placeholder to fill with real cases). Eval metrics:
 
 - `throughput_tokens_per_sec`
 - `p95_latency`
 - `cost_per_1M_tokens`
 - `quality_vs_api`
 
-The `make eval` command runs the full eval suite and prints a report. Evals must pass before merging to main.
+The `make eval` command runs the eval suite and prints a report. Once the golden set is real, wire it into CI and gate merges on it.
 
 ## Project structure
 

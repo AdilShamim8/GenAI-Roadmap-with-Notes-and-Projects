@@ -15,7 +15,7 @@ graph LR
     Eval --> Output[Output]
 ```
 
-Incoming request -> classifier (small model) -> route to GPT-5-mini / GPT-5 / o3 -> response + cost telemetry.
+Incoming request -> classifier (small model) -> route to GPT-6 Luna / GPT-6.1 Sol / thinking tier -> response + cost telemetry.
 
 ## Stack
 
@@ -44,13 +44,13 @@ make eval
 
 ## Evals
 
-This project ships with a golden dataset and eval runner. Eval metrics:
+This project ships with an eval harness (runner + a golden-dataset placeholder to fill with real cases). Eval metrics:
 
 - `cost_per_1k_requests`
 - `quality_score`
 - `routing_accuracy`
 
-The `make eval` command runs the full eval suite and prints a report. Evals must pass before merging to main.
+The `make eval` command runs the eval suite and prints a report. Once the golden set is real, wire it into CI and gate merges on it.
 
 ## Project structure
 

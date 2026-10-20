@@ -15,7 +15,7 @@ graph LR
     Eval --> Output[Output]
 ```
 
-Multimodal input -> triage -> RAG (docs + screenshots) -> Claude Sonnet with vision -> escalate if confidence < threshold.
+Multimodal input -> triage -> RAG (docs + screenshots) -> Claude Sonnet 5.5 with vision -> escalate if confidence < threshold.
 
 ## Stack
 
@@ -43,14 +43,14 @@ make eval
 
 ## Evals
 
-This project ships with a golden dataset and eval runner. Eval metrics:
+This project ships with an eval harness (runner + a golden-dataset placeholder to fill with real cases). Eval metrics:
 
 - `resolution_rate`
 - `escalation_rate`
 - `csat`
 - `cost_per_ticket`
 
-The `make eval` command runs the full eval suite and prints a report. Evals must pass before merging to main.
+The `make eval` command runs the eval suite and prints a report. Once the golden set is real, wire it into CI and gate merges on it.
 
 ## Project structure
 
