@@ -37,7 +37,7 @@ You don't need all 15. Pick three that span the stack:
 
 All 15 are currently skeletons. Each contains:
 - `README.md` with problem, architecture, stack, eval metrics.
-- `pyproject.toml` with pinned dependencies.
+- `pyproject.toml` with a minimal dependency spec (`>=` floors; tighten when you implement).
 - `Makefile` with `install`, `run`, `test`, `eval` targets.
 - `tests/test_smoke.py` — replace with real tests.
 - `evals/golden.jsonl` + `evals/eval_runner.py` — replace placeholders with real cases.
