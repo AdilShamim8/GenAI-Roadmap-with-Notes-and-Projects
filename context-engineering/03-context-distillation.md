@@ -1,6 +1,6 @@
 # Context Distillation
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Letta memory patterns](https://github.com/letta-ai/letta), [Claude: manage context](https://platform.claude.com/docs/en/build-with-claude/context-management)
 
 ## Why this matters
 
@@ -18,6 +18,14 @@ Long agent runs accumulate dead context: tool outputs you no longer need, interm
 
 Run summarization as a background task, not in the user-facing turn. Insert the summary into the next turn's context.
 
+### Platform-native compaction (2025-26)
+
+The big providers shipped first-class versions of these patterns — reach for them before hand-rolling:
+
+- **Anthropic context management APIs** — context editing (clear old tool results), and a **memory tool** that persists key facts to client-side files, reloading them into later sessions. Claude Code's compaction is the flagship example.
+- **LangChain 1.0 Summarization middleware** — built into `create_agent`; condenses history as it approaches the context limit.
+- **Agent SDK / framework checkpointers** — durable state you can rewind instead of carrying forward.
+
 ## Code: rolling summary
 
 ```python
@@ -32,7 +40,7 @@ def maybe_summarize(history: list[dict], threshold: int = 20) -> list[dict]:
     recent = history[threshold:]
 
     summary = client.chat.completions.create(
-        model="gpt-5-mini",
+        model="gpt-6-luna",  # cheap tier — summaries don't need a flagship
         messages=[
             {"role": "system", "content": "Summarize the conversation so far in <300 words. Preserve decisions, key facts, and unresolved questions."},
             *old,
@@ -55,7 +63,16 @@ def maybe_summarize(history: list[dict], threshold: int = 20) -> list[dict]:
 - ❌ **Truncating history by turn count, not content.** Loses long-range dependencies.
 - ❌ **Storing raw transcripts forever.** Use episodic memory with TTLs.
 
+## Decision framework
+
+| Situation | Use |
+|-----------|-----|
+| Long-running coding/file agent | Provider-native compaction (Anthropic memory tool / Claude-style) |
+| Conversation drift on turn count | Rolling summary (this file's pattern) |
+| Huge tool outputs (API dumps) | Tool-output compaction right after the call |
+| Cross-session personalization | Hierarchical memory + a memory layer (see `../agents/06-agent-memory-patterns.md`) |
+
 ## References
 
-- [Letta (formerly MemGPT) — memory patterns](https://github.com/letta-ai/letta) — verified 2026-07-30
-- [Anthropic: Long-context agents](https://docs.anthropic.com/en/docs/build-with-claude/long-context) — verified 2026-07-30
+- [Letta (formerly MemGPT) — memory patterns](https://github.com/letta-ai/letta) — verified 2026-10-20
+- [Claude: context management](https://platform.claude.com/docs/en/build-with-claude/context-management) — verified 2026-10-20

@@ -1,6 +1,6 @@
 # System Prompt Design
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Claude: system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/system-prompts), [OpenAI prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering)
 
 ## Why this matters
 
@@ -52,7 +52,7 @@ SYSTEM_PROMPT = '''You are a tier-1 customer-support agent for Acme Corp, a SaaS
 
 ## Production concerns
 
-- **Latency:** A 2K-token system prompt cached costs 10% of uncached.
+- **Latency:** A cached system prompt skips most prefill: cache reads bill at ~10% of fresh input (Anthropic 0.1x; OpenAI ~10x-cheaper cached rates).
 - **Cost:** Cache it.
 - **Failure modes:** Conflicting policies ("be concise" + "explain in detail") produce inconsistent behavior.
 - **Security:** System prompts are visible in traces. Don't put secrets in them.
@@ -63,7 +63,16 @@ SYSTEM_PROMPT = '''You are a tier-1 customer-support agent for Acme Corp, a SaaS
 - ❌ **Prescriptive output formats in the system prompt.** Use structured outputs instead.
 - ❌ **Putting examples in the system prompt.** Use a separate `examples` section or few-shot in user turns.
 
+## Decision framework
+
+| Need | Approach |
+|------|----------|
+| Stable policy across all requests | Long system prompt + prompt caching (`../llm-calling/06-prompt-caching.md`) |
+| Per-user or per-tenant behavior | Small shared core + dynamic block appended after the cacheable prefix |
+| Output must be machine-parseable | Structured outputs (`../llm-calling/04-structured-outputs.md`), not format prose |
+| Behavior changes between model versions | Version prompts and regression-test them (`../evals/01-golden-datasets.md`) |
+
 ## References
 
-- [Anthropic prompt engineering — system prompts](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/system-prompts) — verified 2026-07-30
-- [OpenAI prompt engineering guide](https://platform.openai.com/docs/guides/prompt-engineering) — verified 2026-07-30
+- [Claude: system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/system-prompts) — verified 2026-10-20
+- [OpenAI prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering) — verified 2026-10-20

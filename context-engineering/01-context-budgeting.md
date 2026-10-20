@@ -1,6 +1,6 @@
 # Context Window Budgeting
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Lost in the Middle](https://arxiv.org/abs/2307.03172), [Anthropic: Contextual retrieval](https://www.anthropic.com/news/contextual-retrieval)
 
 ## Why this matters
 
@@ -10,7 +10,7 @@ In 2026, the bottleneck isn't writing a good prompt — it's managing what's *in
 
 ### The context budget
 
-For a 200K-token context window (Claude Sonnet 4.5), a typical production agent's budget:
+For a 200K-token context window (Claude Sonnet 5.5 / GPT-6-class; Gemini 3.x and the 1.05M-token GPT-6 family push higher), a typical production agent's budget:
 
 | Slot | Tokens | % |
 |------|--------|---|
@@ -55,10 +55,10 @@ def trim_history(history: list[dict], budget_tokens: int = 30000) -> list[dict]:
 
 ## Production concerns
 
-- **Latency:** Every 1K tokens adds ~30ms prefill on a frontier model.
-- **Cost:** Linear in input tokens.
+- **Latency:** Every 1K tokens adds ~30ms prefill on a frontier model — unless cached; prompt-cache hits skip most of it (see `llm-calling/06-prompt-caching.md`).
+- **Cost:** Linear in input tokens for fresh content; put the stable prefix (system + tools) first so caching can work.
 - **Failure modes:** Models ignore instructions in the middle of long contexts. Put critical instructions at the start or end.
-- **Security:** Retrieved context is untrusted — it can contain prompt injections.
+- **Security:** Retrieved context is untrusted — it can contain prompt injections (see `04-prompt-injection-defense.md`).
 
 ## Anti-patterns
 
@@ -66,7 +66,16 @@ def trim_history(history: list[dict], budget_tokens: int = 30000) -> list[dict]:
 - ❌ **Keeping full tool outputs in history.** Summarize after each tool call.
 - ❌ **Assuming "fits in context" = "model will use it."** Test recall empirically.
 
+## Decision framework
+
+| Symptom | Fix |
+|---------|-----|
+| Cost spikes on long sessions | Cache the stable prefix; compact history past the budget |
+| Model misses early instructions | Re-state critical rules at the end; shrink working set |
+| Recall drops mid-conversation | Distill old turns (`03-context-distillation.md`) instead of truncating |
+| Window genuinely too small | Retrieve instead of stuffing (`../rag/08-long-context-vs-rag.md`) |
+
 ## References
 
-- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — verified 2026-07-30
-- [Anthropic: Contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-07-30
+- [Lost in the Middle](https://arxiv.org/abs/2307.03172) — verified 2026-10-20
+- [Anthropic: Contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) — verified 2026-10-20
