@@ -9,10 +9,14 @@ Gemini is the third frontier pillar. Its differentiators: very long context, str
 ## Core concepts
 
 - **`generate_content`** — the unified entry point. Takes a list of `Content` objects (text, images, audio, video).
+- **Media handling** — three ways to attach a part: `from_text`, `from_bytes` (inline; keep requests small), and `from_uri` (Files API or Cloud Storage). Inline bytes hit request-size limits quickly, so route larger media through the Files API upload-then-reference flow. Video is sampled at ~1 frame/second by default — a 10-minute clip is ~600 frames of tokens, so trim or downsample before sending.
+- **Response anatomy** — `resp.text` is a convenience that raises when the model returns no candidate. In production, iterate `resp.candidates` and check `finish_reason` (`STOP`, `MAX_TOKENS`, `SAFETY`, ...) and `resp.prompt_feedback` for blocked prompts — safety blocks arrive as a normal response shape, not an exception, and code that only reads `.text` crashes exactly when you most need the diagnostic.
 - **System instructions** — separate parameter, similar to Anthropic.
 - **Model tiers** — 3.5 Flash-Lite ($0.30/$2.50 per 1M), 3.8 Flash ($0.75/$3.75), 3.1 Pro ($2/$12; higher beyond 200K input). The Flash line is the volume workhorse; Pro is the deep-reasoning tier.
 - **Context caching** — explicit `cached_content` objects for reused corpora; cache storage bills per token-hour plus cheaper read pricing.
 - **Thinking budgets** — `thinking_config` controls how much the model reasons before answering; dial it down for latency.
+- **Grounding** — optional grounding with Google Search attaches fresh citations to generation output; useful for freshness-sensitive queries, billed separately, and not a substitute for your own retrieval when you need corpus control.
+- **Batch mode** — async batch jobs at 50% off, like the other two providers.
 - **Vertex AI** — Google Cloud's hosted Gemini with VPC, IAM, and enterprise compliance.
 
 ## Code: minimal chat
@@ -46,7 +50,7 @@ resp = client.models.generate_content(
 
 - **Latency:** The Flash line is competitive with other vendors' small tiers on TTFT; use `thinking_config` to trim reasoning latency.
 - **Cost:** Free tier (rate-limited) and paid tier. Long-context requests get expensive fast — Pro doubles its rate beyond 200K input tokens.
-- **Failure modes:** Safety filters can be aggressive; check `prompt_feedback` in the response.
+- **Failure modes:** Safety filters can be aggressive; check `prompt_feedback` in the response — and note that a safety stop yields a candidate-less *success-shaped* response, not an error (see Response anatomy above).
 - **Security:** For HIPAA/PCI workloads, use Vertex AI, not the AI Studio API.
 
 ## Anti-patterns
