@@ -1,6 +1,6 @@
 # Job Market Trends (2026)
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## What's hot
 
@@ -54,6 +54,6 @@
 
 ## References
 
-- [Alexey Grigorev: Forward Deployed Engineers](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/role/06-fde.md) — verified 2026-07-30
-- [Alexey Grigorev: Job market trends](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/job-market/trends.md) — verified 2026-07-30
-- [Builtin AI/ML jobs](https://builtin.com/jobs/ai-ml) — verified 2026-07-30
+- [Alexey Grigorev: Forward Deployed Engineers](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/role/06-fde.md) — verified 2026-10-20
+- [Alexey Grigorev: Trends](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/05-trends.md) — verified 2026-10-20
+- [Builtin AI/ML jobs](https://builtin.com/jobs/ai-ml) — verified 2026-10-20

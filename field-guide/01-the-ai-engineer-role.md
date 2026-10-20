@@ -1,6 +1,6 @@
 # The AI Engineer Role
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## What the role is
 
@@ -9,6 +9,7 @@ An AI engineer in 2026 is a backend-adjacent engineer who builds production syst
 The AI engineer owns:
 
 - **The prompt layer** — system prompts, few-shot, structured outputs.
+- **The context-engineering layer** — what occupies the context window: budgeting, compaction, memory, distillation. The 2025-26 term that subsumes "prompt engineering."
 - **The retrieval layer** — RAG, vector DBs, rerankers.
 - **The tool layer** — function calling, MCP, computer use, sandboxes.
 - **The orchestration layer** — agents, multi-agent, state.
@@ -48,6 +49,6 @@ Most teams skip 4 and 6. Most incidents come from skipping 4 and 6.
 
 ## References
 
-- [Alexey Grigorev: My vision of the AI engineer role](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/role/01-my-vision.md) — verified 2026-07-30
-- [Chip Huyen: AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) — verified 2026-07-30
-- [Latent Space: What is an AI Engineer?](https://www.latent.space/p/what-is-an-ai-engineer) — verified 2026-07-30
+- [Alexey Grigorev: My vision of the AI engineer role](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/role/01-my-vision.md) — verified 2026-10-20
+- [Chip Huyen: AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/) — verified 2026-10-20
+- [Latent Space: The Rise of the AI Engineer](https://www.latent.space/p/ai-engineer) — verified 2026-10-20
