@@ -1,10 +1,10 @@
 # LangGraph Stateful Agents
 
-> **Level:** ADV · **Last verified:** 2026-07-30 · **Sources:** [LangGraph](https://langchain-ai.github.io/langgraph/)
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/)
 
 ## Why this matters
 
-When you need durable, multi-step, multi-agent workflows with explicit state, conditional branching, and human-in-the-loop checkpoints, LangGraph is the most mature option. It's more verbose than OpenAI Agents SDK or Claude Agent SDK, but it gives you control nothing else matches.
+When you need durable, multi-step, multi-agent workflows with explicit state, conditional branching, and human-in-the-loop checkpoints, LangGraph is the most mature option. Since October 2025 it is a **1.0-stable** line (no breaking changes from 0.3 — LangChain 1.0's `create_agent` is built on the same runtime). It's more verbose than OpenAI Agents SDK or Claude Agent SDK, but it gives you control nothing else matches.
 
 ## Core concepts
 
@@ -37,7 +37,7 @@ def get_weather(city: str) -> str:
     '''Get weather for a city.'''
     return f"Sunny, 22C in {city}."
 
-llm = ChatOpenAI(model="gpt-5").bind_tools([get_weather])
+llm = ChatOpenAI(model="gpt-6.1-sol").bind_tools([get_weather])
 
 def call_model(state: State):
     return {"messages": [llm.invoke(state["messages"])]}
@@ -63,9 +63,11 @@ print(result["messages"][-1].content)
 ## Code: human-in-the-loop checkpoint
 
 ```python
+from langgraph.checkpoint.memory import MemorySaver
+
 app = graph.compile(
-    checkpointer=MemorySaver(),
-    interrupt_before=["tools"],  # pause before tool execution
+    checkpointer=MemorySaver(),   # use PostgresSaver/RedisSaver in prod
+    interrupt_before=["tools"],   # or the interrupt() function API
 )
 config = {"configurable": {"thread_id": "abc"}}
 result = app.invoke({"messages": [("user", "Delete the file /tmp/data.csv")]}, config)
@@ -82,11 +84,21 @@ app.invoke(None, config)  # resumes
 
 ## Anti-patterns
 
-- ❌ **Using LangGraph for a simple ReAct loop.** OpenAI Agents SDK is simpler.
+- ❌ **Using LangGraph for a simple ReAct loop.** OpenAI Agents SDK — or LangChain 1.0's `create_agent` (LangGraph under the hood, 10 lines) — is simpler.
 - ❌ **Putting everything in state.** Only put what nodes need.
 - ❌ **No recursion limit.** `app.invoke(..., config={"recursion_limit": 25})`.
+- ❌ **MemorySaver in production.** It's in-memory only; use the Postgres or Redis checkpointer.
+
+## Decision framework
+
+| Need | Use |
+|------|-----|
+| Simple ReAct agent, any provider | `create_agent` (LangChain 1.0) or OpenAI Agents SDK |
+| Custom graph, conditional edges, durable state | Raw `StateGraph` (this file) |
+| Pause/resume + human approval | Checkpointer + `interrupt_before` / `interrupt()` |
+| Multi-hour workflows with retries | LangGraph + Postgres checkpointer, or a durable-execution layer |
 
 ## References
 
-- [LangGraph docs](https://langchain-ai.github.io/langgraph/) — verified 2026-07-30
-- [LangGraph GitHub](https://github.com/langchain-ai/langgraph) — verified 2026-07-30
+- [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/) — verified 2026-10-20
+- [LangGraph GitHub](https://github.com/langchain-ai/langgraph) — verified 2026-10-20

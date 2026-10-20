@@ -1,6 +1,6 @@
 # Agent Memory Patterns
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Letta](https://github.com/letta-ai/letta), [Mem0](https://github.com/mem0ai/mem0)
 
 ## Why this matters
 
@@ -8,7 +8,7 @@ An agent without memory repeats itself, forgets decisions, and can't learn from 
 
 ## Core concepts
 
-### Three types of memory
+### Four types of memory
 
 | Type | What | Example | Storage |
 |------|------|---------|---------|
@@ -19,9 +19,17 @@ An agent without memory repeats itself, forgets decisions, and can't learn from 
 
 ### Memory operations
 
-- **Write** — after a turn, extract salient facts and persist.
+- **Write** — after a turn, extract salient facts and persist (an LLM extraction step, not raw transcript storage).
 - **Read** — before a turn, retrieve relevant memories.
+- **Consolidate** — merge duplicates, resolve conflicts, promote recurring facts.
 - **Decay** — old or low-relevance memories fade.
+
+### Memory layers (don't build from scratch first)
+
+- **Mem0** — extract/update memory operations over your existing vector/graph store; the lightest integration path.
+- **Letta (formerly MemGPT)** — full agent OS with core/archival memory blocks and sleep-time compute.
+- **Zep / Graphiti** — temporal knowledge graphs: facts with validity intervals, good for "what was true when."
+- **Provider-native** — Anthropic's memory tool (see `../context-engineering/03-context-distillation.md`) covers the simple end.
 
 ### The retrieval problem
 
@@ -30,26 +38,27 @@ Don't dump all memories into context. Retrieve the top-K most relevant to the cu
 ## Code: simple episodic memory
 
 ```python
-from openai import OpenAI
+import time
 import faiss, numpy as np
+from openai import OpenAI
 
 client = OpenAI()
-index = faiss.IndexFlatL2(1536)
-memories = []  # list of {text, embedding, timestamp}
+DIM = 1536  # text-embedding-3-small; use 3072 for -large
+index = faiss.IndexFlatL2(DIM)
+memories = []  # list of {text, ts}
 
 def embed(text: str) -> np.ndarray:
-    return np.array(client.embeddings.create(model="text-embedding-3-large", input=text).data[0].embedding)
+    return np.array(client.embeddings.create(
+        model="text-embedding-3-small", input=text).data[0].embedding, dtype="float32")
 
 def remember(text: str):
-    emb = embed(text)
-    index.add(np.array([emb]))
-    memories.append({"text": text, "embedding": emb, "ts": time.time()})
+    index.add(embed(text).reshape(1, -1))
+    memories.append({"text": text, "ts": time.time()})
 
 def recall(query: str, k: int = 3) -> list[str]:
-    if len(memories) == 0:
+    if not memories:
         return []
-    q = embed(query)
-    _, idx = index.search(np.array([q]), k)
+    _, idx = index.search(embed(query).reshape(1, -1), k)
     return [memories[i]["text"] for i in idx[0] if i >= 0]
 ```
 
@@ -77,9 +86,20 @@ def build_messages(user_input: str) -> list[dict]:
 - ❌ **Stuffing all memories into context.** Top-K retrieval only.
 - ❌ **Never forgetting.** Implement decay.
 - ❌ **Shared memory across users.** Strict per-user isolation.
+- ❌ **Storing raw transcripts as "memory."** Extract facts (write pipeline) — raw text retrieval is RAG, not memory.
+
+## Decision framework
+
+| Need | Use |
+|------|-----|
+| Simple cross-session facts | Provider memory tool / hand-rolled KV |
+| Conversational memory at scale | Mem0 over your existing store |
+| Long-running autonomous agents | Letta (core/archival blocks, sleep-time compute) |
+| Time-aware facts ("what was true when") | Zep/Graphiti temporal graph |
+| Measuring any of this | Memory recall evals — golden Q&A over past sessions (`../evals/01-golden-datasets.md`) |
 
 ## References
 
-- [Letta (formerly MemGPT)](https://github.com/letta-ai/letta) — verified 2026-07-30
-- [Mem0](https://github.com/mem0ai/mem0) — verified 2026-07-30
-- [LangGraph memory](https://langchain-ai.github.io/langgraph/concepts/persistence/) — verified 2026-07-30
+- [Letta (formerly MemGPT)](https://github.com/letta-ai/letta) — verified 2026-10-20
+- [Mem0](https://github.com/mem0ai/mem0) — verified 2026-10-20
+- [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/concepts/persistence/) — verified 2026-10-20

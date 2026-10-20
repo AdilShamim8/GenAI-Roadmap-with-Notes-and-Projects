@@ -1,6 +1,6 @@
 # Guardrails, Retries, Fallbacks
 
-> **Level:** INT → ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [tenacity](https://github.com/jd/tenacity), [OpenAI error codes](https://developers.openai.com/api/docs/error-codes)
 
 ## Why this matters
 
@@ -55,7 +55,7 @@ async def call_llm(prompt: str) -> str:
 ## Code: model fallback chain
 
 ```python
-MODELS = ["gpt-5", "claude-sonnet-4-5", "gemini-2.5-pro"]
+MODELS = ["gpt-6.1-sol", "claude-sonnet-5-5", "gemini-3.8-flash"]
 
 async def call_with_fallback(prompt: str) -> str:
     for model in MODELS:
@@ -96,11 +96,23 @@ def safe_call(prompt: str) -> Output:
 
 ## Anti-patterns
 
-- ❌ **Retrying 4xx errors.** They won't succeed; only retry 5xx and timeouts.
-- ❌ **Infinite retry loops.** Always cap.
+- ❌ **Retrying all 4xx errors alike.** 429 (rate limit) and 408 (timeout) are retryable — honor `Retry-After`; 400/401/403/404 are not, and retrying just adds noise.
+- ❌ **Infinite retry loops.** Always cap attempts and total time.
+- ❌ **Hand-rolling retries when the SDK has them.** `OpenAI(max_retries=...)` and `Anthropic(max_retries=...)` handle backoff correctly for connection errors and 429/5xx.
+- ❌ **No timeout per attempt.** A hung call without a timeout blocks the whole chain.
 - ❌ **No fallback when one model is enough.** Don't over-engineer.
+
+## Decision framework
+
+| Failure | Response |
+|---------|----------|
+| 429 rate limit | Retry with backoff, honor `Retry-After`; then fail over |
+| 5xx / overloaded | Retry with backoff; then next model in chain |
+| 400/401/403/404 | Do not retry — fix the request |
+| Timeout | Retry once with same model, then fail over |
+| Validation failure | Re-ask with the schema (max 2x), then degrade |
 
 ## References
 
-- [Tenacity (retry library)](https://github.com/jd/tenacity) — verified 2026-07-30
-- [OpenAI: Error handling](https://platform.openai.com/docs/guides/error-codes) — verified 2026-07-30
+- [Tenacity (retry library)](https://github.com/jd/tenacity) — verified 2026-10-20
+- [OpenAI: Error handling](https://platform.openai.com/docs/guides/error-codes) — verified 2026-10-20
