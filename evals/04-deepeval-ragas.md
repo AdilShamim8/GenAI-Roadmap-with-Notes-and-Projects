@@ -1,6 +1,6 @@
 # DeepEval & Ragas
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Ragas](https://github.com/vibrantlabsai/ragas), [DeepEval](https://github.com/confident-ai/deepeval)
 
 ## Why this matters
 
@@ -25,9 +25,8 @@ All of these use LLM-as-judge under the hood. A 100-example RAG eval with 4 metr
 ## Code: Ragas
 
 ```python
-from ragas import evaluate
+from ragas import evaluate, EvaluationDataset   # ragas >= 0.2 API
 from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
-from datasets import Dataset
 
 data = Dataset.from_dict({
     "question": ["What is MoE?"],
@@ -58,6 +57,10 @@ def test_billing_answer():
 
 Run with `pytest`.
 
+### DeepEval vs Ragas (the comparison the title promises)
+
+DeepEval is **pytest-native**: metrics assert inside your existing test suite, best for regression gating in CI. Ragas is **dataset-native**: RAG-triad metrics computed over evaluation datasets, best for offline RAG-quality measurement and corpus experiments. They compose: Ragas to find weak spots, DeepEval to lock improvements in.
+
 ## Production concerns
 
 - **Latency:** 100 examples × 4 metrics = 400 LLM calls = ~5 min.
@@ -73,5 +76,5 @@ Run with `pytest`.
 
 ## References
 
-- [Ragas](https://github.com/explodinggradients/ragas) — verified 2026-07-30
-- [DeepEval](https://github.com/confident-ai/deepeval) — verified 2026-07-30
+- [Ragas](https://github.com/explodinggradients/ragas) — verified 2026-10-20
+- [DeepEval](https://github.com/confident-ai/deepeval) — verified 2026-10-20

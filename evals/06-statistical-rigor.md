@@ -1,6 +1,6 @@
 # Statistical Rigor for Prompt Changes
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test), [Wilcoxon signed-rank test](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test)
 
 ## Why this matters
 
@@ -79,6 +79,6 @@ print(f"95% CI for improvement: [{lo:.3f}, {hi:.3f}]")
 
 ## References
 
-- [Evaluating LLMs with statistical rigor — Chip Huyen](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-07-30
-- [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) — verified 2026-07-30
-- [Wilcoxon signed-rank test](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test) — verified 2026-07-30
+- [Evaluating LLMs with statistical rigor — Chip Huyen](https://huyenchip.com/2024/03/14/ai-oss.html) — verified 2026-10-20
+- [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) — verified 2026-10-20
+- [Wilcoxon signed-rank test](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test) — verified 2026-10-20

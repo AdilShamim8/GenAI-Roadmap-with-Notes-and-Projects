@@ -1,6 +1,6 @@
 # Online vs Offline Evals
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [Arize Phoenix](https://github.com/Arize-ai/phoenix), [LangSmith evaluation](https://docs.smith.langchain.com/evaluation)
 
 ## Why this matters
 
@@ -39,6 +39,12 @@ graph LR
 ## Code: online eval sampler
 
 ```python
+from pydantic import BaseModel
+
+class EvalScore(BaseModel):          # judge output schema
+    quality: int                     # 1..5
+    reason: str
+
 import random
 from openai import OpenAI
 
@@ -54,13 +60,13 @@ def maybe_eval(query: str, response: str, context: str):
     Return JSON: {{"grounded": int, "helpful": int, "reason": str}}
     '''
     score = client.beta.chat.completions.parse(
-        model="gpt-5-mini",
+        model="gpt-6-luna",
         messages=[{"role": "user", "content": judge_prompt}],
         response_format=EvalScore,
     ).choices[0].message.parsed
     # Log to your metrics system
-    metrics.gauge("llm.eval.grounded", score.grounded, tags=["model:gpt-5"])
-    metrics.gauge("llm.eval.helpful", score.helpful, tags=["model:gpt-5"])
+    metrics.gauge("llm.eval.grounded", score.grounded, tags=["model:gpt-6-luna"])
+    metrics.gauge("llm.eval.helpful", score.helpful, tags=["model:gpt-6-luna"])
     if score.grounded <= 2 or score.helpful <= 2:
         alert_low_quality(query, response, score)
 ```
@@ -80,6 +86,6 @@ def maybe_eval(query: str, response: str, context: str):
 
 ## References
 
-- [Arize Phoenix](https://github.com/Arize-ai/phoenix) — verified 2026-07-30
-- [LangSmith: Online evals](https://docs.smith.langchain.com/evaluation) — verified 2026-07-30
-- [Hamel Husain: Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-07-30
+- [Arize Phoenix](https://github.com/Arize-ai/phoenix) — verified 2026-10-20
+- [LangSmith: Online evals](https://docs.smith.langchain.com/evaluation) — verified 2026-10-20
+- [Hamel Husain: Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20
