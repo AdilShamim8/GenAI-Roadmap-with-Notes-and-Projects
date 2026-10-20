@@ -1,6 +1,6 @@
 # Portfolio Strategy
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The principle
 
@@ -50,5 +50,5 @@ See [`projects/`](../projects) for 15 portfolio-grade builds. The three stronges
 
 ## References
 
-- [Alexey Grigorev: Portfolio guide](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/portfolio/) — verified 2026-07-30
-- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-07-30
+- [Alexey Grigorev: Portfolio guide](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/portfolio/) — verified 2026-10-20
+- [Hamel Husain: Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — verified 2026-10-20

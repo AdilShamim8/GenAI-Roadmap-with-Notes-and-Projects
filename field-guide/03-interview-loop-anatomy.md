@@ -1,6 +1,6 @@
 # Interview Loop Anatomy
 
-> **Last verified:** 2026-07-30
+> **Last verified:** 2026-10-20
 
 ## The typical 2026 loop
 
@@ -64,5 +64,5 @@ What they're testing:
 
 ## References
 
-- [Alexey Grigorev: Interview process](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/01-interview-process.md) — verified 2026-07-30
-- [Alexey Grigorev: Interview questions](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/02-questions.md) — verified 2026-07-30
+- [Alexey Grigorev: Interview process](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/01-interview-process.md) — verified 2026-10-20
+- [Alexey Grigorev: Interview questions](https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/02-questions.md) — verified 2026-10-20
