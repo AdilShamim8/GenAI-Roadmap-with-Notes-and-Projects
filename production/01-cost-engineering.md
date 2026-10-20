@@ -1,6 +1,6 @@
 # Cost Engineering
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenAI pricing](https://developers.openai.com/api/docs/pricing), [Claude pricing](https://platform.claude.com/docs/en/pricing)
 
 ## Why this matters
 
@@ -32,7 +32,17 @@ graph TD
     Reasoning --> Out
 ```
 
-A classifier (small fine-tuned model, embedding similarity, or even rules) routes queries by complexity. Simple queries to Haiku/mini/Flash; complex to Sonnet/GPT-5; reasoning-heavy to o3/Claude-with-thinking.
+A classifier (small fine-tuned model, embedding similarity, or even rules) routes queries by complexity.
+
+### The 2026 price ladder (per 1M tokens, input/output, verified 2026-10-20)
+
+| Tier | OpenAI | Anthropic | Google |
+|------|--------|-----------|--------|
+| Cheap | GPT-6 Luna $0.10/$0.50 | Haiku 5.5 $0.10/$0.50 (≤100K) | 3.5 Flash-Lite $0.30/$2.50 |
+| Balanced | GPT-6.1 Sol $2/$10 | Sonnet 5.5 $2/$10 | 3.8 Flash $0.75/$3.75 |
+| Flagship | GPT-6 Astra $10/$50 | Opus 5.5 $4/$20 | 3.1 Pro $2/$12 |
+
+The spread from cheap to flagship is ~100x on output — routing is your single biggest cost lever. Cached input runs ~10x cheaper across all three vendors; Batch APIs are 50% off everywhere. (Source: vendor pricing pages.)
 
 ## Code: token budgeting per request
 
@@ -49,10 +59,11 @@ def call_with_budget(messages, model: str, max_input_tokens: int, max_output_tok
     resp = client.chat.completions.create(
         model=model,
         messages=messages,
-        max_tokens=max_output_tokens,
+        max_completion_tokens=max_output_tokens,  # NOT max_tokens on GPT-5.x/6
     )
-    cost = (input_tokens / 1e6) * PRICING[model]["input"] + \
-           (resp.usage.completion_tokens / 1e6) * PRICING[model]["output"]
+    PRICING = {"gpt-6.1-sol": (2.0, 10.0), "gpt-6-luna": (0.10, 0.50)}
+    cost = (input_tokens / 1e6) * PRICING[model][0] + \
+           (resp.usage.completion_tokens / 1e6) * PRICING[model][1]
     metrics.gauge("llm.request.cost_usd", cost, tags=[f"model:{model}"])
     return resp, cost
 ```
@@ -66,15 +77,17 @@ client = OpenAI()
 def route(query: str) -> str:
     '''Returns model name based on query complexity.'''
     resp = client.chat.completions.create(
-        model="gpt-5-mini",
+        model="gpt-6-luna",
         messages=[
             {"role": "system", "content": "Classify the query difficulty. Reply with one word: simple, complex, or reasoning."},
             {"role": "user", "content": query},
         ],
-        max_tokens=5,
+        max_completion_tokens=5,
     )
     cls = resp.choices[0].message.content.strip().lower()
-    return {"simple": "gpt-5-mini", "complex": "gpt-5", "reasoning": "o3"}.get(cls, "gpt-5")
+    return {"simple": "gpt-6-luna",
+            "complex": "gpt-6.1-sol",
+            "reasoning": "gpt-6.1-sol"}.get(cls, "gpt-6-luna")
 ```
 
 ## Production concerns
@@ -92,6 +105,6 @@ def route(query: str) -> str:
 
 ## References
 
-- [OpenAI Batch API](https://platform.openai.com/docs/guides/batch) — verified 2026-07-30
-- [Anthropic prompt caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — verified 2026-07-30
-- [LiteLLM (proxy + routing)](https://github.com/BerriAI/litellm) — verified 2026-07-30
+- [OpenAI Batch API](https://platform.openai.com/docs/guides/batch) — verified 2026-10-20
+- [Anthropic prompt caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — verified 2026-10-20
+- [LiteLLM (proxy + routing)](https://github.com/BerriAI/litellm) — verified 2026-10-20

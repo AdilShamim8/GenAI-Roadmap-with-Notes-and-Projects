@@ -1,6 +1,6 @@
 # Latency SLOs
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenAI latency guide](https://developers.openai.com/api/docs/guides/latency-optimization), [Claude prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
 
 ## Why this matters
 
@@ -61,12 +61,12 @@ with latency_histogram("llm.request.latency_ms", ["model:gpt-5"]):
 
 ```python
 # Bad: blocks until full response
-resp = client.chat.completions.create(model="gpt-5", messages=[...])
+resp = client.chat.completions.create(model="gpt-6.1-sol", messages=[...])
 return resp.choices[0].message.content
 
 # Good: stream first token within 500ms
 def stream_response(messages):
-    stream = client.chat.completions.create(model="gpt-5", messages=messages, stream=True)
+    stream = client.chat.completions.create(model="gpt-6.1-sol", messages=messages, stream=True)
     for chunk in stream:
         if chunk.choices[0].delta.content:
             yield chunk.choices[0].delta.content
@@ -88,5 +88,5 @@ def stream_response(messages):
 
 ## References
 
-- [OpenAI: Latency optimization](https://platform.openai.com/docs/guides/latency) — verified 2026-07-30
-- [Anthropic: Prompt caching for latency](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — verified 2026-07-30
+- [OpenAI: Latency optimization](https://platform.openai.com/docs/guides/latency) — verified 2026-10-20
+- [Anthropic: Prompt caching for latency](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — verified 2026-10-20

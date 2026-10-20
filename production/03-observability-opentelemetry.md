@@ -1,6 +1,6 @@
 # Observability with OpenTelemetry
 
-> **Level:** INT · **Last verified:** 2026-07-30
+> **Level:** INT · **Last verified:** 2026-10-20 · **Sources:** [OpenLLMetry](https://github.com/traceloop/openllmetry), [OpenInference](https://github.com/Arize-ai/openinference)
 
 ## Why this matters
 
@@ -70,6 +70,8 @@ def search_docs(query: str) -> list:
 - **Latency:** OTel adds <1% overhead.
 - **Cost:** Trace storage is cheap; sampling for high-volume.
 - **Failure modes:** Sampling too aggressively loses rare failure traces.
+- **Backend breadth:** Phoenix, Langfuse, Grafana LGTM, and Honeycomb all consume OTel natively — the instrumentation layer is the portable part; don't lock into a vendor SDK.
+- **Conventions:** attribute names should follow the OTel GenAI semantic conventions (and OpenInference/OpenLLMetry) rather than ad-hoc keys — that's what makes traces portable across backends.
 - **Security:** Spans may contain prompts. Redact PII before export.
 
 ## Anti-patterns
@@ -80,6 +82,6 @@ def search_docs(query: str) -> list:
 
 ## References
 
-- [OpenTelemetry for LLMs (OpenLLMetry)](https://github.com/traceloop/openllmetry) — verified 2026-07-30
-- [OpenInference](https://github.com/Arize-ai/openinference) — verified 2026-07-30
-- [Arize Phoenix](https://github.com/Arize-ai/phoenix) — verified 2026-07-30
+- [OpenTelemetry for LLMs (OpenLLMetry)](https://github.com/traceloop/openllmetry) — verified 2026-10-20
+- [OpenInference](https://github.com/Arize-ai/openinference) — verified 2026-10-20
+- [Arize Phoenix](https://github.com/Arize-ai/phoenix) — verified 2026-10-20
