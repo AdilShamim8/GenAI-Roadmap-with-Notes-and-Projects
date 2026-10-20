@@ -1,6 +1,6 @@
 # Long-Horizon Tasks
 
-> **Level:** EXP · **Last verified:** 2026-07-30
+> **Level:** EXP · **Last verified:** 2026-10-20 · **Sources:** [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/concepts/persistence/), [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents)
 
 ## Why this matters
 
@@ -41,6 +41,7 @@ graph TD
 ## Code: skeleton with checkpoints
 
 ```python
+from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.postgres import PostgresSaver
 
@@ -50,27 +51,32 @@ class State(TypedDict):
     artifacts: dict
     cost_spent: float
 
-def planner(state: State) -> State: ...
-def worker(state: State) -> State: ...
-def critic(state: State) -> str:  # returns next node
+def planner(state: State) -> dict: ...      # return state DELTAS
+def worker(state: State) -> dict: ...
+def human_review(state: State) -> dict: ...  # real node fn (interrupt gate)
+
+def route_after_critic(state: State) -> str:  # router ONLY - never a node
     if state["cost_spent"] > 50.0:
         return "human_review"
     if all(s in state["completed"] for s in state["plan"]):
-        return "final"
+        return END
     return "worker"
 
 graph = StateGraph(State)
 graph.add_node("planner", planner)
 graph.add_node("worker", worker)
-graph.add_node("critic", critic)
-graph.add_node("human_review", ...)
+graph.add_node("critic", lambda s: s)         # inspect/compact; pass-through
+graph.add_node("human_review", human_review)
 graph.add_edge(START, "planner")
 graph.add_edge("planner", "worker")
 graph.add_edge("worker", "critic")
-graph.add_conditional_edges("critic", critic, ["worker", "human_review", "final"])
+graph.add_conditional_edges("critic", route_after_critic,
+                            ["worker", "human_review", END])
 
-checkpointer = PostgresSaver.from_conn_string("...")
-app = graph.compile(checkpointer=checkpointer)
+with PostgresSaver.from_conn_string("postgresql://...") as checkpointer:
+    checkpointer.setup()                       # required: create tables
+    app = graph.compile(checkpointer=checkpointer)
+    # each step is durable; resume any thread after a crash
 ```
 
 ## Production concerns
@@ -88,6 +94,6 @@ app = graph.compile(checkpointer=checkpointer)
 
 ## References
 
-- [LangGraph: Long-running agents](https://langchain-ai.github.io/langgraph/concepts/persistence/) — verified 2026-07-30
-- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-07-30
-- [DeepAgents](https://github.com/langchain-ai/deepagents) — verified 2026-07-30
+- [LangGraph: Long-running agents](https://langchain-ai.github.io/langgraph/concepts/persistence/) — verified 2026-10-20
+- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-10-20
+- [DeepAgents](https://github.com/langchain-ai/deepagents) — verified 2026-10-20

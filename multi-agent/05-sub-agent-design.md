@@ -1,6 +1,6 @@
 # Sub-Agent Design
 
-> **Level:** ADV · **Last verified:** 2026-07-30
+> **Level:** ADV · **Last verified:** 2026-10-20 · **Sources:** [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents), [Claude Code subagents](https://platform.claude.com/docs/en/claude-code/sub-agents)
 
 ## Why this matters
 
@@ -37,6 +37,7 @@ Every sub-agent should declare:
 ## Code: a well-designed retrieval sub-agent
 
 ```python
+import json
 from pydantic import BaseModel, Field
 from agents import Agent, Runner, function_tool
 
@@ -50,13 +51,13 @@ class RetrievalOutput(BaseModel):
 
 @function_tool
 def hybrid_search(query: str, k: int = 20) -> str:
-    '''Hybrid vector + BM25 search.'''
-    return json.dumps(search(query, k))
+    '''Hybrid vector + BM25 search. Returns JSON list of docs.'''
+    return json.dumps(my_search_backend(query, k))   # your impl
 
 @function_tool
 def rerank(query: str, docs: list[dict]) -> str:
-    '''Re-rank documents by relevance.'''
-    return json.dumps(reranker(query, docs))
+    '''Re-rank documents by relevance. Returns JSON list.'''
+    return json.dumps(my_reranker(query, docs))      # your impl
 
 retrieval_agent = Agent(
     name="RetrievalAgent",
@@ -66,7 +67,7 @@ retrieval_agent = Agent(
     3. Return the top-N sources as JSON.
     If no sources found, return {"sources": [], "found": false}.''',
     tools=[hybrid_search, rerank],
-    model="gpt-5",
+    model="gpt-6.1-sol",
     output_type=RetrievalOutput,
 )
 ```
@@ -86,5 +87,5 @@ retrieval_agent = Agent(
 
 ## References
 
-- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-07-30
-- [OpenAI: Multi-agent systems](https://platform.openai.com/docs/guides/multi-agent) — verified 2026-07-30
+- [Anthropic: Building effective agents](https://www.anthropic.com/research/building-effective-agents) — verified 2026-10-20
+- [OpenAI: Multi-agent systems](https://platform.openai.com/docs/guides/multi-agent) — verified 2026-10-20
