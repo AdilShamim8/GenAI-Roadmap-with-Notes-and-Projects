@@ -1,6 +1,6 @@
 # Structured Outputs
 
-> **Level:** BEG → INT · **Last verified:** 2026-07-30 · **Sources:** [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs), [Instructor](https://github.com/jxnl/instructor)
+> **Level:** BEG · **Last verified:** 2026-10-20 · **Sources:** [OpenAI Structured Outputs](https://developers.openai.com/api/docs/), [Instructor](https://github.com/567-labs/instructor)
 
 ## Why this matters
 
@@ -34,10 +34,10 @@ class Person(BaseModel):
     age: int = Field(ge=0, le=150)
     occupation: str
 
-client = instructor.from_openai(OpenAI())
+client = instructor.create(OpenAI())
 
 person = client.chat.completions.create(
-    model="gpt-5",
+    model="gpt-6.1-sol",
     response_model=Person,
     messages=[{"role": "user", "content": "Extract: 'Maria, 34, marine biologist'"}],
 )
@@ -57,12 +57,13 @@ class Person(BaseModel):
     occupation: str
 
 client = OpenAI()
-resp = client.beta.chat.completions.parse(
-    model="gpt-5",
-    messages=[{"role": "user", "content": "Extract: 'Maria, 34, marine biologist'"}],
-    response_format=Person,
+# chat.completions.parse (out of beta) or responses.parse:
+resp = client.responses.parse(
+    model="gpt-6.1-sol",
+    input=[{"role": "user", "content": "Extract: 'Maria, 34, marine biologist'"}],
+    text_format=Person,  # schema-constrained decoding
 )
-person = resp.choices[0].message.parsed  # Person instance
+person = resp.output_parsed  # Person instance
 ```
 
 ## Production concerns
@@ -77,6 +78,7 @@ person = resp.choices[0].message.parsed  # Person instance
 - ❌ **Asking the model to "respond in JSON" without a schema.** ~5% of responses will be invalid.
 - ❌ **Using regex to parse LLM output.** Use a schema.
 - ❌ **Huge nested schemas.** Models degrade past ~20 fields. Split into multiple calls.
+- ❌ **Unsupported JSON-Schema keywords.** Native constrained decoding rejects some keywords (`$ref`/`$defs` limits vary by provider) — keep schemas flat and explicit; Pydantic `model_json_schema()` output is a safe baseline.
 
 ## Decision framework
 
@@ -88,6 +90,6 @@ person = resp.choices[0].message.parsed  # Person instance
 
 ## References
 
-- [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — verified 2026-07-30
-- [Instructor](https://github.com/jxnl/instructor) — verified 2026-07-30
-- [Pydantic AI](https://ai.pydantic.dev/) — verified 2026-07-30
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) — verified 2026-10-20
+- [Instructor](https://github.com/567-labs/instructor) — verified 2026-10-20
+- [Pydantic AI](https://ai.pydantic.dev/) — verified 2026-10-20
