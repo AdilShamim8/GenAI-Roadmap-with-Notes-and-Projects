@@ -2,13 +2,21 @@
 
 The fake client mimics instructor's create(response_model=...) contract:
 given a dict payload, it validates through the Pydantic model and returns it.
+
+Path note: insert the project root (parent of tests/ and src/) so the test
+runs from any working directory, not just the project root.
 """
 from __future__ import annotations
 
-import pytest
-from pydantic import ValidationError
+import sys
+from pathlib import Path
 
-from src.main import Contact, Invoice, SCHEMAS, ExtractionError, extract, extract_json
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import pytest  # noqa: E402
+from pydantic import ValidationError  # noqa: E402
+
+from src.main import Contact, Invoice, SCHEMAS, ExtractionError, extract, extract_json  # noqa: E402
 
 
 class FakeClient:
