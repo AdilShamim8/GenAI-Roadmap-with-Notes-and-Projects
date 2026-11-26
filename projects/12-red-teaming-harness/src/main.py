@@ -35,6 +35,9 @@ class Guard:
 
         norm = unicodedata.normalize("NFKC", payload).lower()
         norm = "".join(c for c in norm if unicodedata.category(c)[0] != "Cf")
+        # NFKC alone does NOT fold Cyrillic homoglyphs — map the known set
+        homoglyphs = str.maketrans({"і": "i", "а": "a", "е": "e", "о": "o", "р": "p", "с": "c"})
+        norm = norm.translate(homoglyphs)
         return any(p in norm for p in self.blocked)
 
 

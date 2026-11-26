@@ -43,6 +43,6 @@ def test_traverse_assembles_chain():
 
 def test_answer_context_combines_match_and_graph():
     g = build_graph_from_source(SRC)
-    ctx = g.answer_context("auth middleware token", depth=1)
+    ctx = g.answer_context("auth_middleware token", depth=1)
     assert any("auth" in c for c in ctx)
     assert "unrelated" not in ctx
