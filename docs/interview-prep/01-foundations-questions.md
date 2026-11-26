@@ -20,7 +20,7 @@ Its size grows linearly with context: roughly `2 × layers × kv_heads × head_d
 
 **Senior note:** connect it to serving economics — PagedAttention (vLLM) fixes the *fragmentation* of pre-allocated caches by paging them like OS virtual memory, which is what lets a GPU run 2-3x more concurrent requests; prefix caching/RadixAttention deduplicates *shared* prefixes across requests. If asked "why is my self-hosted throughput bad," cache management is the first place to look.
 
-## Q3 — Explain MoE to a product manager, then to an engineer.
+## Q3 — Explain MoE to a product manager, then to an engineer
 
 **Model answer (PM):** A model with a built-in committee. For each piece of text, a router picks a few specialists out of many to handle it. You get a much bigger brain for the same thinking cost — that's why top open models serve hundreds of billions of parameters cheaply.
 
@@ -42,7 +42,7 @@ Modern tokenizers are byte-level BPE (no UNK token — any byte sequence is repr
 
 **Senior note:** the practical flex is knowing *which* tokenizer each provider uses and its quirks — e.g., reasoning models bill thinking tokens as output (the expensive class), so a tokenizer-aware cost model is a production skill, not trivia.
 
-## Q5 — "Bigger context windows make RAG obsolete." Argue both sides, then pick one.
+## Q5 — "Bigger context windows make RAG obsolete." Argue both sides, then pick one
 
 **Model answer:** *Against RAG:* 1M-token windows handle single-doc tasks (summarize this PDF) with zero indexing infrastructure; prompt caching can hold a stable corpus prefix at ~10x discount; citations can cite the stuffed document.
 
