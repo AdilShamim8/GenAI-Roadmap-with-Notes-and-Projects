@@ -9,7 +9,7 @@ from src.main import compare, score
 def test_ship_needs_majority_not_one_case():
     cases = [{"input": f"c{i}", "expected": {"must_mention": ["gold"]}} for i in range(10)]
     # variant wins exactly 1, loses 0 -> not a ship (noise)
-    r = compare("base", "var", cases, lambda p, c: "gold" if p == "var" and c == "c0" else "miss")
+    r = compare("base", "var", cases, lambda p, c: "gold" if p == "var" and c in ("c0","c1") else "miss")
     assert r == {"wins": 1, "losses": 0, "ship_variant": False}
 
 

@@ -27,7 +27,9 @@ def compare(baseline: str, variant: str, cases: list[dict], call_fn) -> dict:
             wins += 1
         elif b_ok and not v_ok:
             losses += 1
-    return {"wins": wins, "losses": losses, "ship_variant": wins > losses}
+    # ship rule: strict majority AND at least 2 net wins — a single-case win is
+    # noise per 07-evals/06 sample-size guidance (can't detect small effects)
+    return {"wins": wins, "losses": losses, "ship_variant": wins > losses and (wins - losses) >= 2}
 
 
 def main() -> None:
