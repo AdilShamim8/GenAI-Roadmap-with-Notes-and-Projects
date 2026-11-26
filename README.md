@@ -68,6 +68,8 @@ Career and industry context — separate from the technical curriculum.
 - [`field-guide/05-salary-bands.md`](./field-guide/05-salary-bands.md)
 - [`field-guide/06-job-market-trends.md`](./field-guide/06-job-market-trends.md)
 
+Interview practice — topic-by-topic question banks with senior-level model answers, plus four full system-design walkthroughs: [`docs/interview-prep/`](./docs/interview-prep/README.md).
+
 ## Portfolio projects
 
 15 portfolio-grade builds, each with `README.md`, `src/`, `tests/`, `07-evals/`, `DEPLOYMENT.md`. See [`projects/`](./projects).
