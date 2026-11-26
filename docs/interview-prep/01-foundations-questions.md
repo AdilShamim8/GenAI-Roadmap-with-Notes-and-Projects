@@ -4,7 +4,7 @@
 
 Answer out loud before reading the model answer. The "senior note" is what separates a pass from a strong hire.
 
-## Q1 — Walk me through what happens on a single forward pass of a transformer during text generation.
+## Q1 — Walk me through what happens on a single forward pass of a transformer during text generation
 
 **Model answer:** Every generated token requires a full pass over the context so far. Each position's query attends over all previous keys/values (causal masking), producing contextual representations; the last position's representation predicts the next token's distribution; we sample; append; repeat. The defining property is that generation is *autoregressive* — tokens are produced one at a time, and every token's computation attends to everything before it.
 
