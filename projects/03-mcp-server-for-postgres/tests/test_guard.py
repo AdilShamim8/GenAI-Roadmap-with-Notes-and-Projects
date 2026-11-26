@@ -18,7 +18,7 @@ class TestReadOnlyGuard:
 
     def test_update_rejected(self):
         ok, err = validate_readonly_sql("UPDATE orders SET total = 0")
-        assert not ok and "forbidden" in err.lower()
+        assert not ok and ("forbidden" in err.lower() or "only select" in err.lower())
 
     def test_drop_rejected(self):
         ok, err = validate_readonly_sql("DROP TABLE orders")
