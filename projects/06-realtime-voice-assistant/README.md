@@ -1,6 +1,6 @@
 # Project 06: Realtime Voice Assistant
 
-> **Difficulty:** ADV · **Skill demonstrated:** OpenAI Realtime API, VAD, interruption handling · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** OpenAI Realtime API, VAD, interruption handling · **Status:** ✅ Implemented
 
 ## Problem
 
