@@ -1,6 +1,6 @@
 # Project 12: Red-Teaming Harness
 
-> **Difficulty:** INT · **Skill demonstrated:** Garak/PyRIT, defense patterns · **Status:** 🚧 Skeleton
+> **Difficulty:** INT · **Skill demonstrated:** Garak/PyRIT, defense patterns · **Status:** ✅ Implemented
 
 ## Problem
 
