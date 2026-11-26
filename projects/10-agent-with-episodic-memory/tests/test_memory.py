@@ -33,4 +33,4 @@ def test_facts_are_hints_only_by_contract():
     m.write_from_turn(["user on Pro plan"], now=0)
     # recall returns strings — the caller is responsible for verifying against
     # the system of record (memory-as-hints rule from 05-agents/06)
-    assert isinstance(m.recall(["plan"])[0], str)
+    assert isinstance(m.recall(["plan"], now=10)[0], str)
