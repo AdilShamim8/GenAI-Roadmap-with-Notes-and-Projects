@@ -52,7 +52,7 @@ Every folder under `projects/` must contain:
 - `pyproject.toml` — pinned dependencies.
 - `src/` — runnable code.
 - `tests/` — at least one unit test and one integration test.
-- `07-evals/` — golden dataset + eval runner. The eval runner must be invokable via `make eval`.
+- `evals/` — golden dataset + eval runner. The eval runner must be invokable via `make eval`.
 - `DEPLOYMENT.md` — how to deploy (Docker, serverless, etc.).
 
 ## Pull request checklist
