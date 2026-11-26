@@ -1,6 +1,6 @@
 # Project 04: Computer-Use Data Entry Agent
 
-> **Difficulty:** ADV · **Skill demonstrated:** Anthropic computer use, browser automation · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** Anthropic computer use, browser automation · **Status:** ✅ Implemented
 
 ## Problem
 
