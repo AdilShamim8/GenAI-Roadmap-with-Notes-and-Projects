@@ -1,6 +1,6 @@
 # Project 07: Eval-Driven Prompt Refinement Harness
 
-> **Difficulty:** INT · **Skill demonstrated:** Golden datasets, LLM-as-judge, regression testing · **Status:** 🚧 Skeleton
+> **Difficulty:** INT · **Skill demonstrated:** Golden datasets, LLM-as-judge, regression testing · **Status:** ✅ Implemented
 
 ## Problem
 
