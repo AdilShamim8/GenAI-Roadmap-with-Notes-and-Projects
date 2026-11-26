@@ -1,6 +1,6 @@
 # Project 05: Multi-Agent Research Pipeline
 
-> **Difficulty:** ADV · **Skill demonstrated:** Orchestration, handoffs, sub-agents · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** Orchestration, handoffs, sub-agents · **Status:** ✅ Implemented
 
 ## Problem
 
