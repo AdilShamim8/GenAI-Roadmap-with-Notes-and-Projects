@@ -7,6 +7,8 @@
 
 | Claim | Source URL | Last verified |
 |-------|------------|---------------|
+| All 15 portfolio projects implemented with offline-tested code (01 extractor 14 tests, 02 hybrid RAG 15, 03 MCP guard 11, 04 data-entry 7, 05 research pipeline 4, 06 voice session 4, 07 eval refinement 4, 08 routing proxy 3, 09 deploy config 4, 10 episodic memory 4, 11 code graphrag 4, 12 red-team harness 4, 13 long-horizon 5, 14 multimodal 5, 15 IR autopilot 4) | local pytest sweeps, 2026-11-26 | 2026-11-26 |
+| Interview-prep track added: docs/interview-prep/ (README + 11 topic Q&A + 4 system-design walkthroughs) | docs/interview-prep/ | 2026-11-26 |
 | OpenAI GPT-6 family current: Astra ($10/$1/$50 per 1M in/cached/out), Sol and 6.1 Sol ($2/$10), Luna ($0.10/$0.50), 1.05M-token context | https://developers.openai.com/api/docs/pricing | 2026-10-20 |
 | OpenAI GPT-5.6 line still served: Sol ($4/$20, promotional), Terra ($2/$12), Luna ($0.20/$1.20); GPT-5.5 ($5/$30); GPT-5.4 ($2.50/$15); GPT-5.5 Pro ($30/$180) | https://developers.openai.com/api/docs/pricing | 2026-10-20 |
 | OpenAI Batch API is 50% off input and output; cached input priced separately per model | https://developers.openai.com/api/docs/pricing | 2026-10-20 |
