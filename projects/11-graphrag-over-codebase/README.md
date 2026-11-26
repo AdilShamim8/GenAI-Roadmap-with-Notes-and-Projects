@@ -1,6 +1,6 @@
 # Project 11: GraphRAG Over a Codebase
 
-> **Difficulty:** ADV · **Skill demonstrated:** GraphRAG, code chunking, repo navigation · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** GraphRAG, code chunking, repo navigation · **Status:** ✅ Implemented
 
 ## Problem
 
