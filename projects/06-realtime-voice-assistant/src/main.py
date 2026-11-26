@@ -21,7 +21,7 @@ class VoiceSession:
     cancelled_s: float = field(default=0.0, init=False)
 
     def on_frame(self, is_speech: bool, frame_ms: int = 30) -> str | None:
-        \"\"\"Feed one VAD frame; returns 'end_of_turn' | 'barge_in' | None.\"\"\"
+        """Feed one VAD frame; returns 'end_of_turn' | 'barge_in' | None."""
         if self.state == "model_speaking" and is_speech:
             self.state = "listening"
             self.cancelled_s += 1.0  # in-flight audio discarded unseen
