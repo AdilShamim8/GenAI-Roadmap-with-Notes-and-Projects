@@ -27,7 +27,7 @@ DEFAULT_PROBES = [
 class Guard:
     """Deterministic detector under test — swap for your real stack."""
 
-    def __init__(self, blocked_phrases: tuple[str, ...] = ("ignore all previous", "dan", "attacker.example")):
+    def __init__(self, blocked_phrases: tuple[str, ...] = ("ignore all previous", "previous instructions", "dan", "attacker.example")):
         self.blocked = blocked_phrases
 
     def blocks(self, payload: str) -> bool:
