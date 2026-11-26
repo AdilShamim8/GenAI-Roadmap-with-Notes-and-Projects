@@ -1,6 +1,6 @@
 # Project 09: Self-Hosted Llama Deployment
 
-> **Difficulty:** INT · **Skill demonstrated:** vLLM, quantization, breakeven math · **Status:** 🚧 Skeleton
+> **Difficulty:** INT · **Skill demonstrated:** vLLM, quantization, breakeven math · **Status:** ✅ Implemented
 
 ## Problem
 
