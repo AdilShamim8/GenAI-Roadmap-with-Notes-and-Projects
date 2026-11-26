@@ -1,6 +1,6 @@
 # Project 03: MCP Server for Postgres
 
-> **Difficulty:** INT · **Skill demonstrated:** MCP architecture, tool design · **Status:** 🚧 Skeleton
+> **Difficulty:** INT · **Skill demonstrated:** MCP architecture, tool design · **Status:** ✅ Implemented
 
 ## Problem
 
