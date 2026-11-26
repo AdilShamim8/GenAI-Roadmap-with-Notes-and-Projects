@@ -4,7 +4,7 @@
 
 ## Why this matters
 
-Every model you use has known limitations, biases, and intended-use constraints documented in its model card. Ignoring these is both an ethical risk and a legal one (EU AI Act, sectoral regs). Reading the card takes 5 minutes; not reading it can cost millions.
+Every model you use has known limitations, biases, and intended-use constraints documented in its model card. Ignoring these is both an ethical risk and a legal one (EU AI Act, sectoral regs). Reading the card takes 5 minutes; not reading it can cost millions. The expert framing: the model card is *risk information the provider is handing you for free* — and under the EU AI Act's distribution-of-responsibility model, "the card said so" allocates liability. Your audit doc is how you *prove* you engaged with that information. In a regulatory incident, the difference between "we knew and accepted this risk in writing" and "we never looked" is the difference between a documented decision and negligence.
 
 ## Core concepts
 
@@ -17,6 +17,10 @@ Every model you use has known limitations, biases, and intended-use constraints 
 - **Known limitations** — hallucination rate, language coverage, etc.
 - **Ethical considerations** — bias, dual-use, environmental.
 - **Citation** — how to attribute.
+
+The expert reading: the *limitations* section is the highest-value content — providers rarely understate capabilities but they do document known failure modes (language coverage gaps, hallucination-prone domains, subgroup performance deltas) that become *your* production incidents. Second-highest: **subgroup eval results** — benchmark averages hide that a model may be 10 points weaker on your user population's dialect/demographic; if your users aren't the benchmark population, the card's subgroup table is where you check.
+
+Also: model cards are *versioned artifacts tied to a checkpoint*. A rolling alias (`gpt-6.1-sol`) is served by a moving set of weights whose card may update underneath you — the audit doc must pin the *dated snapshot* (`08-production/06-model-versioning-migration.md`), or you're citing documentation for weights you're not running.
 
 ### Where to find them
 
@@ -31,11 +35,14 @@ Every model you use has known limitations, biases, and intended-use constraints 
 ### Auditing your stack
 
 For every model in production, you should know:
+
 - Model name and exact version snapshot.
 - Provider's intended use statement.
 - Known limitations relevant to your use case.
 - Data handling terms (training on your inputs? retention?).
 - Compliance certifications (SOC 2, HIPAA, ISO 27001).
+
+The step most teams miss: translating card limitations into *product decisions*. "Known limitation: weaker on non-English" becomes either (a) a routing rule (non-English traffic to a different model), (b) a support-policy note, or (c) an accepted risk with a line in the audit doc. The audit is only real if limitations end up *somewhere* — a card fact that maps to no action or acceptance is just trivia.
 
 ## The audit checklist
 
@@ -51,8 +58,8 @@ Maintain a `model_audit.md` per project:
 | Claude Sonnet 5.5 | claude-sonnet-5-5 (dated alias) | Anthropic | Chat, vision | Standard | 2026-10-20 |
 
 ## Known limitations impacting us
-- GPT-5: weaker on non-English (per system card).
-- Claude: stricter content filtering; some legit queries blocked.
+- GPT-5: weaker on non-English (per system card). → Routing rule: non-English → Sonnet.
+- Claude: stricter content filtering; some legit queries blocked. → Support macro for unblocking.
 
 ## Compliance
 - SOC 2: both providers compliant.
@@ -60,25 +67,32 @@ Maintain a `model_audit.md` per project:
 - EU AI Act: classify our use as "limited risk"; documentation in /docs/eu-ai-act.md.
 ```
 
+Note the arrowed lines: each limitation mapped to its action. That's the difference between an audit *document* and an audit *practice*.
+
 ### EU AI Act timeline (verified 2026-10-20)
 
 The Act entered into force 2024-08-01. Prohibited-practice bans applied 2025-02-02; GPAI-model obligations (transparency, copyright, training-data summaries) since 2025-08-02; high-risk system obligations phase in from 2026-08-02. If you integrate third-party foundation models, you inherit documentation duties under Article 50 and the GPAI chain-of-interest rules. Source: artificialintelligenceact.eu timeline.
+
+The expert read on GPAI obligations: the provider's training-data summary and copyright disclosures flow *to you* as a deployer, and your duty is to *use* them — the chain-of-interest rules mean a downstream complaint can ask what you knew about the model you deployed. Your audit doc, with dated snapshots and card references, is precisely the artifact that answers that question. Note also the risk-tiering homework: knowing whether your use is limited-risk vs high-risk is *your* classification to make and defend, not the provider's — and it determines which obligations (documentation, human oversight, logging) apply to you.
 
 ## Production concerns
 
 - **Latency:** None.
 - **Cost:** None.
-- **Failure modes:** Models get deprecated; audits get stale. Refresh quarterly.
+- **Failure modes:** (1) models get deprecated; audits get stale — refresh quarterly; (2) *alias drift* — the audit names a model that's no longer the weights being served; pin snapshots; (3) silent provider-side changes — providers update cards and data-handling terms on their schedule; subscribe to their changelogs the way you watch dependency advisories.
 - **Security:** Audit docs may reference internal architectures; treat as confidential.
 
 ## Anti-patterns
 
-- ❌ **Not reading model cards.** You'll use models out-of-scope.
-- ❌ **No model audit doc.** Can't answer compliance questions quickly.
+- ❌ **Not reading model cards.** You'll use models out-of-scope — and have absorbed the liability.
+- ❌ **No model audit doc.** Can't answer compliance questions quickly — or prove diligence at all.
 - ❌ **Static audit doc.** Models change; audits must too.
+- ❌ **Auditing aliases, not snapshots.** The card you cite must describe the weights you run.
+- ❌ **Limitations without actions.** Every card limitation gets a routing rule, a mitigation, or a written acceptance.
 
 ## References
 
 - [Model Cards for Model Reporting (paper)](https://arxiv.org/abs/1810.03993) — verified 2026-10-20
+- [EU AI Act implementation timeline](https://artificialintelligenceact.eu/implementation-timeline/) — verified 2026-10-20
 - [OpenAI GPT-5 system card](https://openai.com/index/gpt-5/) — verified 2026-10-20
 - [Anthropic Claude model cards](https://www.anthropic.com/news) — verified 2026-10-20
