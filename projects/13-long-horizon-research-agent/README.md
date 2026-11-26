@@ -1,6 +1,6 @@
 # Project 13: Long-Horizon Research Agent
 
-> **Difficulty:** EXP · **Skill demonstrated:** Checkpointing, recovery, sub-delegation · **Status:** 🚧 Skeleton
+> **Difficulty:** EXP · **Skill demonstrated:** Checkpointing, recovery, sub-delegation · **Status:** ✅ Implemented
 
 ## Problem
 
