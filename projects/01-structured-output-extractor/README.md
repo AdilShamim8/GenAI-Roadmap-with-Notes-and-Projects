@@ -1,6 +1,6 @@
 # Project 01: Structured Output Extractor
 
-> **Difficulty:** BEG · **Skill demonstrated:** Structured outputs, Pydantic, evals · **Status:** 🚧 Skeleton
+> **Difficulty:** BEG · **Skill demonstrated:** Structured outputs, Pydantic, evals · **Status:** ✅ Implemented
 
 ## Problem
 
