@@ -1,2 +1,6 @@
-{"id": "case_001", "input": "REPLACE_WITH_REAL_INPUT", "expected": {"must_mention": ["REPLACE"], "must_not_mention": []}}
-{"id": "case_002", "input": "REPLACE_WITH_REAL_INPUT", "expected": {"must_mention": ["REPLACE"], "must_not_mention": []}}
+{"id": "q_pro_price", "input": "What does the Pro plan cost?", "expected": {"must_cite_doc": "pricing", "must_mention": ["49"]}}
+{"id": "q_sso", "input": "Is SAML single sign-on available?", "expected": {"must_cite_doc": "security", "must_mention": ["Enterprise"]}}
+{"id": "q_soc2", "input": "Do you have SOC 2 certification?", "expected": {"must_cite_doc": "security", "must_mention": ["SOC 2"]}}
+{"id": "q_free_tier", "input": "How many projects does the Free tier allow?", "expected": {"must_cite_doc": "pricing", "must_mention": ["3"]}}
+{"id": "q_enterprise_floor", "input": "What is the minimum annual cost for Enterprise?", "expected": {"must_cite_doc": "pricing", "must_mention": ["10,000"]}}
+{"id": "q_encryption", "input": "How is data encrypted in transit?", "expected": {"must_cite_doc": "security", "must_mention": ["TLS"]}}

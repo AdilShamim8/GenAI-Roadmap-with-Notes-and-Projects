@@ -1,6 +1,6 @@
 # Project 02: Hybrid RAG Over a Notion Workspace
 
-> **Difficulty:** BEG · **Skill demonstrated:** Chunking, hybrid search, reranking, citations · **Status:** 🚧 Skeleton
+> **Difficulty:** BEG · **Skill demonstrated:** Chunking, hybrid search, reranking, citations · **Status:** ✅ Implemented
 
 ## Problem
 
