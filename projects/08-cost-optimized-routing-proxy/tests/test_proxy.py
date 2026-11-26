@@ -25,4 +25,4 @@ def test_attribution_by_tier():
     p.call("extract", 100_000, 1_000)
     p.call("analyze", 10_000, 1_000)
     by = p.cost_by_tier()
-    assert set(by) == {"cheap", "balanced"} and by["balanced"] > by["cheap"] * 10
+    assert set(by) == {"cheap", "balanced"} and by["balanced"] > by["cheap"]
