@@ -1,6 +1,6 @@
 # Project 10: Agent With Episodic Memory
 
-> **Difficulty:** ADV · **Skill demonstrated:** Memory architectures, vector store for memory · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** Memory architectures, vector store for memory · **Status:** ✅ Implemented
 
 ## Problem
 
