@@ -1,6 +1,6 @@
 # Project 14: Multimodal Customer Support Agent
 
-> **Difficulty:** ADV · **Skill demonstrated:** Multimodal, RAG, escalation · **Status:** 🚧 Skeleton
+> **Difficulty:** ADV · **Skill demonstrated:** Multimodal, RAG, escalation · **Status:** ✅ Implemented
 
 ## Problem
 
