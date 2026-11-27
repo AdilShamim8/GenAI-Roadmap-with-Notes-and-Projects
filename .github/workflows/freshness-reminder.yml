@@ -22,7 +22,9 @@ jobs:
             const body = [
               "This issue is opened automatically once a month.",
               "",
-              "Walk through [`LAST_VERIFIED.md`](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/LAST_VERIFIED.md):",
+              "Walk through [`LAST_VERIFIED.md`](https://github.com/" +
+                context.repo.owner + "/" + context.repo.repo +
+                "/blob/main/LAST_VERIFIED.md):",
               "",
               "1. Click every source URL in every table.",
               "2. Update the `Last verified` date for each claim that still holds.",
